@@ -1,0 +1,52 @@
+<table class="jtable">
+  <thead>
+    <tr>
+      <th class="hcol1">Name</th>
+      <th class="hcol2">Agents</th>
+      <th class="hcol3">Delay (sec)</th>
+      <th class="hcol4">Status</th>
+      <th class="hcol5">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @agent_groups.each do |agent_group| %>
+      <tr>
+        <td class="bcol1">
+          <% unless agent_group.started?  %>
+            <%= link_to agent_group.name, 'javascript:void(0);', :onclick => "editGroup(#{agent_group.to_json});" %>
+          <% else %>
+            <%= agent_group.name %>
+          <% end %>
+        </td>
+        <td class="bcol2"><%= agent_group.agents.size %></td>
+        <td class="bcol3"><%= agent_group.delay %></td>
+        <td class="bcol4 status-<%= agent_group.status %>"><%= agent_group.status %></td>
+        <td class="bcol5">
+          <%= render 'agent_groups/choose', :agent_group => agent_group %>
+        </td>
+      </tr>
+
+      <div id="edit-group-<%= agent_group.id %>" style="display: none;">
+        <%= form_for agent_group, :remote => true do |f| %>
+          <label for="name">name</label>
+          <%= f.text_field :name, :class => "text ui-widget-content ui-corner-all" %>
+          <br />
+
+          <label for="type">agents type</label>
+          <%= text_field_tag :agents_type, agent_group.agents_type.sub(/Agent$/, '').downcase, :readonly => true, :class => "ui-text-readonly" %>
+          <br />
+
+          <label for="name">agents <span id="agents-selected-<%= agent_group.id %>"><%= agent_group.agents.size %></span></label>
+          <%= f.hidden_field "agents", :value => agent_group.agents.size %>
+          <div class="agents-slider slider" rel="<%= agent_group.id %>"></div>
+          <br />
+          
+          <label for="name">delay <span id="delay-selected-<%= agent_group.id %>"><%= agent_group.delay %></span> (sec)</label>
+          <%= f.hidden_field :delay %>
+          <div class="delay-slider slider" rel="<%= agent_group.id %>"></div>
+        <% end %>
+      </div>
+
+    <% end %>
+  </tbody>
+</table>

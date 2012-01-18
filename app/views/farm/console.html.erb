@@ -1,0 +1,37 @@
+<!-- a simple heading title -->
+<h1>Geograph Agent Farm</h1>
+
+<div id="new-group" style="display: none;">
+  <%= form_for @agent_group, :remote => true do |f| %>
+    <label for="name">name</label>
+    <%= f.text_field :name, :class => "text ui-widget-content ui-corner-all" %>
+    <br />
+
+    <label for="type">agents type</label>
+    <%= f.select :agents_type, AGENT_TYPES.map{|at| [at.sub(/Agent$/, '').downcase, at]}, {}, :class => "ui-select" %>
+    <br /><br />
+
+    <label for="name">agents <span id="agents-selected-new">1</span></label>
+    <%= f.hidden_field :agents %>
+    <div class="agents-slider slider" rel="new"></div>
+    <br />
+
+    <label for="name">delay <span id="delay-selected-new">1</span> (sec)</label>
+    <%= f.hidden_field :delay %>
+    <div class="delay-slider slider" rel="new"></div>
+  <% end %>
+</div>
+
+
+<br />
+
+<div id="container">
+  <div id="agent-groups" class="agent-group-list">
+    <%= render 'agent_groups/index' %>
+  </div>
+  <div id="new-group-container">
+    <%= button_tag "new group", :id => 'new-group-button', :onclick => "newGroup();" %>
+  </div>
+</div>
+
+

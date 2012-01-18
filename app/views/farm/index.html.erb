@@ -1,0 +1,40 @@
+<!-- registering with socky message server on the public channel move -->
+<%#= register_socky(:channels => ['move']) %>
+
+<!-- a simple heading title -->
+<h1>Geograph Generator remote move test</h1>
+agent status: <%= @agent.status %>
+
+<!-- an edit box using the rails `text_field_tag` helper -->
+<%= text_field_tag 'latitude', nil %>
+<%= text_field_tag 'longitude', nil %>
+<%= button_tag 'start', :onclick => "sendStart(event);" %>
+<%= button_tag 'stop', :onclick => "sendStop(event);" %>
+
+<script type="text/javascript">
+
+  // the javascript function registered to _onkeyup_ of the edit box.
+  function sendStart(event){
+
+    //var lat = $('#latitude').val();
+    //var lon = $('#longitude').val();
+    // send message
+    
+    //ask an agent, through the commands agent controller
+    //to perform Actions::ProxyMoveAction with parameters latitude and longitude
+    $askAgent({ agent: 'geoggen/commands', cmd: 'start' });
+
+    //and clear the input box
+    //$('#new-message').val('');
+    
+  }
+
+  function sendStop(event){
+    $askAgent({ agent: 'geoggen/commands', cmd: 'stop' });
+  }
+</script>
+
+<!-- creating a simple messages box with a div and some basic inline style -->
+<div class="messages" style="background-color: #FCEED8; border: 1px solid #A9A9A9">
+  Move messages:
+</div>

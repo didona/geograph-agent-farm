@@ -1,0 +1,5 @@
+<% agent_group.possible_actions.each do |action| %>
+  <%= button_tag action, :class => "button-action", :onclick => "#{action}Group(#{agent_group.to_json});" do %>
+    <%= image_tag "#{action}.jpg", :border => 0, :title => action %>
+  <% end %>
+<% end %>

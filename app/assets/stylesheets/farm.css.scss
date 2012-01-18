@@ -1,0 +1,124 @@
+// Place all the styles related to the farm controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+h1 {
+  text-align: center;
+  color: #0078AE;
+}
+
+#loading {
+  background-image: url(loader.gif);
+  width: 78px; height: 78px;
+  position: absolute;
+  margin-left: 15%;
+  margin-top: 10%;
+/*  display: none;*/
+}
+
+
+.agent-group-list {
+/*  border: 1px solid #A9A9A9;*/
+/*  background-color: #FCEED8; */
+}
+
+#new-group-container {
+  width: 200px;
+  float: left;
+  margin-left: 50px;
+}
+
+#agent-groups {
+  width: 750px;
+  float: left;
+}
+
+.control-panel {
+  background-color: #FCEED8;
+  border: 1px solid #A9A9A9;
+}
+
+label, input { display:block; }
+
+.jtable {
+  width: 100%;
+}
+
+.jtable {
+  td {
+    text-align: center;
+    .button-action {
+      cursor: pointer;
+      border: 0;
+      background: none;
+    }
+  }
+  .hcol1 {
+    width: 25%;
+  }
+  .hcol2 {
+    width: 12%;
+  }
+  .hcol3 {
+    width: 12%;
+  }
+  .hcol4 {
+    width: 15%;
+  }
+  .hcol5 {
+  }
+  .bcol1 {
+    font-weight: bold;
+  }
+  .bcol2 {
+  }
+  .bcol3 {
+  }
+  .bcol4 {
+    font-style: italic;
+  }
+  .bcol5 {
+  }
+
+  .status-started {
+    color: green;
+  }
+  .status-idle {
+    color: blue;
+  }
+  .status-stopped {
+    color: red;
+  }
+  .status-paused {
+    color: red;
+  }
+}
+
+.slider {
+  margin-top: 10px;
+}
+
+.ui-select {
+  border: 1px solid #4297D7;
+  background-color: #2191C0;
+  color: #EAF5F7;
+  width: 304px; height: 26px;
+  padding: 1px;
+  margin-top: 2px;
+  -moz-border-radius: 4px !important;
+  -webkit-border-radius: 4px !important;
+  border-radius: 4px !important;
+}
+
+.ui-text-readonly {
+  border: 1px solid #448dae;
+  background: #79c9ec url(images/ui-bg_glass_75_79c9ec_1x400.png) 50% 50% repeat-x;
+  color: #026890;
+  width: 304px; height: 26px;
+  padding: 1px;
+  margin-top: 2px;
+  -moz-border-radius: 4px !important;
+  -webkit-border-radius: 4px !important;
+  border-radius: 4px !important;
+}
+

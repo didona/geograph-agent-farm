@@ -1,0 +1,19 @@
+queues:
+  /queue/agents:
+    durable: false
+
+messaging:
+  /topic/perceptions: 
+    Madmass::PerceptionsProcessor:
+  /queue/agents: 
+    Madmass::AgentRunner:
+      concurrency: 50
+
+#tasks:
+#  Backgroundable:
+#    concurrency: 5
+
+#pooling:
+#  messaging: shared
+
+
