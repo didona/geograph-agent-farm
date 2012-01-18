@@ -21,8 +21,8 @@ In order to run the application follow these steps:
     jruby -S rake db:setup
 5. Load the Gpx routes examples using the rake task provided:
     jruby -S rake agent_farm:load_gpxs
-5. Deploy the application into TorqueBox by executing this command in the project folder:
+6. Deploy the application into TorqueBox by executing this command in the project folder:
     jruby -S rake torquebox:deploy['/agent-farm']
-6. Run TorqueBox:
+7. Run TorqueBox:
     jruby -S rake torquebox:run
-7. Open the browser at http://localhost:8080, signup and you will see the Geograph Agent Farm console.
+8. Open the browser at http://localhost:8080, signup and you will see the Geograph Agent Farm console.
