@@ -1,4 +1,4 @@
-namespace :madmass do
+namespace :agent_farm do
   desc "Load all gpx routes stored in tmp/gpxs folder."
   task :load_gpxs => :environment do
     gpxs = Dir.glob(File.join(Rails.root, 'vendor', 'gpxs', '*.gpx'))
