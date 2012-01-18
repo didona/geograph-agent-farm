@@ -17,7 +17,7 @@ namespace :madmass do
             route.positions.create(
               :latitude => rtept['lat'],
               :longitude => rtept['lon'],
-              :order => index
+              :progressive => index
             )
           end
           puts "Created route #{route.name} with #{route.positions.size} positions."
@@ -31,7 +31,7 @@ namespace :madmass do
             route.positions.create(
               :latitude => trkpt['lat'],
               :longitude => trkpt['lon'],
-              :order => index
+              :progressive => index
             )
             #puts "#{rtept.css('time').inner_text} - #{rtept['lat']} - #{rtept['lon']}"
           end
