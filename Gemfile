@@ -38,5 +38,4 @@ gem "activerecord-jdbc-adapter"
 gem "jdbc-sqlite3"
 
 gem "devise"
-
 gem 'nokogiri'
