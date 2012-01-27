@@ -39,3 +39,4 @@ gem "jdbc-sqlite3"
 
 gem "devise"
 gem 'nokogiri'
+gem 'rcov', '0.9.11'
