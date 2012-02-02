@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gpx creator="http://www.piste-ciclabili.com" version="1.0" xmlns="http://www.topografix.com/GPX/1/0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">
+  <trk>
+    <name>Roma: ciclabile Via Laurentina by PisteCiclabili.com</name>
+    <trkseg>
+      <trkpt lat="41.824694588897" lon="12.479138374329"></trkpt>
+      <trkpt lat="41.822573878197" lon="12.479449510574"></trkpt>
+      <trkpt lat="41.822166118042" lon="12.47940659523"></trkpt>
+      <trkpt lat="41.820826887497" lon="12.478913068771"></trkpt>
+      <trkpt lat="41.820734939298" lon="12.479208111763"></trkpt>
+      <trkpt lat="41.820571031311" lon="12.47910618782"></trkpt>
+      <trkpt lat="41.820195240684" lon="12.480538487434"></trkpt>
+      <trkpt lat="41.819975362167" lon="12.480994462967"></trkpt>
+      <trkpt lat="41.819667530975" lon="12.481112480164"></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

@@ -6,6 +6,8 @@
 module Actions
   class RemoteDestroyAction < Madmass::Action::RemoteAction
     action_params :geo_object
+    action_channels :all
+    
     #action_states :none
     #next_state :none
 
@@ -27,7 +29,7 @@ module Actions
     def build_result
      #Example
       p = Madmass::Perception::Percept.new(self)
-      p.add_headers({:topics => 'all'}) #who must receive the percept
+#      p.add_headers({:topics => 'all'}) #who must receive the percept
       p.data =  {
         :agent => Madmass.current_agent.id,
         :geo_object => @parameters[:geo_object]

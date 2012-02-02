@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gpx creator="http://www.piste-ciclabili.com" version="1.0" xmlns="http://www.topografix.com/GPX/1/0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">
+  <trk>
+    <name>Roma: Colombo - via Fontanellato by PisteCiclabili.com</name>
+    <trkseg>
+      <trkpt lat="41.848645146864" lon="12.483043670654"></trkpt>
+      <trkpt lat="41.848589202732" lon="12.483145594597"></trkpt>
+      <trkpt lat="41.84853325855" lon="12.483177781105"></trkpt>
+      <trkpt lat="41.848417374018" lon="12.483209967613"></trkpt>
+      <trkpt lat="41.848341449555" lon="12.483188509941"></trkpt>
+      <trkpt lat="41.848261528971" lon="12.483258247376"></trkpt>
+      <trkpt lat="41.848225564676" lon="12.483311891556"></trkpt>
+      <trkpt lat="41.848121667709" lon="12.483419179916"></trkpt>
+      <trkpt lat="41.848009778479" lon="12.483505010605"></trkpt>
+      <trkpt lat="41.847957829841" lon="12.483590841293"></trkpt>
+      <trkpt lat="41.847905881161" lon="12.483698129654"></trkpt>
+      <trkpt lat="41.84786592061" lon="12.48378932476"></trkpt>
+      <trkpt lat="41.84783395215" lon="12.483928799629"></trkpt>
+      <trkpt lat="41.847746038805" lon="12.484046816826"></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

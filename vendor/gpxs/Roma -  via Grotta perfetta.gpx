@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gpx creator="http://www.piste-ciclabili.com" version="1.0" xmlns="http://www.topografix.com/GPX/1/0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">
+  <trk>
+    <name>Roma:  via Grotta perfetta by PisteCiclabili.com</name>
+    <trkseg>
+      <trkpt lat="41.838570418179" lon="12.507011890411"></trkpt>
+      <trkpt lat="41.838842188917" lon="12.50649690628"></trkpt>
+      <trkpt lat="41.839129944911" lon="12.505788803101"></trkpt>
+      <trkpt lat="41.839897287903" lon="12.504329681397"></trkpt>
+      <trkpt lat="41.840153066856" lon="12.503063678741"></trkpt>
+      <trkpt lat="41.840424830873" lon="12.501819133759"></trkpt>
+      <trkpt lat="41.841032299208" lon="12.500145435333"></trkpt>
+      <trkpt lat="41.841687719103" lon="12.498364448547"></trkpt>
+      <trkpt lat="41.842710800153" lon="12.494802474976"></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

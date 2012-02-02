@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gpx creator="http://www.piste-ciclabili.com" version="1.0" xmlns="http://www.topografix.com/GPX/1/0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">
+  <trk>
+    <name>Roma: costeggiando Parco Egerio by PisteCiclabili.com</name>
+    <trkseg>
+      <trkpt lat="41.878460401205" lon="12.502162456512"></trkpt>
+      <trkpt lat="41.879227272406" lon="12.500660419464"></trkpt>
+      <trkpt lat="41.87986632471" lon="12.499930858612"></trkpt>
+      <trkpt lat="41.880185848466" lon="12.499802112579"></trkpt>
+      <trkpt lat="41.881032578691" lon="12.49914765358"></trkpt>
+      <trkpt lat="41.882118933114" lon="12.498643398285"></trkpt>
+      <trkpt lat="41.882174847916" lon="12.498015761375"></trkpt>
+      <trkpt lat="41.881328132826" lon="12.49732375145"></trkpt>
+      <trkpt lat="41.880125937883" lon="12.49634206295"></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

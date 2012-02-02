@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gpx creator="http://www.piste-ciclabili.com" version="1.0" xmlns="http://www.topografix.com/GPX/1/0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">
+  <trk>
+    <name>Roma: ciclabile via Nocera Umbra by PisteCiclabili.com</name>
+    <trkseg>
+      <trkpt lat="41.879307154294" lon="12.531216144562"></trkpt>
+      <trkpt lat="41.876527205882" lon="12.526044845581"></trkpt>
+      <trkpt lat="41.876750884365" lon="12.525744438171"></trkpt>
+      <trkpt lat="41.87500936692" lon="12.523105144501"></trkpt>
+      <trkpt lat="41.874833614817" lon="12.523255348206"></trkpt>
+      <trkpt lat="41.876447320519" lon="12.525787353516"></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

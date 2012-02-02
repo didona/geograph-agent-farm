@@ -1,7 +1,32 @@
 class MovableAgent < Agent
 
+  def set_last_action(perception)
+    set_perception_status = false
+    case perception['header']['action']
+    when 'actions::create_action'
+      self.geo_object = perception['data']['geo_object']
+      set_perception_status = true
+    when 'actions::move_action'
+      if perception['status']['code'] == 'precondition_failed'
+        self.geo_object = nil
+      else
+        self.latitude = perception['data']['geo_object']['latitude']
+        self.longitude = perception['data']['geo_object']['longitude']
+        set_perception_status = true
+      end
+    end
+
+    if set_perception_status
+      self.last_action['perception_status'] = perception['status']['code'] if(perception['status'] and perception['status']['code'])
+    end
+    
+    set_perception_status
+  end
+
+  
   private
 
+  
   def choose_action
     if geo_object
       return move_geo_object

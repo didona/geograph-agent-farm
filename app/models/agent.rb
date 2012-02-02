@@ -8,18 +8,13 @@ class Agent < ActiveRecord::Base
   belongs_to :agent_group
   belongs_to :position
 
-  def on_error(exception)
-    Madmass.logger.error exception
+  def on_error(ex)
+    Madmass.logger.error ex
+    Madmass.logger.error ex.backtrace.join("\n")
   end
   
   def destroy_remote
-    Rails.logger.debug "REMOTE DESTROY #{self.geo_object}"
     execute(destroy_geo_object)
-  end
-
-  def reset
-    self.position = nil
-    save
   end
   
   private

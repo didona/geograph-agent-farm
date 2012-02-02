@@ -43,7 +43,6 @@ class AgentGroup < ActiveRecord::Base
 
   def stop
     agents.each do |agent|
-      agent.reset
       agent.stop
     end
     update_attribute(:status, 'stopped')

@@ -10,10 +10,10 @@ module Actions
     #next_state :none
 
     # [OPTIONAL]  Add your initialization code here.
-    # def initialize params
-    #   super
-    #  # My initialization code
-    # end
+   def initialize params
+     super
+     @channels << :all
+    end
 
     # [MANDATORY] Override this method in your action to define
     # the action effects.
@@ -26,7 +26,7 @@ module Actions
     def build_result
      #Example
       p = Madmass::Perception::Percept.new(self)
-      p.add_headers({:topics => 'all'}) #who must receive the percept
+#      p.add_headers({:topics => 'all'}) #who must receive the percept
       p.data =  {
         :agent => Madmass.current_agent.id,
         :position => {

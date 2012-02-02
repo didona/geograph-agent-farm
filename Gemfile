@@ -31,7 +31,8 @@ gem 'jquery-rails'
 # gem 'ruby-debug'
 
 gem "jruby-openssl"
-gem "madmass", :git => "git://github.com/algorithmica/madmass.git"
+#gem "madmass", :git => "git://github.com/algorithmica/madmass.git"
+gem "madmass", :path => '/Users/genzo/algo_projects/madmass'
 
 gem 'activerecord-jdbcsqlite3-adapter'
 gem "activerecord-jdbc-adapter"

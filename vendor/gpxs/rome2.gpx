@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" creator="Geovative Solutions GeoTours" version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+
+<metadata>
+  <name>Rome</name>
+  <desc>Rome Italy City Tour</desc>
+  <author>
+    <name>PaulATK, using GeoTours</name>
+    <link href="http://www.geovative.com/view?t=GGDF">
+      <text>Rome</text>
+    </link>
+  </author>
+  <link href="http://www.geovative.com/view?t=GGDF">
+    <text>Rome</text>
+  </link>
+  <keywords>Rome, Sistine Chapel, Colosseum, Panthenon</keywords>
+</metadata>
+
+
+<wpt lat="41.889722" lon="12.490833">
+<name>Arch of Constantine</name>
+<cmt>The Arch of Constantine is situated between the Colosseum and the Palatine Hill. It was erected to commemorate Constantine I's victory over Maxentius at the Battle of Milvian Bridge on October 28, 312 AD.</cmt>
+<desc>The Arch of Constantine is situated between the Colosseum and the Palatine Hill. It was erected to commemorate Constantine I's victory over Maxentius at the Battle of Milvian Bridge on October 28, 312 AD.</desc>
+<link href="Data/Location3302-1"/>
+<sym>Waypoint</sym>
+<extensions>
+        <gpxx:WaypointExtension xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd">
+            <gpxx:Proximity>30.48</gpxx:Proximity>
+            <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        </gpxx:WaypointExtension>
+</extensions>
+</wpt>
+
+<wpt lat="41.879444" lon="12.493056">
+<name>Baths of Caracalla</name>
+<cmt>Built 212-216AD it consisted of a frigidarium under 3 high groin vaults; double pool tepidarium; caldarium and two palaestras (gyms). The North end had a roofless natatio with bronze mirrors overhead to direct sunlight into the pool.</cmt>
+<desc>Built 212-216AD it consisted of a frigidarium under 3 high groin vaults; double pool tepidarium; caldarium and two palaestras (gyms). The North end had a roofless natatio with bronze mirrors overhead to direct sunlight into the pool.</desc>
+<link href="Data/Location3302-2"/>
+<sym>Waypoint</sym>
+<extensions>
+        <gpxx:WaypointExtension xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd">
+            <gpxx:Proximity>30.48</gpxx:Proximity>
+            <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        </gpxx:WaypointExtension>
+</extensions>
+</wpt>
+
+<wpt lat="41.903064" lon="12.466355">
+<name>Castel Sant Angelo</name>
+<cmt>Mausoleum of Hadrian (Castel Sant'Angelo was initially commissioned by the Roman Emperor Hadrian as a mausoleum for himself and his family. The building spent over a thousand years as a fortress and castle and now a museum.</cmt>
+<desc>Mausoleum of Hadrian (Castel Sant'Angelo was initially commissioned by the Roman Emperor Hadrian as a mausoleum for himself and his family. The building spent over a thousand years as a fortress and castle and now a museum.</desc>
+<link href="Data/Location3302-3"/>
+<sym>Waypoint</sym>
+<extensions>
+        <gpxx:WaypointExtension xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd">
+            <gpxx:Proximity>30.48</gpxx:Proximity>
+            <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        </gpxx:WaypointExtension>
+</extensions>
+</wpt>
+
+<wpt lat="41.885905" lon="12.485704">
+<name>Circus Maximus</name>
+<cmt>The Circus Maximus is an ancient hippodrome and mass entertainment venue situated in the valley between the Aventine and Palatine hills. The location was first utilized for public games and entertainment by the Etruscan kings of Rome.</cmt>
+<desc>The Circus Maximus is an ancient hippodrome and mass entertainment venue situated in the valley between the Aventine and Palatine hills. The location was first utilized for public games and entertainment by the Etruscan kings of Rome.</desc>
+<link href="Data/Location3302-4"/>
+<sym>Waypoint</sym>
+<extensions>
+        <gpxx:WaypointExtension xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd">
+            <gpxx:Proximity>30.48</gpxx:Proximity>
+            <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        </gpxx:WaypointExtension>
+</extensions>
+</wpt>
+
+<wpt lat="41.890169" lon="12.492269">
+<name>Colosseum</name>
+<cmt>The Colosseum was constructed 70-72AD under the emperor Vespasian and was completed in 80 AD under Titus. It used for gladiatorial contests and public spectacles. It's ruined condition is due to earthquakes and stone-robbers.</cmt>
+<desc>The Colosseum was constructed 70-72AD under the emperor Vespasian and was completed in 80 AD under Titus. It used for gladiatorial contests and public spectacles. It's ruined condition is due to earthquakes and stone-robbers.</desc>
+<link href="Data/Location3302-5"/>
+<sym>Waypoint</sym>
+<extensions>
+        <gpxx:WaypointExtension xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd">
+            <gpxx:Proximity>30.48</gpxx:Proximity>
+            <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        </gpxx:WaypointExtension>
+</extensions>
+</wpt>
+
+<wpt lat="41.900833" lon="12.479861">
+<name>Column of Marcus Aurelius</name>
+<cmt>The Column of Marcus Aurelius is a Doric column, with a spiral relief, built in honour of Roman emperor Marcus Aurelius and modeled on Trajan's Column. It still stands on its original site in Rome, in Piazza Colonna before Palazzo Chigi.</cmt>
+<desc>The Column of Marcus Aurelius is a Doric column, with a spiral relief, built in honour of Roman emperor Marcus Aurelius and modeled on Trajan's Column. It still stands on its original site in Rome, in Piazza Colonna before Palazzo Chigi.</desc>
+<link href="Data/Location3302-6"/>
+<sym>Waypoint</sym>
+<extensions>
+        <gpxx:WaypointExtension xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd">
+            <gpxx:Proximity>30.48</gpxx:Proximity>
+            <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        </gpxx:WaypointExtension>
+</extensions>
+</wpt>
+
+<wpt lat="41.8986" lon="12.4768">
+<name>Pantheon</name>
+<cmt>The Pantheon was originally built as a temple to all the gods of Ancient Rome. Since the 7th century, the Pantheon has been used as a Christian church. The Pantheon is currently the oldest standing domed structure in Rome.</cmt>
+<desc>The Pantheon was originally built as a temple to all the gods of Ancient Rome. Since the 7th century, the Pantheon has been used as a Christian church. The Pantheon is currently the oldest standing domed structure in Rome.</desc>
+<link href="Data/Location3302-7"/>
+<sym>Waypoint</sym>
+<extensions>
+        <gpxx:WaypointExtension xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd">
+            <gpxx:Proximity>30.48</gpxx:Proximity>
+            <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        </gpxx:WaypointExtension>
+</extensions>
+</wpt>
+
+<wpt lat="41.9025" lon="12.496389">
+<name>Piazza della Repubblica</name>
+<cmt>Piazza della Repubblica is a semi-circular piazza next to the Termini station. The ancient name of the piazza, still very common today, originates in the large exedra of the baths of Diocletian which gives the piazza its shape.</cmt>
+<desc>Piazza della Repubblica is a semi-circular piazza next to the Termini station. The ancient name of the piazza, still very common today, originates in the large exedra of the baths of Diocletian which gives the piazza its shape.</desc>
+<link href="Data/Location3302-8"/>
+<sym>Waypoint</sym>
+<extensions>
+        <gpxx:WaypointExtension xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd">
+            <gpxx:Proximity>30.48</gpxx:Proximity>
+            <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        </gpxx:WaypointExtension>
+</extensions>
+</wpt>
+
+<wpt lat="41.876389" lon="12.480833">
+<name>Pyramid of Cestius</name>
+<cmt>The Pyramid of Cestius near the Porta San Paolo and the Protestant Cemetery stands in a fork between two roads, the Via Ostiensis and another road that ran West to the Tiber along the appoximate line of the modern Via della Marmorata.</cmt>
+<desc>The Pyramid of Cestius near the Porta San Paolo and the Protestant Cemetery stands in a fork between two roads, the Via Ostiensis and another road that ran West to the Tiber along the appoximate line of the modern Via della Marmorata.</desc>
+<link href="Data/Location3302-9"/>
+<sym>Waypoint</sym>
+<extensions>
+        <gpxx:WaypointExtension xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd">
+            <gpxx:Proximity>30.48</gpxx:Proximity>
+            <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        </gpxx:WaypointExtension>
+</extensions>
+</wpt>
+
+<wpt lat="41.892534" lon="12.485715">
+<name>Roman Forum</name>
+<cmt>The Roman Forum was the central area around which ancient Rome developed. Built on the site of a past cemetery, it originally had been marshy ground, which was drained by the Tarquins with the Cloaca Maxima.</cmt>
+<desc>The Roman Forum was the central area around which ancient Rome developed. Built on the site of a past cemetery, it originally had been marshy ground, which was drained by the Tarquins with the Cloaca Maxima.</desc>
+<link href="Data/Location3302-10"/>
+<sym>Waypoint</sym>
+<extensions>
+        <gpxx:WaypointExtension xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd">
+            <gpxx:Proximity>30.48</gpxx:Proximity>
+            <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        </gpxx:WaypointExtension>
+</extensions>
+</wpt>
+
+<wpt lat="41.901667" lon="12.466458">
+<name>Sant'Angelo Bridge</name>
+<cmt>Ponte Sant'Angelo, once the Aelian Bridge or Pons Aelius meaning the Bridge of Hadrian, was constructed between 134-139 by Roman Emperor Hadrian, to span the Tiber, from the city center to his newly constructed mausoleum.</cmt>
+<desc>Ponte Sant'Angelo, once the Aelian Bridge or Pons Aelius meaning the Bridge of Hadrian, was constructed between 134-139 by Roman Emperor Hadrian, to span the Tiber, from the city center to his newly constructed mausoleum.</desc>
+<link href="Data/Location3302-11"/>
+<sym>Waypoint</sym>
+<extensions>
+        <gpxx:WaypointExtension xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd">
+            <gpxx:Proximity>30.48</gpxx:Proximity>
+            <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        </gpxx:WaypointExtension>
+</extensions>
+</wpt>
+
+<wpt lat="41.903056" lon="12.454444">
+<name>Sistine Chapel</name>
+<cmt>The Sistine Chapel is in the Apostolic Palace, the official residence of the Pope. Its fame rests on its architecture, (which evokes Solomon's Temple), Michelangelo ceiling painting, and the conclave at which a new Pope is selected.</cmt>
+<desc>The Sistine Chapel is in the Apostolic Palace, the official residence of the Pope. Its fame rests on its architecture, (which evokes Solomon's Temple), Michelangelo ceiling painting, and the conclave at which a new Pope is selected.</desc>
+<link href="Data/Location3302-12"/>
+<sym>Waypoint</sym>
+<extensions>
+        <gpxx:WaypointExtension xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd">
+            <gpxx:Proximity>30.48</gpxx:Proximity>
+            <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        </gpxx:WaypointExtension>
+</extensions>
+</wpt>
+
+<wpt lat="41.902222" lon="12.453333">
+<name>St Peter's Basilica</name>
+<cmt>The Basilica of Saint Peter is the burial site of its namesake Saint Peter, who was one of the twelve apostles of Jesus and, according to tradition, was the first Bishop of Antioch, and later first Bishop of Rome.</cmt>
+<desc>The Basilica of Saint Peter is the burial site of its namesake Saint Peter, who was one of the twelve apostles of Jesus and, according to tradition, was the first Bishop of Antioch, and later first Bishop of Rome.</desc>
+<link href="Data/Location3302-13"/>
+<sym>Waypoint</sym>
+<extensions>
+        <gpxx:WaypointExtension xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd">
+            <gpxx:Proximity>30.48</gpxx:Proximity>
+            <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        </gpxx:WaypointExtension>
+</extensions>
+</wpt>
+
+<wpt lat="41.895556" lon="12.485833">
+<name>Trajan's Market</name>
+<cmt>Trajan's Market, located on the Via dei Fori Imperiali was Built in 100-110AD by Apollodorus of Damascus. This is part of the Via Biberatica (from biber meaning drink, the location for most of the taverns and grocers' shops).</cmt>
+<desc>Trajan's Market, located on the Via dei Fori Imperiali was Built in 100-110AD by Apollodorus of Damascus. This is part of the Via Biberatica (from biber meaning drink, the location for most of the taverns and grocers' shops).</desc>
+<link href="Data/Location3302-14"/>
+<sym>Waypoint</sym>
+<extensions>
+        <gpxx:WaypointExtension xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd">
+            <gpxx:Proximity>30.48</gpxx:Proximity>
+            <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+        </gpxx:WaypointExtension>
+</extensions>
+</wpt>
+</gpx>

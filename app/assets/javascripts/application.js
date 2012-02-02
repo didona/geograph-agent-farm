@@ -12,6 +12,7 @@
 
 $(window).load(function() {
   $('#new-group-button').button();
+  $('#process-edges-button').button();
 
   $('#new-group-button').ajaxStart(function(){
     $.blockUI({ css: {
@@ -35,10 +36,10 @@ $(window).load(function() {
 
 function loadSliders() {
   $('.agents-slider').slider({
-    min: 1,
+    min: 0,
     max: 100,
     step: 1,
-    value: 1,
+    value: 0,
     create: function(event, ui) {
       var slider = $(this);
       var agents = slider.siblings('#agent_group_agents');
@@ -56,10 +57,10 @@ function loadSliders() {
   });
 
   $('.delay-slider').slider({
-    min: 1,
+    min: 0,
     max: 240,
     step: 1,
-    value: 1,
+    value: 0,
     create: function(event, ui) {
       var slider = $(this);
       var delay = slider.siblings('#agent_group_delay');
@@ -76,6 +77,30 @@ function loadSliders() {
       delay.attr('value', ui.value);
     }
   });
+
+  
+  $('.distance-slider').slider({
+    min: 0,
+    max: 100000,
+    step: 50,
+    value: 0,
+    create: function(event, ui) {
+      var slider = $(this);
+      var distance = slider.siblings('#process_distance');
+      $(this).slider('value', distance.attr('value'));
+    },
+    slide: function(event, ui) {
+      var slider = $(this);
+
+      var group_id = slider.attr('rel');
+      var label = $("#distance-selected-" + group_id);
+      label.html(ui.value);
+
+      var distance = slider.siblings('#process_distance');
+      distance.attr('value', ui.value);
+    }
+  });
+  
 }
 
 function newGroup(){
@@ -153,3 +178,23 @@ function authenticity_token() {
   return $('meta[name="csrf-token"]').attr('content');
 }
 
+
+function chooseProcess() {
+  $('#edges-processor').dialog({
+    title: "Edges Processor",
+    height: 300,
+    width: 450,
+    buttons: {
+      "set": function(){
+        //$( '#new_agent_group' ).submit();
+        $.ajax({
+          url: 'farm/' + $('#process_edges').val() + '/choose_process',
+          data: {distance: $('#process_distance').val()},
+          type: 'POST',
+          dataType: 'script'
+        });
+        $( this ).dialog( "close" );
+      }
+    }
+  });
+}

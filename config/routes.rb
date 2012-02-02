@@ -9,6 +9,12 @@ GeographGenerator::Application.routes.draw do
       post 'pause'
     end
   end
+
+  resources :farm do
+    member do
+      post 'choose_process'
+    end
+  end
   
   devise_for :users
 

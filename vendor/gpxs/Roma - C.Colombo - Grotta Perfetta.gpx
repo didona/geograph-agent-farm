@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gpx creator="http://www.piste-ciclabili.com" version="1.0" xmlns="http://www.topografix.com/GPX/1/0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">
+  <trk>
+    <name>Roma: C.Colombo - Grotta Perfetta by PisteCiclabili.com</name>
+    <trkseg>
+      <trkpt lat="41.848848942935" lon="12.482872009277"></trkpt>
+      <trkpt lat="41.847937849585" lon="12.484095096588"></trkpt>
+      <trkpt lat="41.847122649799" lon="12.485028505325"></trkpt>
+      <trkpt lat="41.846723038267" lon="12.48444378376"></trkpt>
+      <trkpt lat="41.846007727392" lon="12.485404014587"></trkpt>
+      <trkpt lat="41.845743979465" lon="12.485731244087"></trkpt>
+      <trkpt lat="41.846199543384" lon="12.486326694489"></trkpt>
+      <trkpt lat="41.841128214734" lon="12.492527961731"></trkpt>
+      <trkpt lat="41.841272087753" lon="12.494416236877"></trkpt>
+      <trkpt lat="41.842710800153" lon="12.494823932648"></trkpt>
+      <trkpt lat="41.840552719423" lon="12.501819133759"></trkpt>
+      <trkpt lat="41.83999320513" lon="12.504394054413"></trkpt>
+      <trkpt lat="41.838762256467" lon="12.506604194641"></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

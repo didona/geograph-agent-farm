@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gpx creator="http://www.piste-ciclabili.com" version="1.0" xmlns="http://www.topografix.com/GPX/1/0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">
+  <trk>
+    <name>Roma - dalla ciclabile teverina a Ponte Galeria by PisteCiclabili.com</name>
+    <trkseg>
+      <trkpt lat="41.808261742121" lon="12.419791147113"></trkpt>
+      <trkpt lat="41.808019830643" lon="12.419695928693"></trkpt>
+      <trkpt lat="41.808014832462" lon="12.419596686959"></trkpt>
+      <trkpt lat="41.808254744694" lon="12.418068498373"></trkpt>
+      <trkpt lat="41.808378698995" lon="12.41717800498"></trkpt>
+      <trkpt lat="41.808632604637" lon="12.415292412043"></trkpt>
+      <trkpt lat="41.80865659567" lon="12.415193840861"></trkpt>
+      <trkpt lat="41.808716573211" lon="12.415103986859"></trkpt>
+      <trkpt lat="41.808840526619" lon="12.415137514472"></trkpt>
+      <trkpt lat="41.808659594548" lon="12.415711507201"></trkpt>
+      <trkpt lat="41.808432679019" lon="12.415679991245"></trkpt>
+      <trkpt lat="41.808176773317" lon="12.415352761746"></trkpt>
+      <trkpt lat="41.807289092491" lon="12.415084540844"></trkpt>
+      <trkpt lat="41.806925219769" lon="12.414607107639"></trkpt>
+      <trkpt lat="41.805133816237" lon="12.414159178734"></trkpt>
+      <trkpt lat="41.803814223563" lon="12.41356909275"></trkpt>
+      <trkpt lat="41.802574581446" lon="12.412421107292"></trkpt>
+      <trkpt lat="41.801806791075" lon="12.411058545113"></trkpt>
+      <trkpt lat="41.801190952567" lon="12.409299015999"></trkpt>
+      <trkpt lat="41.80098300576" lon="12.407163977623"></trkpt>
+      <trkpt lat="41.801262933997" lon="12.403698563576"></trkpt>
+      <trkpt lat="41.801518867315" lon="12.398892045021"></trkpt>
+      <trkpt lat="41.801318919497" lon="12.395684123039"></trkpt>
+      <trkpt lat="41.80041514758" lon="12.391199469566"></trkpt>
+      <trkpt lat="41.799879276795" lon="12.38724052906"></trkpt>
+      <trkpt lat="41.799839286259" lon="12.384365200996"></trkpt>
+      <trkpt lat="41.800487129881" lon="12.380931973457"></trkpt>
+      <trkpt lat="41.801926758927" lon="12.377251982689"></trkpt>
+      <trkpt lat="41.803318369594" lon="12.374215722084"></trkpt>
+      <trkpt lat="41.804637972481" lon="12.370460629463"></trkpt>
+      <trkpt lat="41.805501697835" lon="12.367617487907"></trkpt>
+      <trkpt lat="41.805877574677" lon="12.363991141319"></trkpt>
+      <trkpt lat="41.8055976666" lon="12.355129122734"></trkpt>
+      <trkpt lat="41.805589669209" lon="12.352393269539"></trkpt>
+      <trkpt lat="41.806205465441" lon="12.348595261574"></trkpt>
+      <trkpt lat="41.807245107986" lon="12.345902323723"></trkpt>
+      <trkpt lat="41.808476662709" lon="12.344089150429"></trkpt>
+      <trkpt lat="41.810203998273" lon="12.34329521656"></trkpt>
+      <trkpt lat="41.813314684202" lon="12.343230843544"></trkpt>
+      <trkpt lat="41.815585629426" lon="12.342951893807"></trkpt>
+      <trkpt lat="41.815873489972" lon="12.345451712608"></trkpt>
+      <trkpt lat="41.816135361983" lon="12.345455735922"></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

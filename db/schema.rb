@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120113090213) do
+ActiveRecord::Schema.define(:version => 20120130111749) do
 
   create_table "agent_groups", :force => true do |t|
     t.string   "name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20120113090213) do
     t.datetime "updated_at"
     t.string   "status",      :default => "idle"
     t.string   "agents_type"
+    t.integer  "distance"
   end
 
   create_table "agents", :force => true do |t|
