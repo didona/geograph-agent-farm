@@ -41,7 +41,7 @@
 <div id="edges-processor" style="display: none;">
   
     <label for="process-edges" id="label-process-edges">process type</label>
-    <%= select(:process, :edges, ['none', 'job', 'action'], :selected => 'none', {}, :class => 'ui-select') %>
+    <%= select(:process, :edges, ['none', 'job', 'action'], {:selected => 'none'}, {:class => 'ui-select'}) %>
     <br /><br />
 
     <label for="name">distance <span id="distance-selected-new">0</span> (mt)</label>
