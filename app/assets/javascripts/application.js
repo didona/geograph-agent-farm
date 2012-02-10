@@ -124,7 +124,7 @@ function editGroup(group) {
     width: 450,
     buttons: {
       "update": function(){
-        $( '#edit_agent_group_' + group['id'] ).submit();
+        $( '#edit-agent-group-' + group['id'] ).submit();
         $( this ).dialog( "destroy" );
         $( this ).empty().remove();
       }

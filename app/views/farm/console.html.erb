@@ -2,7 +2,7 @@
 <h1>Geograph Agent Farm</h1>
 
 <div id="new-group" style="display: none;">
-  <%= form_for @agent_group, :remote => true do |f| %>
+  <%= form_for :agent_group, :url => agent_groups_path(@agent_group), :remote => true, :html => { :id => :new_agent_group } do |f| %>
     <label for="name">name</label>
     <%= f.text_field :name, :class => "text ui-widget-content ui-corner-all" %>
     <br />
@@ -12,7 +12,7 @@
     <br /><br />
 
     <label for="name">agents <span id="agents-selected-new">0</span></label>
-    <%= f.hidden_field :agents %>
+    <%= hidden_field_tag 'agent_group[agents]' %>
     <div class="agents-slider slider" rel="new"></div>
     <br />
 

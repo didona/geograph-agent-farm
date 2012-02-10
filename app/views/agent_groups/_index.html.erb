@@ -27,22 +27,22 @@
       </tr>
 
       <div id="edit-group-<%= agent_group.id %>" style="display: none;">
-        <%= form_for agent_group, :remote => true do |f| %>
+        <%= form_for(:agent_group, :url => agent_group_path(agent_group.id), :remote => true, :method => :put, :html => {:id => "edit-agent-group-#{agent_group.id}"}) do |f| %>
           <label for="name">name</label>
-          <%= f.text_field :name, :class => "text ui-widget-content ui-corner-all" %>
+          <%= text_field_tag "agent_group[name]", agent_group.name, :class => "text ui-widget-content ui-corner-all" %>
           <br />
 
           <label for="type">agents type</label>
-          <%= text_field_tag :agents_type, agent_group.agents_type.sub(/Agent$/, '').downcase, :readonly => true, :class => "ui-text-readonly" %>
+          <%= text_field_tag "agent_group[agents_type]", agent_group.agents_type.sub(/Agent$/, '').downcase, :readonly => true, :class => "ui-text-readonly" %>
           <br />
 
-          <label for="name">agents <span id="agents-selected-<%= agent_group.id %>"><%= agent_group.agents.size %></span></label>
-          <%= f.hidden_field "agents", :value => agent_group.agents.size %>
+          <label for="name">agents <span id="agents-selected-<%= agent_group.id %>"><%= agent_group.agents_count %></span></label>
+          <%= hidden_field_tag "agent_group[agents]", agent_group.agents_count %>
           <div class="agents-slider slider" rel="<%= agent_group.id %>"></div>
           <br />
           
           <label for="name">delay <span id="delay-selected-<%= agent_group.id %>"><%= agent_group.delay %></span> (sec)</label>
-          <%= f.hidden_field :delay %>
+          <%= hidden_field_tag "agent_group[delay]", agent_group.delay %>
           <div class="delay-slider slider" rel="<%= agent_group.id %>"></div>
         <% end %>
       </div>

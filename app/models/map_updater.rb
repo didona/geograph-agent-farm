@@ -6,7 +6,7 @@ class MapUpdater < Madmass::AgentFarm::Domain::AbstractUpdater
     tx_monitor do
       # notify that a perception is received
       ActiveSupport::Notifications.instrument("geograph-generator.perception_received") unless perception['data'][:force]
-      agents = Agent.where(:id => perception['header']['agent_id'])
+      agents = CloudTm::Agent.where(:id => perception['header']['agent_id'].to_i)
 
       if agents.blank?
         Madmass.logger.info "Cannot find agent with id: #{perception['header']['agent_id']}"
@@ -15,11 +15,14 @@ class MapUpdater < Madmass::AgentFarm::Domain::AbstractUpdater
 
       agent  = agents.first
 
-      if agent.agent_group.blank?
+      if agent.getAgentGroup.blank?
         Madmass.logger.info "Cannot find agent group for agent with id: #{perception['header']['agent_id']}"
         return
       end
 
+      Rails.logger.debug "AGENT: #{agent.id} - #{agent.status} - #{agent.geo_object}"
+      #Rails.logger.debug "PERCEPTION: #{perception.inspect}"
+      
       start_params = {:force => false}
 
       unless agent.set_last_action(perception)
@@ -27,10 +30,10 @@ class MapUpdater < Madmass::AgentFarm::Domain::AbstractUpdater
         start_params = perception['data']
       end
 
-      agent.save
+      
       agent.start start_params
       
-      delay = agent.agent_group.delay
+      delay = agent.getAgentGroup.delay
     end
     sleep(delay)
     
