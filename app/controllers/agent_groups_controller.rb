@@ -68,19 +68,19 @@ class AgentGroupsController < ApplicationController
 
   def start
     agent_group = CloudTm::AgentGroup.where(:id => params[:id].to_i).first
-    agent_group.start if agent_group
+    agent_group.update_attribute(:status, 'started') if agent_group
     @agent_groups = CloudTm::AgentGroup.all
   end
 
   def stop
     agent_group = CloudTm::AgentGroup.where(:id => params[:id].to_i).first
-    agent_group.stop if agent_group
+    agent_group.update_attributes(:status => 'stopped', :last_execution => nil) if agent_group
     @agent_groups = CloudTm::AgentGroup.all
   end
 
   def pause
     agent_group = CloudTm::AgentGroup.where(:id => params[:id].to_i).first
-    agent_group.pause if agent_group
+    agent_group.update_attribute(:status, 'paused') if agent_group
     @agent_groups = CloudTm::AgentGroup.all
   end
 

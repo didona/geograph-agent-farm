@@ -34,7 +34,6 @@ module CloudTm
       set = false
       case perception['header']['action']
       when 'actions::post_action'
-        Rails.logger.debug "BLOGGER AGENT IS MY ACTION: geo_object: #{perception['data']['geo_agent']} - perc_status: #{perception['status']['code']}"
         self.geo_object = perception['data']['geo_agent']
         self.perception_status = perception['status']['code'] if(perception['status'] and perception['status']['code'])
         set = true

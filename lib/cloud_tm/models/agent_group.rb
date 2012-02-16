@@ -32,14 +32,14 @@ module CloudTm
     include CloudTm::Model
     include CloudTm::AgentGroupState
 
-    def start
+    def start(options = {})
       queue = TorqueBox::Messaging::Queue.new('/queue/agents')
       getAgents.each do |agent|
-        msg = {'header' => {'agent_id' => agent.id}, 'data' => {:force => true, :delay => delay}}
+        msg = {'header' => {'agent_id' => agent.id}, 'data' => {:force => options[:force] || true, :delay => delay}}
         queue.publish(msg, :tx => false)
         ActiveSupport::Notifications.instrument("geograph-generator.agent_queue_sent")
       end
-      update_attribute(:status, 'started')
+      update_attributes(:status => 'started', :last_execution => java.util.Date.new)
     end
 
     def stop
@@ -76,11 +76,6 @@ module CloudTm
 
     def add_agent(agent_attrs = {})
       agent_klass = "CloudTm::#{agents_type}".constantize
-#      agent = agent_klass.new
-#      agent_attrs.each do |_name, value|
-#        agent.send("#{_name}=", value)
-#      end
-#      agent.type = agents_type
       agent = agent_klass.create(agent_attrs.merge(:type => agents_type))
       addAgents(agent)
     end

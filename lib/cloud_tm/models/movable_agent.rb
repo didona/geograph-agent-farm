@@ -33,12 +33,13 @@ module CloudTm
       set_perception_status = false
       case perception['header']['action']
       when 'actions::create_action'
-        self.geo_object = perception['data']['geo_object']
+        self.geo_object = perception['data']['geo_object']['id']
         set_perception_status = true
       when 'actions::move_action'
         if perception['status']['code'] == 'precondition_failed'
           self.geo_object = nil
         else
+          self.geo_object = perception['data']['geo_agent']
           self.latitude = java.math.BigDecimal.new(perception['data']['geo_object']['latitude'])
           self.longitude = java.math.BigDecimal.new(perception['data']['geo_object']['longitude'])
           set_perception_status = true
@@ -57,11 +58,7 @@ module CloudTm
 
 
     def choose_action
-      if geo_object
-        return move_geo_object
-      else
-        return create_geo_object
-      end
+      move_geo_object
     end
 
     def move_geo_object
@@ -72,7 +69,7 @@ module CloudTm
         :latitude => getPosition.latitude.to_s,
         :longitude => getPosition.longitude.to_s,
         :data => {:type => type, :body => "Geo Object moved at #{Time.now}"},
-        :geo_object => geo_object,
+        :geo_agent => geo_object,
         :remote => true
       }
     end
@@ -93,8 +90,6 @@ module CloudTm
             break
           end
         end
-
-#        next_position = Position.where("route_id = ? and progressive = ?", self.position.route_id, self.position.progressive + 1).first
       end
 
       unless next_position
