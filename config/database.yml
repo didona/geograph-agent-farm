@@ -4,20 +4,30 @@
 # Configure Using Gemfile
 # gem 'activerecord-jdbcsqlite3-adapter'
 #
+#development:
+#  adapter: sqlite3
+#  database: db/development.sqlite3
+#  pool: 20
+#  timeout: 10000
+
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
-  pool: 20
-  timeout: 10000
+  adapter: jdbcmysql
+  reconnect: false
+  database: agentfarm_development
+  pool: 100
+  username: root
+  password: 
+  driver: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/geograph_production
 
 #development:
 #  adapter: jdbcmysql
 #  encoding: utf8
 #  reconnect: false
-#  database: geoggen_development
+#  database: geograph_development
 #  pool: 20
 #  username: root
-#  password: 
+#  password:
 #  socket: /opt/local/var/run/mysql5/mysqld.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -31,24 +41,29 @@ test:
 #  adapter: jdbcmysql
 #  encoding: utf8
 #  reconnect: false
-#  database: geoggen_test
+#  database: geograph_test
 #  pool: 20
 #  username: root
 #  password: 
 #  socket: /opt/local/var/run/mysql5/mysqld.sock
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 20
-  timeout: 10000
+  adapter: jdbcmysql
+  reconnect: false
+  xa: false
+  database: agentfarm_production
+  pool: 100
+  username: root
+  password: geograph
+  driver: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/geograph_production
 
 #production:
 #  adapter: jdbcmysql
 #  encoding: utf8
 #  reconnect: false
-#  database: geoggen_development
+#  database: geograph_development
 #  pool: 20
 #  username: root
-#  password: 
+#  password:
 #  socket: /opt/local/var/run/mysql5/mysqld.sock
