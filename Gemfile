@@ -11,9 +11,9 @@ gem 'json'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.1.5'
-  gem 'coffee-rails', '~> 3.1.1'
-  gem 'uglifier', '>= 1.0.3'
+  gem 'sass-rails'#,   '~> 3.1.5'
+  gem 'coffee-rails#', '~> 3.1.1'
+  gem 'uglifier'#, '>= 1.0.3'
 end
 
 gem 'jquery-rails'
@@ -33,9 +33,12 @@ gem 'jquery-rails'
 gem "jruby-openssl"
 gem "madmass", :git => "git://github.com/algorithmica/madmass.git"
 
-gem 'activerecord-jdbcsqlite3-adapter'
-gem "activerecord-jdbc-adapter"
-gem "jdbc-sqlite3"
+gem "jdbc-mysql"
+gem 'activerecord-jdbcmysql-adapter'
+
+#gem 'activerecord-jdbcsqlite3-adapter'
+#gem "activerecord-jdbc-adapter"
+#gem "jdbc-sqlite3"
 
 gem "devise"
 gem 'nokogiri'
