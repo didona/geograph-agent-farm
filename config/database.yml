@@ -18,7 +18,7 @@ development:
   username: root
   password: 
   driver: com.mysql.jdbc.Driver
-  url: jdbc:mysql://localhost:3306/geograph_production
+  url: jdbc:mysql://localhost:3306/agentfarm_production
 
 #development:
 #  adapter: jdbcmysql
@@ -56,7 +56,7 @@ production:
   username: root
   password: geograph
   driver: com.mysql.jdbc.Driver
-  url: jdbc:mysql://localhost:3306/geograph_production
+  url: jdbc:mysql://localhost:3306/agentfarm_production
 
 #production:
 #  adapter: jdbcmysql
