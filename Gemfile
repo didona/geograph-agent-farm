@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.3'
+#gem 'rails', '3.1.3'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -39,4 +39,4 @@ gem "jdbc-sqlite3"
 
 gem "devise"
 gem 'nokogiri'
-gem 'rcov', '0.9.11'
+#gem 'rcov', '0.9.11'
