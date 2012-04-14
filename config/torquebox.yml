@@ -3,17 +3,10 @@ queues:
     durable: false
 
 messaging:
-  /topic/perceptions: 
-    Madmass::PerceptionsProcessor:
+#  /topic/perceptions:
+#    Madmass::PerceptionsProcessor:
   /queue/agents: 
     Madmass::AgentRunner:
-
-#tasks:
-#  Backgroundable:
-#    concurrency: 5
-
-#pooling:
-#  messaging: shared
 
 
 jobs:
@@ -22,3 +15,10 @@ jobs:
     cron: '*/1 * * * * ?'
     description: Run Agent Groups
     singleton: true
+
+services:
+  PerceptionsService:
+    config:
+      topic: /topic/perceptions
+#      host: 149.165.148.117
+#      port: 5445
