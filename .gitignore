@@ -16,5 +16,5 @@
 
 # Ignore netbeans files
 /nbproject
-
+/.idea
 /Gemfile.lock
