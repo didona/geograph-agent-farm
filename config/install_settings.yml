@@ -2,7 +2,8 @@
 # DO NOT EDIT MANUALLY 
 
         --- 
-:ws_adapter: Madmass::Comm::SockySender
+#:ws_adapter: Madmass::Comm::SockySender
+:ws_adapter: Madmass::Comm::JmsSender
 :host: localhost
 :port: "9090"
 :secure: "false"
@@ -16,4 +17,8 @@
 :receive_timeout: 5000
 :naming_host: localhost
 :naming_port: 1099
-:ws_client: :socky
+#:ws_client: :socky
+:ws_client: :stilts
+:stomplet_host: localhost
+:stomplet_port: 8675
+:stomplet_topic: /madmass/domain

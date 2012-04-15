@@ -20,5 +20,5 @@ services:
   PerceptionsService:
     config:
       topic: /topic/perceptions
-#      host: 149.165.148.117
-#      port: 5445
+      host: localhost
+      port: 5445
