@@ -37,7 +37,6 @@ class PerceptionsService
     transport_config = org.hornetq.api.core.TransportConfiguration.new("org.hornetq.core.remoting.impl.netty.NettyConnectorFactory", connect_opts)
     connection_factory = org.hornetq.api.jms.HornetQJMSClient.createConnectionFactoryWithoutHA( org.hornetq.api.jms::JMSFactoryType::CF, transport_config )
     @topic = TorqueBox::Messaging::Topic.new(@topic_name, connection_factory)
-    puts "PERCEPTIONS SERVICE: topic connected"
     Thread.new { run }
   end
 

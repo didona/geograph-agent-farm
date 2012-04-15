@@ -22,3 +22,17 @@
 :stomplet_host: localhost
 :stomplet_port: 8675
 :stomplet_topic: /madmass/domain
+# cluster nodes
+:remote_messaging_port: 5445
+:cluster_nodes:
+  :geograph_nodes:
+    - localhost
+  :agent_farm_nodes:
+    - 10.1.1.2
+    - 10.1.1.3
+  :agent_farm_modcluster_nodes:
+    - 10.1.1.4
+  :geograph_modcluster_nodes:
+    - 10.1.1.5
+  :db_nodes:
+    - 10.1.1.6
