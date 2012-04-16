@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(:version => 20120130111749) do
   create_table "agent_groups", :force => true do |t|
     t.string   "name"
     t.integer  "delay"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.string   "status",      :default => "idle"
     t.string   "agents_type"
     t.integer  "distance"
@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(:version => 20120130111749) do
 
   create_table "agents", :force => true do |t|
     t.string   "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.integer  "geo_object"
     t.text     "last_action"
     t.float    "latitude"
@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(:version => 20120130111749) do
     t.string   "name"
     t.integer  "count"
     t.integer  "execution_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "positions", :force => true do |t|
@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(:version => 20120130111749) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
     t.integer  "agent_id"
   end
 
