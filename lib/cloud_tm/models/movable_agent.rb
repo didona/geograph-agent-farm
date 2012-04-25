@@ -32,22 +32,22 @@ module CloudTm
     def set_last_action(perception)
       set_perception_status = false
       case perception['header']['action']
-      when 'actions::create_action'
-        self.geo_object = perception['data']['geo_object']['id']
-        set_perception_status = true
-      when 'actions::move_action'
-        if perception['status']['code'] == 'precondition_failed'
-          self.geo_object = nil
-        else
-          self.geo_object = perception['data']['geo_agent']
-          self.latitude = java.math.BigDecimal.new(perception['data']['geo_object']['latitude'])
-          self.longitude = java.math.BigDecimal.new(perception['data']['geo_object']['longitude'])
+        when 'actions::create_action'
+          self.geo_object = perception['data']['geo_object']['id']
           set_perception_status = true
-        end
+        when 'actions::move_action'
+          if perception['status']['code'] == 'precondition_failed'
+            self.geo_object = nil
+          else
+            self.geo_object = perception['data']['geo_agent']
+            self.latitude = java.math.BigDecimal.new(perception['data']['geo_object']['latitude'])
+            self.longitude = java.math.BigDecimal.new(perception['data']['geo_object']['longitude'])
+            set_perception_status = true
+          end
       end
 
       if set_perception_status
-        self.perception_status = perception['status']['code'] if(perception['status'] and perception['status']['code'])
+        self.perception_status = perception['status']['code'] if (perception['status'] and perception['status']['code'])
       end
 
       set_perception_status
