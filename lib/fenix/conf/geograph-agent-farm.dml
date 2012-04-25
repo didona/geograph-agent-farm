@@ -31,7 +31,7 @@ class AgentGroup {
 
 class Agent {
   String status;
-  Long geo_object;
+  String geo_object;
   String perception_status;
   Decimal latitude;
   Decimal longitude;
