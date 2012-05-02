@@ -27,10 +27,29 @@
 ###############################################################################
 ###############################################################################
 
+require File.join(File.dirname(__FILE__), 'agent_group_state')
+
+
 module CloudTm
   class AgentGroup
     include CloudTm::Model
     include CloudTm::AgentGroupState
+
+    #TODO
+    #def boot
+    #  getAgents.each do |agent|
+    #    agent.boot
+    #  end
+    #
+    #end
+    #
+    #TODO
+    #def shutdown
+    #  getAgents.each do |agent|
+    #    agent.shutdown
+    #  end
+    #end
+
 
     def start(options = {})
       queue = TorqueBox::Messaging::Queue.new('/queue/agents')
@@ -82,12 +101,12 @@ module CloudTm
 
     def modify(agent_count, attrs)
       update_attributes(attrs)
-      if(agent_count > getAgentsCount)
+      if (agent_count > getAgentsCount)
         # add agents
         (agent_count - getAgentsCount).times do
           add_agent
         end
-      elsif(agent_count < getAgentsCount)
+      elsif (agent_count < getAgentsCount)
         # remove agents
         to_delete = getAgentsCount - agent_count - 1
         getAgents[0..to_delete].each(&:destroy)
@@ -107,7 +126,7 @@ module CloudTm
         end
         return nil
       end
-      
+
       def create_with_root attrs = {}, &block
         create_without_root(attrs) do |instance|
           instance.set_root manager.getRoot
@@ -120,8 +139,9 @@ module CloudTm
         manager.getRoot.getAgentGroups
       end
 
-
+      #
       def create_group(agents_count, options)
+        #Creates the group and its agents on the DSTM
         group = create(options)
         agents_count.to_i.times do
           group.add_agent

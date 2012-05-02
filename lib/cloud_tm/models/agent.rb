@@ -32,6 +32,26 @@ module CloudTm
     include CloudTm::Model
     include Madmass::AgentFarm::Agent::AutonomousAgent
 
+    ##TODO move in autonomous agent
+    #always_background :boot
+    #
+    ##TODO move in autonomous agent
+    #def boot
+    #  update_attributes :status, 'running'
+    #  perception = nil
+    #  delay = 1*2000 #TODO hack, remove me
+    #  until status == 'killed'
+    #    perception = execute_step(perception) unless status == 'stopped' or status == 'paused'
+    #    puts "agent id: #{id}"
+    #    java.lang.Thread.sleep(delay);
+    #  end
+    #end
+    #
+    ##TODO move in autonomous agent
+    #def shutdown
+    #  update_attributes :status, 'killed'
+    #end
+
     def destroy
       # destroy remote reference
       execute(destroy_geo_object)
@@ -43,7 +63,7 @@ module CloudTm
       Madmass.logger.error ex
       Madmass.logger.error ex.backtrace.join("\n")
     end
-  
+
     private
 
     def create_geo_object
@@ -75,7 +95,7 @@ module CloudTm
       end
 
       alias_method_chain :create, :root
-      
+
       def all
         manager.getRoot.getAgents
       end

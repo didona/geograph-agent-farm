@@ -28,7 +28,7 @@
 ###############################################################################
 
 GeographGenerator::Application.routes.draw do
-  match 'commands', :to => 'commands#execute', :via => [:post]
+  #match 'commands', :to => 'commands#execute', :via => [:post]
   match 'console', :to => 'farm#console', :via => [:get]
 
   resources :agent_groups do

@@ -39,15 +39,18 @@ class AgentGroupsController < ApplicationController
     respond_with(@agent_groups = CloudTm::AgentGroup.all)
   end
 
+  # It creates a group of idle agents.
   def create
     group_options = params[:agent_group].clone
     group_options[:delay] = group_options[:delay].to_i
     group_options[:status] = 'idle'
     agents = group_options.delete(:agents)
     @agent_group = CloudTm::AgentGroup.create_group(agents, group_options)
+    #TODO: VITTORIO: @agent_group.boot #Starts a background tasks for each agent
     @agent_groups = CloudTm::AgentGroup.all
     respond_with(@agent_group)
   end
+
 
   def update
     group_options = params[:agent_group].clone
@@ -63,6 +66,8 @@ class AgentGroupsController < ApplicationController
   def destroy
     agent_group = CloudTm::AgentGroup.where(:id => params[:id].to_i).first
     agent_group.destroy
+    ##terminates all the background tasks, one per each agent of the group
+    #TODO: VITTORIO agent_group.shutdown
     @agent_groups = CloudTm::AgentGroup.all
   end
 
