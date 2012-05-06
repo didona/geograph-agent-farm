@@ -69,7 +69,7 @@ module CloudTm
         :latitude => getPosition.latitude.to_s,
         :longitude => getPosition.longitude.to_s,
         :data => {:type => type, :body => "Geo Object moved at #{Time.now}"},
-        :geo_agent => geo_object,
+        #:geo_agent => geo_object,
         :remote => true
       }
     end

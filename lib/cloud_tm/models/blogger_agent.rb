@@ -27,9 +27,11 @@
 ###############################################################################
 ###############################################################################
 
+require File.join(File.dirname(__FILE__), "agent")
+
 module CloudTm
   class BloggerAgent
-
+    include TorqueBox::Messaging::Backgroundable #HACK REMOVE
     def set_last_action(perception)
       set = false
       case perception['header']['action']

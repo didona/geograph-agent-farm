@@ -41,7 +41,7 @@ module CloudTm
     class << self
 
       def find(oid)
-        _oid = oid.to_i
+        _oid = oid
         all.each do |route|
           return route if route.oid == _oid
         end

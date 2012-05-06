@@ -62,7 +62,7 @@ class MapUpdater < Madmass::AgentFarm::Domain::AbstractUpdater
   private
 
   def get_agent(perception)
-    agents = CloudTm::Agent.where(:id => perception['header']['agent_id'].to_i)
+    agents = CloudTm::Agent.where(:id => perception['header']['agent_id'])
 
     if agents.blank?
       Madmass.logger.info "Cannot find agent with id: #{perception['header']['agent_id']}"

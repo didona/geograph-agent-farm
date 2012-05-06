@@ -34,42 +34,57 @@ module CloudTm
   class AgentGroup
     include CloudTm::Model
     include CloudTm::AgentGroupState
+    include Madmass::Transaction::TxMonitor
+    include TorqueBox::Messaging::Backgroundable
 
-    #TODO
-    #def boot
-    #  getAgents.each do |agent|
-    #    agent.boot
-    #  end
-    #
-    #end
-    #
-    #TODO
-    #def shutdown
-    #  getAgents.each do |agent|
-    #    agent.shutdown
-    #  end
-    #end
+    always_background :undertaker
 
+    def boot
+      getAgents.each do |agent|
+        agent.boot delay
+        Madmass.logger.info("******* Agent #{agent.oid} booting *******")
+      end
+    end
+
+    def shutdown
+
+      #Send the shutdown signal
+      getAgents.each do |agent|
+        agent.shutdown
+        Madmass.logger.info("******* Agent #{agent.oid} shutting down  *******")
+      end
+
+
+    end
 
     def start(options = {})
-      queue = TorqueBox::Messaging::Queue.new('/queue/agents')
       getAgents.each do |agent|
-        msg = {'header' => {'agent_id' => agent.id}, 'data' => {:force => options[:force] || true, :delay => delay}}
-        queue.publish(msg, :tx => false)
-        ActiveSupport::Notifications.instrument("geograph-generator.agent_queue_sent")
+        agent.play
+        Madmass.logger.info("******* Agent #{agent.oid} playing *******")
       end
+      #queue = TorqueBox::Messaging::Queue.new('/queue/agents')
+      #getAgents.each do |agent|
+      #  msg = {'header' => {'agent_id' => agent.id}, 'data' => {:force => options[:force] || true, :delay => delay}}
+      #  queue.publish(msg, :tx => false)
+      #  ActiveSupport::Notifications.instrument("geograph-generator.agent_queue_sent")
+      #end
       update_attributes(:status => 'started', :last_execution => java.util.Date.new)
     end
+
+
+    #FIXME: refactor, OLD CODE starts here
 
     def stop
       getAgents.each do |agent|
         agent.stop
+        Madmass.logger.info("******* Agent #{agent.oid} stopping *******")
       end
       update_attribute(:status, 'stopped')
     end
 
     def pause
       getAgents.each do |agent|
+        Madmass.logger.info("******* Agent #{agent.oid} pausing *******")
         agent.pause
       end
       update_attribute(:status, 'paused')
@@ -88,6 +103,7 @@ module CloudTm
     def to_json
       attributes_to_hash.to_json
     end
+
 
     def destroy
       manager.getRoot.removeAgentGroups(self)
@@ -120,7 +136,7 @@ module CloudTm
     class << self
 
       def find(oid)
-        _oid = oid.to_i
+        _oid = oid
         all.each do |agent_group|
           return agent_group if agent_group.oid == _oid
         end
@@ -148,6 +164,26 @@ module CloudTm
         end
         group
       end
+
+    end
+    private
+
+    #Cleans up the group when all agents are dead
+    def undertaker
+      #Destroy groups' data *ONLY* after all agents have shutdown!
+      begin
+        java.lang.Thread.sleep(1000*delay/2)
+        agents = nil
+        dead_agents= nil
+        tx_monitor do
+          agents=getAgents
+          dead_agents = agents.find_all { |a| a.status == 'dead' }
+        end
+      end while (agents.size!=dead_agents.size)
+
+      destroy
+
+      Madmass.logger.info "******* Agent group cleaned up! *********"
 
     end
   end
