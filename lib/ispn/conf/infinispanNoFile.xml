@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<infinispan
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="urn:infinispan:config:5.1 http://www.infinispan.org/schemas/infinispan-config-5.1.xsd"
-        xmlns="urn:infinispan:config:5.1">
+<infinispan>
     <global>
         <globalJmxStatistics
                 enabled="true"
-                jmxDomain="it.geograph-agent-farm"
-                allowDuplicateDomains="true"/>
+                jmxDomain="org.infinispan"/>
         <transport
-                clusterName="geograph-cloud-tm">
-            <!-- FIXME   <properties>
+                clusterName="infinispan-cluster">
+            <properties>
                 <property
                         name="configurationFile"
-                        value="jgroups.xml" />
-            </properties> -->
+                        value="jgroups/jgroups.xml" />
+            </properties>
         </transport>
     </global>
     <default>
@@ -24,8 +20,12 @@
                 writeSkewCheck="true"
                 useLockStriping="false"
                 lockAcquisitionTimeout="10000"/>
+        <jmxStatistics
+                enabled="true"/>
+        <deadlockDetection
+                enabled="true"/>
         <transaction
-                transactionManagerLookupClass="org.infinispan.transaction.lookup.GenericTransactionManagerLookup"
+                transactionManagerLookupClass="org.infinispan.transaction.lookup.JBossStandaloneJTAManagerLookup"
                 useEagerLocking="false"
                 transactionMode="TRANSACTIONAL"
                 syncRollbackPhase="false"
@@ -35,15 +35,10 @@
                 lockingMode="OPTIMISTIC"
                 eagerLockSingleNode="false"
                 use1PcForAutoCommitTransactions="false"
-                autoCommit="true"
-                />
-        <jmxStatistics
-                enabled="true"/>
-        <deadlockDetection
-                enabled="false"/>
+                autoCommit="true"/>
         <clustering mode="r">
             <sync
-                    replTimeout="150000" />
+                    replTimeout="15000" />
             <stateTransfer
                     fetchInMemoryState="false"
                     chunkSize="100"
@@ -54,3 +49,4 @@
                 versioningScheme="SIMPLE"/>
     </default>
 </infinispan>
+

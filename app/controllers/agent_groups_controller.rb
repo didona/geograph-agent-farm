@@ -29,12 +29,13 @@
 
 class AgentGroupsController < ApplicationController
   include Madmass::Transaction::TxMonitor
-  
+
+
   before_filter :authenticate_agent
-  around_filter :transact
-  
+  around_filter :tx_monitor
+  after_filter :boot, :only => [:create]
   respond_to :html, :js
-  
+
   def index
     respond_with(@agent_groups = CloudTm::AgentGroup.all)
   end
@@ -45,9 +46,10 @@ class AgentGroupsController < ApplicationController
     group_options[:delay] = group_options[:delay].to_i
     group_options[:status] = 'idle'
     agents = group_options.delete(:agents)
-
     @agent_group = CloudTm::AgentGroup.create_group(agents, group_options)
-    @agent_group.boot #Starts a background tasks for each agent
+    Madmass.logger.info "Created agent group with id #{@agent_group.id} -- #{@agent_group.inspect}"
+    @agent_group_id = @agent_group.id
+
     @agent_groups = CloudTm::AgentGroup.all
     respond_with(@agent_group)
   end
@@ -74,7 +76,7 @@ class AgentGroupsController < ApplicationController
 
   def start
     agent_group = CloudTm::AgentGroup.where(:id => params[:id]).first
-   # agent_group.update_attribute(:status, 'started')
+    # agent_group.update_attribute(:status, 'started')
     Madmass.logger.info "STARTING AGENT GROUP #{agent_group.inspect}"
     agent_group.start if agent_group
     @agent_groups = CloudTm::AgentGroup.all
@@ -96,9 +98,50 @@ class AgentGroupsController < ApplicationController
 
   private
 
-  def transact
+  def boot
+    agents_ids = []
+    delay = 5
+
     tx_monitor do
-      yield
+      agent_group = CloudTm::AgentGroup.find(@agent_group_id)
+      unless agent_group
+        message = "Did not find agent group with id (#{@agent_group_id})"
+        Madmass.logger.error message
+        raise Madmass::Errors::CatastrophicError.new message
+      end
+      delay = agent_group.delay
+      agent_group.getAgents.each do |agent|
+        Madmass.logger.info "Reading from cache created group for boot: #{agent.inspect}"
+        agents_ids << agent.oid
+      end
+      #agent_group.boot #Starts a background tasks for each agent
+    end
+
+    #FIXME: This is just for testing, VITTORIO: REMOVE ME PLEASE
+    tx_monitor do
+      my_manager = CloudTm::TxSystem.getManager
+      root = my_manager.getRoot
+      Madmass.logger.info("Root #{root.oid}")
+      groups = root.getAgentGroups
+      Madmass.logger.info("Groups #{groups.map(&:inspect)}")
+      test_agent = CloudTm::Agent.where_agent({:agent_id => agents_ids.first,
+                                               :step => delay,
+                                               :agent_group_id => @agent_group_id})
+      Madmass.logger.info("Test transaction succedded") if test_agent
+    end
+    ################
+
+    Madmass.logger.info "Starting #{agents_ids.size} simulations"
+
+    agents_ids.each do |agent_id|
+      CloudTm::Agent.background(:tx => false).simulate(
+        {:agent_id => agent_id,
+         :step => delay,
+         :agent_group_id => @agent_group_id}
+      )
+
+      Madmass.logger.info("******* Agent(group:#{@agent_group_id} -- id:#{agent_id}) launched *******")
     end
   end
+
 end

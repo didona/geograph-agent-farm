@@ -39,19 +39,19 @@ module CloudTm
 
     always_background :undertaker
 
-    def boot
-      getAgents.each do |agent|
-        agent.boot delay
-        Madmass.logger.info("******* Agent #{agent.oid} booting *******")
-      end
-    end
+    #def boot
+    #  getAgents.each do |agent|
+    #    CloudTm::Agent.simulate agent.id, delay
+    #    Madmass.logger.info("******* #{agent.inspect} booting *******")
+    #  end
+    #end
 
     def shutdown
 
       #Send the shutdown signal
       getAgents.each do |agent|
         agent.shutdown
-        Madmass.logger.info("******* Agent #{agent.oid} shutting down  *******")
+        Madmass.logger.info("******* #{agent.inspect} shutting down  *******")
       end
 
 
@@ -59,8 +59,9 @@ module CloudTm
 
     def start(options = {})
       getAgents.each do |agent|
+        Madmass.logger.info("******* #{agent.inspect} before start *******")
         agent.play
-        Madmass.logger.info("******* Agent #{agent.oid} playing *******")
+        Madmass.logger.info("******* #{agent.inspect} after start *******")
       end
       #queue = TorqueBox::Messaging::Queue.new('/queue/agents')
       #getAgents.each do |agent|
@@ -77,14 +78,14 @@ module CloudTm
     def stop
       getAgents.each do |agent|
         agent.stop
-        Madmass.logger.info("******* Agent #{agent.oid} stopping *******")
+        Madmass.logger.info("******* #{agent.inspect} stopping *******")
       end
       update_attribute(:status, 'stopped')
     end
 
     def pause
       getAgents.each do |agent|
-        Madmass.logger.info("******* Agent #{agent.oid} pausing *******")
+        Madmass.logger.info("******* #{agent.inspect} pausing *******")
         agent.pause
       end
       update_attribute(:status, 'paused')
@@ -110,9 +111,13 @@ module CloudTm
     end
 
     def add_agent(agent_attrs = {})
-      agent_klass = "CloudTm::#{agents_type}".constantize
-      agent = agent_klass.create(agent_attrs.merge(:type => agents_type))
+      agent_klass = "CloudTm::#{self.agents_type}".constantize
+      agent_attributes = agent_attrs.merge(:type => self.agents_type)
+      Madmass.logger.info "Agent attributes: #{agent_attributes}"
+      agent = agent_klass.create(agent_attributes)
+      Madmass.logger.info "CREATED #{agent.inspect}"
       addAgents(agent)
+      Madmass.logger.info "ADDED to group #{agent.inspect}"
     end
 
     def modify(agent_count, attrs)
@@ -152,6 +157,9 @@ module CloudTm
       alias_method_chain :create, :root
 
       def all
+        Madmass.logger.info("IN ALL  Manager is #{manager}")
+        Madmass.logger.info("IN ALL  Root is #{manager.getRoot}")
+        Madmass.logger.info("IN ALL  Root oid is #{manager.getRoot.oid}") if manager.getRoot
         manager.getRoot.getAgentGroups
       end
 
@@ -171,6 +179,7 @@ module CloudTm
     #Cleans up the group when all agents are dead
     def undertaker
       #Destroy groups' data *ONLY* after all agents have shutdown!
+      Madmass.logger.info "Undertaker started"
       begin
         java.lang.Thread.sleep(1000*delay/2)
         agents = nil

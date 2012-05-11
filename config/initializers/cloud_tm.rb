@@ -40,4 +40,11 @@ begin
 rescue Exception => ex
   Rails.logger.error "Cannot load Cloud-TM Framework: #{ex}"
   Rails.logger.error ex.backtrace.join("\n")
+
+  Madmass.logger.warn "*********** LOOKING FOR CAUSES ************"
+  current = ex
+  while current
+    Madmass.logger.warn("Inspecting cause: #{current.class} --  #{current.message}")
+    current = current.class.method_defined?(:cause) ? current.cause : nil
+  end
 end
