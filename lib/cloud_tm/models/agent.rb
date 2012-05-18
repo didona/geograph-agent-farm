@@ -61,13 +61,9 @@ module CloudTm
       # destroy remote reference
       execute(destroy_geo_object)
       getAgentGroup.removeAgents(self)
-      manager.getRoot.removeAgents(self)
+      #manager.getRoot.removeAgents(self)
     end
 
-    def on_error(ex)
-      Madmass.logger.error ex
-      Madmass.logger.error ex.backtrace.join("\n")
-    end
 
     def inspect
       "<Agent(#{self.oid}), agent_type: '#{self.type}', status: '#{self.status}'>"
@@ -97,16 +93,16 @@ module CloudTm
 
     class << self
 
-      def create_with_root attrs = {}, &block
-        create_without_root(attrs) do |instance|
-          instance.set_root manager.getRoot
-        end
-      end
+      #def create_with_root attrs = {}, &block
+      #  create_without_root(attrs) do |instance|
+      #    instance.set_root manager.getRoot
+      #  end
+      #end
 
-      alias_method_chain :create, :root
+      #alias_method_chain :create, :root
 
       def all
-        manager.getRoot.getAgents
+        CloudTm::AgentGroup.all.map(&:getAgents).flatten
       end
 
     end

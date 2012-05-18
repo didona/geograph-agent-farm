@@ -39,12 +39,6 @@ module CloudTm
 
     always_background :undertaker
 
-    #def boot
-    #  getAgents.each do |agent|
-    #    CloudTm::Agent.simulate agent.id, delay
-    #    Madmass.logger.info("******* #{agent.inspect} booting *******")
-    #  end
-    #end
 
     def shutdown
 
@@ -63,12 +57,7 @@ module CloudTm
         agent.play
         Madmass.logger.info("******* #{agent.inspect} after start *******")
       end
-      #queue = TorqueBox::Messaging::Queue.new('/queue/agents')
-      #getAgents.each do |agent|
-      #  msg = {'header' => {'agent_id' => agent.id}, 'data' => {:force => options[:force] || true, :delay => delay}}
-      #  queue.publish(msg, :tx => false)
-      #  ActiveSupport::Notifications.instrument("geograph-generator.agent_queue_sent")
-      #end
+
       update_attributes(:status => 'started', :last_execution => java.util.Date.new)
     end
 
@@ -119,7 +108,7 @@ module CloudTm
 
       Madmass.logger.info "CREATED #{agent.inspect}"
       addAgents(agent)
-      Madmass.logger.info "ADDED to group #{agent.inspect}"
+      Madmass.logger.info "#{agent.inspect} ADDED to group #{self.inspect}"
     end
 
     def modify(agent_count, attrs)
@@ -207,7 +196,7 @@ module CloudTm
       end
 
 
-      Madmass.logger.info "******* Agent group cleaned up! *********"
+      Madmass.logger.info "******* Agent group burried! *********"
 
     end
   end
