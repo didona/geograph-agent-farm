@@ -64,7 +64,7 @@ module CloudTm
     def move_geo_object
       return {} unless retrieve_route
       {
-        :agent => {:id => id},
+        :user => {:id => id},
         :cmd => 'actions::move',
         :latitude => getPosition.latitude.to_s,
         :longitude => getPosition.longitude.to_s,
@@ -96,7 +96,20 @@ module CloudTm
         # select a random route
         routes = Route.all
         if routes.any?
-          route = routes[rand(routes.size - 1)]
+
+          random_route_pos = rand(routes.size - 1)
+          i = 0
+          route = nil
+          routes.each do |r|
+              if(i==random_route_pos)
+                route= r
+                Madmass.logger.info("Found #{i}-th route}")
+                break;
+              end
+              Madmass.logger.info("#{i}-th path considered")
+               i=i+1
+          end
+         # route = routes[]
           next_position = route.getPositions.first
         end
       end
