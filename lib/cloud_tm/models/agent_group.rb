@@ -54,7 +54,7 @@ module CloudTm
         Madmass.logger.info("******* #{agent.inspect} shutting down  *******")
       end
 
-
+      undertaker
     end
 
     def start(options = {})
@@ -115,6 +115,8 @@ module CloudTm
       agent_attributes = agent_attrs.merge(:type => self.agents_type)
       Madmass.logger.info "Agent attributes: #{agent_attributes}"
       agent = agent_klass.create(agent_attributes)
+      agent.status = 'stopped'
+
       Madmass.logger.info "CREATED #{agent.inspect}"
       addAgents(agent)
       Madmass.logger.info "ADDED to group #{agent.inspect}"
@@ -157,9 +159,9 @@ module CloudTm
       alias_method_chain :create, :root
 
       def all
-        Madmass.logger.info("IN ALL  Manager is #{manager}")
-        Madmass.logger.info("IN ALL  Root is #{manager.getRoot}")
-        Madmass.logger.info("IN ALL  Root oid is #{manager.getRoot.oid}") if manager.getRoot
+        #Madmass.logger.info("IN ALL  Manager is #{manager}")
+        # Madmass.logger.info("IN ALL  Root is #{manager.getRoot}")
+        # Madmass.logger.info("IN ALL  Root oid is #{manager.getRoot.oid}") if manager.getRoot
         manager.getRoot.getAgentGroups
       end
 
@@ -180,17 +182,30 @@ module CloudTm
     def undertaker
       #Destroy groups' data *ONLY* after all agents have shutdown!
       Madmass.logger.info "Undertaker started"
+      all_agents = nil
+      dead_agents = nil
       begin
         java.lang.Thread.sleep(1000*delay/2)
-        agents = nil
-        dead_agents= nil
-        tx_monitor do
-          agents=getAgents
-          dead_agents = agents.find_all { |a| a.status == 'dead' }
+        TorqueBox::transaction(:requires_new => true) do
+          tx_monitor do
+            agents=getAgents
+            all_agents = agents.size
+            tmp = agents.find_all { |a| a.status == 'dead' }
+            dead_agents = tmp.size
+            Madmass.logger.info("Undertaker: agents --> #{all_agents} vs dead--> #{dead_agents}")
+            #Madmass.logger.info("Undertaker: agents are #{agents.size} of which dead #{dead_agents.size}")
+          end
         end
-      end while (agents.size!=dead_agents.size)
+      end while (all_agents != dead_agents)
 
-      destroy
+
+
+      TorqueBox::transaction(:requires_new  => true) do
+        tx_monitor do
+          destroy
+        end
+      end
+
 
       Madmass.logger.info "******* Agent group cleaned up! *********"
 
