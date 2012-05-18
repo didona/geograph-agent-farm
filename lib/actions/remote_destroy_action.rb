@@ -35,7 +35,7 @@
 module Actions
   class RemoteDestroyAction < Madmass::Action::RemoteAction
     action_params :geo_object
-    action_channels :all
+    #action_channels :all
     
     #action_states :none
     #next_state :none

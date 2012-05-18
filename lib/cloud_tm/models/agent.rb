@@ -34,16 +34,16 @@ module CloudTm
 
 
     def self.where_agent opts
-      Madmass.logger.info "Searching for agent group #{opts[:agent_group_id]}"
+      #Madmass.logger.info "Searching for agent group #{opts[:agent_group_id]}"
       group = CloudTm::AgentGroup.find(opts[:agent_group_id])
       unless group
         Madmass.logger.error "No agent group with id: #{opts[:agent_group_id]} found"
         Madmass.logger.error "All groups are: #{CloudTm::AgentGroup.all}"
         return nil
       end
-      Madmass.logger.info "Found group, looking for agent #{opts[:agent_id]}"
+     # Madmass.logger.info "Found group, looking for agent #{opts[:agent_id]}"
       group.getAgents.each do |agent|
-        Madmass.logger.info("Comparing #{agent.oid} == #{opts[:agent_id]} is #{agent.oid == opts[:agent_id]}")
+        #Madmass.logger.info("Comparing #{agent.oid} == #{opts[:agent_id]} is #{agent.oid == opts[:agent_id]}")
         return agent if(agent.oid == opts[:agent_id])
       end
       Madmass.logger.error "Agent (#{opts[:agent_id]}) not found"
@@ -52,7 +52,7 @@ module CloudTm
 
     def self.all_agents opts
       group = CloudTm::AgentGroup.find(opts[:agent_group_id])
-      Madmass.logger.info("Group is #{group.inspect}")
+      #Madmass.logger.info("Group is #{group.inspect}")
       group.getAgents
     end
 
