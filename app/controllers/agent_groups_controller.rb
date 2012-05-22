@@ -42,16 +42,19 @@ class AgentGroupsController < ApplicationController
 
   # It creates a group of idle agents.
   def create
+
     group_options = params[:agent_group].clone
     group_options[:delay] = group_options[:delay].to_i
     group_options[:status] = 'idle'
     agents = group_options.delete(:agents)
+    Madmass.logger.info "CREATE: About to create group -- #{agents.inspect} / #{group_options.inspect}--"
     @agent_group = CloudTm::AgentGroup.create_group(agents, group_options)
-    Madmass.logger.info "Created agent group with id #{@agent_group.id} -- #{@agent_group.inspect}"
+    Madmass.logger.info "CREATE: Created agent group with id #{@agent_group.id} -- #{@agent_group.inspect}"
 
     @agent_group_id = @agent_group.id
-
+    Madmass.logger.info "CREATE: Retrieving all groups"
     @agent_groups = CloudTm::AgentGroup.all
+    Madmass.logger.info "CREATE: Responding"
     respond_with(@agent_group)
   end
 
@@ -134,8 +137,14 @@ class AgentGroupsController < ApplicationController
 
     Madmass.logger.info "Starting #{agents_ids.size} simulations"
 
+    simulator_opts ={
+      :tx => false,
+      :persistent => false,
+      #:priority => :critical
+    }
     agents_ids.each do |agent_id|
-      CloudTm::Agent.background(:tx => false).simulate(
+
+      CloudTm::Agent.background(simulator_opts).simulate(
         {:agent_id => agent_id,
          :step => delay,
          :agent_group_id => @agent_group_id}
