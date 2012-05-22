@@ -17,7 +17,7 @@ set :deploy_to,         "/opt/apps/#{application}"
 set :torquebox_home,    "/opt/torquebox/current"
 set :jboss_init_script, "/etc/init.d/jboss-as-standalone"
 #set :app_environment,   "RAILS_ENV: production" DOES NOT WORK!!!
-set :app_context,       "/"
+set :app_context,       "/farm"
 
 
 #Added by vittorio
@@ -33,6 +33,6 @@ ssh_options[:forward_agent] = false
 load 'deploy/assets'
 
 
-role :web, "vm-143.uc.futuregrid.org"
-role :app, "vm-143.uc.futuregrid.org"
-role :db,  "vm-143.uc.futuregrid.org", :primary => true
+role :web, "10.100.0.100"
+role :app, "10.100.0.100"
+role :db,  "10.100.0.100", :primary => true
