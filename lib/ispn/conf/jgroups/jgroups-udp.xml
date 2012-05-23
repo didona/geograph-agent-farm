@@ -42,11 +42,12 @@ urn:org:jgroups ">
     <FD_SOCK/>
    <!-- <FD_ALL/>-->
     <BARRIER/>
-    <pbcast.NAKACK use_stats_for_retransmission="false"
-                   exponential_backoff="150"
-                   use_mcast_xmit="true"
-                   retransmit_timeout="300,600,1200"
-                   discard_delivered_msgs="true"/>
+  <pbcast.NAKACK
+              exponential_backoff="0"
+              use_mcast_xmit="true"
+              retransmit_timeout="600,1200,2400"
+              discard_delivered_msgs="true"/>
+
     <UNICAST timeout="300,600,1200"/>
     <pbcast.STABLE stability_delay="1000" desired_avg_gossip="50000"
                    max_bytes="1000000"/>
