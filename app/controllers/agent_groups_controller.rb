@@ -137,6 +137,7 @@ class AgentGroupsController < ApplicationController
 
     Madmass.logger.info "Starting #{agents_ids.size} simulations"
 
+
     simulator_opts ={
       :tx => false,
       :persistent => false,
