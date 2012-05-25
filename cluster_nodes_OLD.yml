@@ -1,0 +1,8 @@
+--- 
+:db_nodes:
+  - cloudtm
+:geograph_nodes:
+  - cloudtm
+:geograph_agent_farm_nodes:
+  - cloudtm
+
