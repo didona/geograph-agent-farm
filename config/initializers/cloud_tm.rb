@@ -33,7 +33,7 @@ begin
   # loading the Fenix Framework
   CloudTm::Framework.init(
     :dml => 'geograph-agent-farm.dml',
-    :conf => 'infinispan-conf.xml',
+    :conf => 'infinispan-udp-conf-geograph-farm.xml',
     :framework => CloudTm::Config::Framework::ISPN
   )
 
