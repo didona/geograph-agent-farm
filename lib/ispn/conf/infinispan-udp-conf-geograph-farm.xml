@@ -15,12 +15,18 @@
         </transport>
     </global>
     <default>
-        <locking
+        <!-- <locking
                 isolationLevel="REPEATABLE_READ"
                 concurrencyLevel="32"
                 writeSkewCheck="true"
                 useLockStriping="false"
-                lockAcquisitionTimeout="10000"/>
+                lockAcquisitionTimeout="10000"/> -->
+      <locking
+                      isolationLevel="REPEATABLE_READ"
+                      concurrencyLevel="32"
+                      writeSkewCheck="true"
+                      useLockStriping="false"
+                      lockAcquisitionTimeout="10000"/>
         <jmxStatistics
                 enabled="true"/>
         <deadlockDetection
