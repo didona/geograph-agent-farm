@@ -103,10 +103,10 @@ module CloudTm
           routes.each do |r|
               if(i==random_route_pos)
                 route= r
-                Madmass.logger.info("Found #{i}-th route}")
+                #Madmass.logger.info("Found #{i}-th route}")
                 break;
               end
-              Madmass.logger.info("#{i}-th path considered")
+              #Madmass.logger.info("#{i}-th path considered")
                i=i+1
           end
          # route = routes[]
