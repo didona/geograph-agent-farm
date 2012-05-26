@@ -169,35 +169,36 @@ module CloudTm
 
     #Cleans up the group when all agents are dead
     def undertaker
-      #Destroy groups' data *ONLY* after all agents have shutdown!
-      Madmass.logger.info "Undertaker started"
-      all_agents = nil
-      dead_agents = nil
-      begin
-        java.lang.Thread.sleep(1000*delay/2)
-        TorqueBox::transaction(:requires_new => true) do
+      Thread.new do
+        #Destroy groups' data *ONLY* after all agents have shutdown!
+        Madmass.logger.info "Undertaker started"
+        all_agents = nil
+        dead_agents = nil
+        begin
+          java.lang.Thread.sleep(1000*delay/2)
+          #TorqueBox::transaction(:requires_new => true) do
           tx_monitor do
             agents=getAgents
             all_agents = agents.size
             tmp = agents.find_all { |a| a.status == 'dead' }
+            zombies = agents.find_all { |a| a.status == 'zombie' }
             dead_agents = tmp.size
-            Madmass.logger.info("Undertaker: agents --> #{all_agents} vs dead--> #{dead_agents}")
+            Madmass.logger.info("Undertaker: alive #{all_agents} -- zombies #{zombies.size} -- dead--> #{dead_agents}")
             #Madmass.logger.info("Undertaker: agents are #{agents.size} of which dead #{dead_agents.size}")
+            #end
           end
-        end
-      end while (all_agents != dead_agents)
+        end while (all_agents != dead_agents)
 
 
-
-      TorqueBox::transaction(:requires_new  => true) do
+        #TorqueBox::transaction(:requires_new => true) do
         tx_monitor do
           destroy
         end
+        #end
+
+
+        Madmass.logger.info "******* Agent group burried! *********"
       end
-
-
-      Madmass.logger.info "******* Agent group burried! *********"
-
     end
   end
 end
