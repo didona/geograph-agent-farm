@@ -17,7 +17,6 @@ valueType java.util.Date as Date {
 class Root {
     boolean loaded;             // auxiliary slot for the bootstrap sequence
     Integer numAgentGroupIds;   // for the generation of agent group ids
-    Integer numAgentIds;        // for the generation of agent ids
     Integer numRouteIds;        // for the generation of route ids
 }
 
@@ -26,7 +25,8 @@ class AgentGroup {
   Integer delay;
   String agents_type;
   String status;
-  Date last_execution;
+  //ADDME String agent_type;
+  Date last_execution; //REMOVE ME
 }
 
 class Agent {
@@ -58,10 +58,6 @@ relation RootHasAgentGroups {
     AgentGroup playsRole agentGroups { multiplicity *; }
 }
 
-relation RootHasAgents {
-    Root playsRole root;
-    Agent playsRole agents { multiplicity *; }
-}
 
 relation RootHasRoutes {
     Root playsRole root;
