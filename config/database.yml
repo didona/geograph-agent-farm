@@ -48,15 +48,13 @@ test:
 #  socket: /opt/local/var/run/mysql5/mysqld.sock
 
 production:
-  adapter: jdbcmysql
-  reconnect: false
+  adapter: mysql
   xa: false
   database: agentfarm_production
-  pool: 100
-  username: root
-  password: geograph
-  driver: com.mysql.jdbc.Driver
-  url: jdbc:mysql://localhost:3306/agentfarm_production
+  host: 10.100.0.1
+  username: geograph
+  password: geograph_passwd
+  encoding: utf8
 
 #production:
 #  adapter: jdbcmysql

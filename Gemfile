@@ -42,6 +42,6 @@ gem 'activerecord-jdbcmysql-adapter'
 #gem "activerecord-jdbc-adapter"
 #gem "jdbc-sqlite3"
 
-gem "devise"
+gem "devise", '< 2.0.0'
 gem 'nokogiri'
 #gem 'rcov', '0.9.11'
