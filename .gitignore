@@ -20,3 +20,4 @@
 /nbproject
 /.idea
 /Gemfile.lock
+/config/database.yml
