@@ -69,6 +69,10 @@ module CloudTm
       "<Agent(#{self.oid}), agent_type: '#{self.type}', status: '#{self.status}'>"
     end
 
+    def last_execution_time_in_seconds
+      self.last_execution ? (Time.now - Time.at(self.last_execution.getTime/1000)) : -1.0
+    end
+
     private
 
     def create_geo_object

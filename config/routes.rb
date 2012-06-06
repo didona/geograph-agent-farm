@@ -44,6 +44,12 @@ GeographGenerator::Application.routes.draw do
       post 'choose_process'
     end
   end
+
+  resources :agents do
+    collection do
+      get "refresh_time"
+    end
+  end
   
   devise_for :users
 

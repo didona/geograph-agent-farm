@@ -1,52 +1,73 @@
 <table class="jtable">
   <thead>
-    <tr>
-      <th class="hcol1">Name</th>
-      <th class="hcol2">Agents</th>
-      <th class="hcol3">Delay (sec)</th>
-      <th class="hcol4">Status</th>
-      <th class="hcol5">Actions</th>
-    </tr>
+  <tr>
+    <th class="hcol1">Name</th>
+    <th class="hcol2">Agents</th>
+    <th class="hcol3">Delay (sec)</th>
+    <th class="hcol4">Status</th>
+    <th class="hcol5">Actions</th>
+    <th class="hcol6">Running</th>
+    <th class="hcol7">Stopped</th>
+    <th class="hcol8">Paused</th>
+    <th class="hcol9">Zombies</th>
+    <th class="hcol10">Dead</th>
+  </tr>
   </thead>
   <tbody>
-    <% @agent_groups.each do |agent_group| %>
-      <tr>
-        <td class="bcol1">
-          <% unless agent_group.started?  %>
-            <%= link_to agent_group.name, 'javascript:void(0);', :onclick => "editGroup(#{agent_group.to_json});" %>
-          <% else %>
-            <%= agent_group.name %>
-          <% end %>
-        </td>
-        <td class="bcol2"><%= agent_group.agents.size %></td>
-        <td class="bcol3"><%= agent_group.delay %></td>
-        <td class="bcol4 status-<%= agent_group.status %>"><%= agent_group.status %></td>
-        <td class="bcol5">
-          <%= render 'agent_groups/choose', :agent_group => agent_group %>
-        </td>
-      </tr>
-
-      <div id="edit-group-<%= agent_group.id %>" style="display: none;">
-        <%= form_for(:agent_group, :url => agent_group_path(agent_group.id), :remote => true, :method => :put, :html => {:id => "edit-agent-group-#{agent_group.id}"}) do |f| %>
-          <label for="name">name</label>
-          <%= text_field_tag "agent_group[name]", agent_group.name, :class => "text ui-widget-content ui-corner-all" %>
-          <br />
-
-          <label for="type">agents type</label>
-          <%= text_field_tag "agent_group[agents_type]", agent_group.agents_type.sub(/Agent$/, '').downcase, :readonly => true, :class => "ui-text-readonly" %>
-          <br />
-
-          <label for="name">agents <span id="agents-selected-<%= agent_group.id %>"><%= agent_group.agents_count %></span></label>
-          <%= hidden_field_tag "agent_group[agents]", agent_group.agents_count %>
-          <div class="agents-slider slider" rel="<%= agent_group.id %>"></div>
-          <br />
-          
-          <label for="name">delay <span id="delay-selected-<%= agent_group.id %>"><%= agent_group.delay %></span> (sec)</label>
-          <%= hidden_field_tag "agent_group[delay]", agent_group.delay %>
-          <div class="delay-slider slider" rel="<%= agent_group.id %>"></div>
+  <% @agent_groups.each do |agent_group| %>
+    <tr>
+      <td class="bcol1">
+        <% unless agent_group.started? %>
+          <%= link_to agent_group.name, 'javascript:void(0);', :onclick => "editGroup(#{agent_group.to_json});" %>
+        <% else %>
+          <%= agent_group.name %>
         <% end %>
-      </div>
+      </td>
+      <td class="bcol2"><%= agent_group.agents.size %></td>
+      <td class="bcol3"><%= agent_group.delay %></td>
+      <td class="bcol4 status-<%= agent_group.status %>"><%= agent_group.status %></td>
+      <td class="bcol5">
+        <%= render 'agent_groups/choose', :agent_group => agent_group %>
+      </td>
+      <td class="bcol6">
+        <%= agent_group.agents.select{|agent|agent.status == "running"}.size %>
+      </td>
+      <td class="bcol7">
+        <%= agent_group.agents.select{|agent|agent.status == "stopped"}.size %>
+      </td>
+      <td class="bcol8">
+        <%= agent_group.agents.select{|agent|agent.status == "paused"}.size %>
+      </td>
+      <td class="bcol9">
+        <%= agent_group.agents.select{|agent|agent.status == "zombie"}.size %>
+      </td>
+      <td class="bcol10">
+        <%= agent_group.agents.select{|agent|agent.status == "dead"}.size %>
+      </td>
+    </tr>
 
-    <% end %>
+    <div id="edit-group-<%= agent_group.id %>" style="display: none;">
+      <%= form_for(:agent_group, :url => agent_group_path(agent_group.id), :remote => true, :method => :put, :html => {:id => "edit-agent-group-#{agent_group.id}"}) do |f| %>
+        <label for="name">name</label>
+        <%= text_field_tag "agent_group[name]", agent_group.name, :class => "text ui-widget-content ui-corner-all" %>
+        <br/>
+
+        <label for="type">agents type</label>
+        <%= text_field_tag "agent_group[agents_type]", agent_group.agents_type.sub(/Agent$/, '').downcase, :readonly => true, :class => "ui-text-readonly" %>
+        <br/>
+
+        <label for="name">agents <span id="agents-selected-<%= agent_group.id %>"><%= agent_group.agents_count %></span></label>
+        <%= hidden_field_tag "agent_group[agents]", agent_group.agents_count %>
+        <div class="agents-slider slider" rel="<%= agent_group.id %>"></div>
+        <br/>
+
+        <label for="name">delay <span id="delay-selected-<%= agent_group.id %>"><%= agent_group.delay %></span>
+          (sec)</label>
+        <%= hidden_field_tag "agent_group[delay]", agent_group.delay %>
+        <div class="delay-slider slider" rel="<%= agent_group.id %>"></div>
+      <% end %>
+    </div>
+
+  <% end %>
   </tbody>
 </table>

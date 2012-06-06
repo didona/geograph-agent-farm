@@ -1,6 +1,28 @@
 <!-- a simple heading title -->
 <h1>Geograph Agent Farm</h1>
 
+<div id="container">
+
+ <div id="buttons-container">
+  <div id="new-group-container">
+    <%= button_tag "new group", :id => 'new-group-button', :onclick => "newGroup();" %>
+  </div>
+
+  <div id="process-edges-container">
+    <%= button_tag "edges processor", :id => 'process-edges-button', :onclick => "chooseProcess();" %>
+  </div>
+
+  <div id="inspect-container">
+    <%= button_tag "inspect agents", :id => 'inspect', :onclick => "location.href='agents'" %>
+  </div>
+ </div>
+
+  <div id="agent-groups" class="agent-group-list">
+      <%= render 'agent_groups/index' %>
+    </div>
+</div>
+
+
 <div id="new-group" style="display: none;">
   <%= form_for :agent_group, :url => agent_groups_path(@agent_group), :remote => true, :html => { :id => :new_agent_group } do |f| %>
     <label for="name">name</label>
@@ -19,24 +41,14 @@
     <label for="name">delay <span id="delay-selected-new">0</span> (sec)</label>
     <%= f.hidden_field :delay %>
     <div class="delay-slider slider" rel="new"></div>
+
+
   <% end %>
 </div>
 
 
-<br />
 
-<div id="container">
-  <div id="agent-groups" class="agent-group-list">
-    <%= render 'agent_groups/index' %>
-  </div>
-  <div id="new-group-container">
-    <%= button_tag "new group", :id => 'new-group-button', :onclick => "newGroup();" %>
-  </div>
 
-  <div id="process-edges-container"> 
-    <%= button_tag "edges processor", :id => 'process-edges-button', :onclick => "chooseProcess();" %>
-  </div>
-</div>
 
 <div id="edges-processor" style="display: none;">
   

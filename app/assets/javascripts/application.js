@@ -9,10 +9,12 @@
 //= require jquery-ui-1.8.16.custom.min
 //= require jtable
 //= require jquery.blockUI
+//= require jquery.tablesorter.min
 
 $(window).load(function() {
   $('#new-group-button').button();
   $('#process-edges-button').button();
+  $('#inspect').button();
 
   $('#new-group-button').ajaxStart(function(){
     $.blockUI({ css: {
@@ -37,7 +39,7 @@ $(window).load(function() {
 function loadSliders() {
   $('.agents-slider').slider({
     min: 0,
-    max: 100,
+    max: 1000,
     step: 1,
     value: 0,
     create: function(event, ui) {
@@ -58,7 +60,7 @@ function loadSliders() {
 
   $('.delay-slider').slider({
     min: 0,
-    max: 240,
+    max: 20,
     step: 1,
     value: 0,
     create: function(event, ui) {
@@ -104,6 +106,8 @@ function loadSliders() {
 }
 
 function newGroup(){
+  $('.delay-slider').slider("value", $('#agent_group_delay').val());
+  $('.agents-slider').slider("value", $('#agent_group_agents').val());
   $('#new-group').dialog({
     title: "New Agent Group",
     height: 420,
