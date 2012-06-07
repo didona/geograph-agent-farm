@@ -143,6 +143,9 @@ class AgentGroupsController < ApplicationController
       :persistent => false,
       #:priority => :critical
     }
+
+    scatter_time = 500 #half a second
+
     agents_ids.each do |agent_id|
 
       CloudTm::Agent.background(simulator_opts).simulate(
@@ -150,7 +153,7 @@ class AgentGroupsController < ApplicationController
          :step => delay,
          :agent_group_id => @agent_group_id}
       )
-
+      #java.lang.Thread.sleep(scatter_time);
       Madmass.logger.info("******* Agent(group:#{@agent_group_id} -- id:#{agent_id}) launched *******")
     end
   end

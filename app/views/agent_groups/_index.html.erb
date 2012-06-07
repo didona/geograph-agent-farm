@@ -3,7 +3,7 @@
   <tr>
     <th class="hcol1">Name</th>
     <th class="hcol2">Agents</th>
-    <th class="hcol3">Delay (sec)</th>
+    <th class="hcol3">Delay (msec)</th>
     <th class="hcol4">Status</th>
     <th class="hcol5">Actions</th>
     <th class="hcol6">Running</th>
@@ -62,7 +62,7 @@
         <br/>
 
         <label for="name">delay <span id="delay-selected-<%= agent_group.id %>"><%= agent_group.delay %></span>
-          (sec)</label>
+          (ms)</label>
         <%= hidden_field_tag "agent_group[delay]", agent_group.delay %>
         <div class="delay-slider slider" rel="<%= agent_group.id %>"></div>
       <% end %>

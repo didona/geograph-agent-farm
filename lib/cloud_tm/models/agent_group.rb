@@ -175,7 +175,7 @@ module CloudTm
         all_agents = nil
         dead_agents = nil
         begin
-          java.lang.Thread.sleep(1000*delay/2)
+          java.lang.Thread.sleep(delay/2)
           #TorqueBox::transaction(:requires_new => true) do
           tx_monitor do
             agents=getAgents

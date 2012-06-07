@@ -60,8 +60,8 @@ function loadSliders() {
 
   $('.delay-slider').slider({
     min: 0,
-    max: 20,
-    step: 1,
+    max: 20000,
+    step: 10,
     value: 0,
     create: function(event, ui) {
       var slider = $(this);

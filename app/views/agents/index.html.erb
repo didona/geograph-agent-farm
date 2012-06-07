@@ -13,8 +13,8 @@
       <th>Agent Id</th>
       <th>Agent Type</th>
       <th>Status</th>
-      <th>Step (sec)</th>
-      <th>Last Iteration</th>
+      <th>Step (ms)</th>
+      <th>Last Iteration (msec ago)</th>
 
     </tr>
     </thead>
@@ -28,7 +28,7 @@
         <td><%= agent.status %></td>
         <td><%= group.delay %></td>
         <td id="last-execution-<%= agent.oid %>">
-          <%= agent.last_execution_time_in_seconds < 0 ? "n/a" : agent.last_execution_time_in_seconds %> sec ago
+          <%= agent.last_execution_time_in_seconds < 0 ? "n/a" : agent.last_execution_time_in_seconds %>
         </td>
       </tr>
     <% end %>

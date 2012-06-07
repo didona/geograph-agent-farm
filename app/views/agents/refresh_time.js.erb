@@ -1,7 +1,7 @@
 <% @last_execution_times.each do |agent_id, value|
-     last_exec = (value[:last_execution] < 0) ? "n/a" : value[:last_execution]
+     last_exec = (value[:last_execution] < 0) ? "n/a" : value[:last_execution]*1000
 %>
-  $('#last-execution-<%= agent_id %>').html("<%= last_exec %> sec ago");
+  $('#last-execution-<%= agent_id %>').html("<%= last_exec %>");
   <% if value[:last_execution] > (2 * value[:delay]) %>
     $('#last-execution-<%= agent_id %>').css({outline: '1px solid red'});
   <% else %>
