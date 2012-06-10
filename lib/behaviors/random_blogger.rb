@@ -27,12 +27,51 @@
 ###############################################################################
 ###############################################################################
 
-require "#{Rails.root}/lib/behaviors/random_blogger"
+require "#{Rails.root}/lib/behaviors/random_mover"
 
-module CloudTm
-  class BloggerAgent
-    def set_behavior
-      @current_behavior = Behaviors::RandomBlogger.new(self)
+module Behaviors
+  class RandomBlogger  <  Behaviors::RandomMover
+    def next_action
+      next_action = geo_post_object(@current_route[@position_in_route])
+      @position_in_route += 1
+      @current_route = nil if @current_route[@position_in_route].nil?
+      return next_action
     end
+
+    private
+
+    def geo_post_object opts
+      #rome
+      #lat = (rand * 0.196) + 41.794
+      #lon = (rand * 0.351) + 12.314
+
+      lat = opts[:latitude].to_s.to_f+(0.5-rand) * 0.001
+      lon = opts[:longitude].to_s.to_f+(0.5-rand) * 0.001
+
+      result= {
+        :cmd => 'actions::post',
+        # rome
+        :latitude => lat,
+        :longitude => lon,
+        # world
+        #      :latitude => ((rand * 180) - 90),
+        #      :longitude => ((rand * 360) - 180),
+        :data => {:type => @agent.type, :body => 'Some text from agent post'},
+        :user => {:id => @agent.oid},
+        :remote => true
+      }
+      return result;
+    end
+
+    #FIXME OLD STUFF to RESTORE
+    def destroy_geo_object
+      {
+        :agent => {:id => @agent.oid},
+        :cmd => 'actions::destroy_posts',
+        :geo_agent => geo_object,
+        :remote => true
+      }
+    end
+
   end
-end 
+end

@@ -33,6 +33,7 @@ module CloudTm
     include Madmass::AgentFarm::Agent::AutonomousAgent
 
 
+
     def self.where_agent opts
       #Madmass.logger.info "Searching for agent group #{opts[:agent_group_id]}"
       group = CloudTm::AgentGroup.find(opts[:agent_group_id])
@@ -41,7 +42,7 @@ module CloudTm
         Madmass.logger.error "All groups are: #{CloudTm::AgentGroup.all}"
         return nil
       end
-     # Madmass.logger.info "Found group, looking for agent #{opts[:agent_id]}"
+     #Madmass.logger.info "Found group, looking for agent #{opts[:agent_id]}"
       group.getAgents.each do |agent|
         #Madmass.logger.info("Comparing #{agent.oid} == #{opts[:agent_id]} is #{agent.oid == opts[:agent_id]}")
         return agent if(agent.oid == opts[:agent_id])
@@ -111,4 +112,4 @@ module CloudTm
 
     end
   end
-end 
+end

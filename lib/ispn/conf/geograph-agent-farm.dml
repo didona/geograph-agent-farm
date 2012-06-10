@@ -31,10 +31,6 @@ class AgentGroup {
 
 class Agent {
   String status;
-  String geo_object;
-  String perception_status;
-  Decimal latitude;
-  Decimal longitude;
   String type;
   Date last_execution;
 }
@@ -71,10 +67,6 @@ relation AgentGroupHasAgents {
     Agent playsRole agents { multiplicity 0..*; }
 }
 
-relation AgentHasPosition {
-    Agent playsRole agent;
-    Position playsRole position;
-}
 
 relation RouteHasPositions {
     Route playsRole route;

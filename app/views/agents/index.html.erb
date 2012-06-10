@@ -28,7 +28,7 @@
         <td><%= agent.status %></td>
         <td><%= group.delay %></td>
         <td id="last-execution-<%= agent.oid %>">
-          <%= agent.last_execution_time_in_seconds < 0 ? "n/a" : agent.last_execution_time_in_seconds %>
+          n/a <%#= agent.last_execution_time_in_seconds < 0 ? "n/a" : agent.last_execution_time_in_seconds %>
         </td>
       </tr>
     <% end %>
@@ -44,12 +44,12 @@
   $(document).ready(function() {
       $(".tablesorter").tablesorter();
 
-      var intervalId = setInterval(function() {
-        $.ajax({
-          url: 'agents/refresh_time',
-          accept: 'js'
-        });
-      }, 2000);
+      //var intervalId = setInterval(function() {
+      //  $.ajax({
+      //    url: 'agents/refresh_time',
+      //    accept: 'js'
+      //  });
+      //}, 2000);
     }
   );
 

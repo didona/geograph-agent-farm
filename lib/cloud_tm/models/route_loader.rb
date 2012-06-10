@@ -30,8 +30,9 @@
 module CloudTm
   module RouteLoader
     include Madmass::Transaction::TxMonitor
-    
+
     def load_routes(gpx_path = nil)
+      unless manager.getRoot.hasAnyRoutes
         #Route.destroy_all
         gpx_path ||= Dir.glob(File.join(Rails.root, 'vendor', 'gpxs', '*.gpx'))
         gpx_path.each do |gpx|
@@ -92,7 +93,7 @@ module CloudTm
             file.close
           end
         end
-
+      end
     end
 
     private

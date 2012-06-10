@@ -27,18 +27,40 @@
 ###############################################################################
 ###############################################################################
 
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
+require "#{Rails.root}/lib/behaviors/random_mover"
 
-class Job
-  include Madmass::AgentFarm::Agent::AutonomousAgent
+module Behaviors
+  class RandomReader < Behaviors::RandomMover
+
+    def next_action
+      next_action = read_post(@current_route[@position_in_route])
+      @position_in_route += 1
+      @current_route = nil if @current_route[@position_in_route].nil?
+      return next_action
+    end
+
+    # To change this template use File | Settings | File Templates.
 
 
-  def set(options)
-    cmd_params = {
-      :cmd => 'actions::set_job',
-      :remote => true
-    }.merge(options)
-    execute cmd_params
+    private
+    def read_post(opts)
+      # rome
+      #lat = (rand * 0.196) + 41.794
+      #lon = (rand * 0.351) + 12.314
+
+      lat = opts[:latitude].to_s.to_f + (0.5 - rand) * 0.001
+      lon = opts[:longitude].to_s.to_f + (0.5 - rand) * 0.001
+
+      opts[:longitude]
+      result = {
+        :agent => {:id => @agent.oid},
+        :cmd => 'actions::read_post',
+        :latitude => lat,
+        :longitude => lon,
+        :remote => true
+      }.merge(opts)
+      return result
+    end
+
   end
 end
