@@ -45,8 +45,8 @@ module Behaviors
       #lat = (rand * 0.196) + 41.794
       #lon = (rand * 0.351) + 12.314
 
-      lat = opts[:latitude].to_s.to_f+(0.5-rand) * 0.001
-      lon = opts[:longitude].to_s.to_f+(0.5-rand) * 0.001
+      lat = opts[:latitude].to_s.to_f+(0.5-rand) * 0.05
+      lon = opts[:longitude].to_s.to_f+(0.5-rand) * 0.05
 
       result= {
         :cmd => 'actions::post',

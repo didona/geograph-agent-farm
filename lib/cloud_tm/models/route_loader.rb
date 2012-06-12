@@ -50,6 +50,7 @@ module CloudTm
                 route_name = rte.css("name").first.inner_text.capitalize
                 route = retrieve_route(route_name)
                 rte.css("rtept").each_with_index do |rtept, index|
+                 # Madmass.logger.info("loading position #{index}")
                   position = CloudTm::Position.create(
                     :latitude => java.math.BigDecimal.new(rtept['lat']),
                     :longitude => java.math.BigDecimal.new(rtept['lon']),
@@ -65,6 +66,7 @@ module CloudTm
                 route_name = trk.css("name").first.inner_text.capitalize
                 route = retrieve_route(route_name)
                 trk.css("trkpt").each_with_index do |trkpt, index|
+                  #Madmass.logger.info("loading position #{index}")
                   position = CloudTm::Position.create(
                     :latitude => java.math.BigDecimal.new(trkpt['lat']),
                     :longitude => java.math.BigDecimal.new(trkpt['lon']),
@@ -79,6 +81,7 @@ module CloudTm
               route_name = doc.css("metadata").css("name").first.inner_text.capitalize
               route = retrieve_route(route_name)
               wpts.each_with_index do |wpt, index|
+                #Madmass.logger.info("loading position #{index}")
                 position = CloudTm::Position.create(
                   :latitude => java.math.BigDecimal.new(wpt['lat']),
                   :longitude => java.math.BigDecimal.new(wpt['lon']),
@@ -104,6 +107,44 @@ module CloudTm
       #route.getPositions.clear
       route
     end
+
+    #check http://www.gpsbabel.org/htmldoc-development/filter_interpolate.html
+    #http://www.gpsbabel.org/htmldoc-development/index.html
+    #def interpolate route
+    #  Madmass.logger.info "interpolating route of size #{route.size}"
+    #  path_step = 10*(1.0/111111.1) #10 meters
+    #  new_route = []
+    #  route.each_with_index do |pos, index|
+    #    new_route << pos
+    #    break if ((route.size-1) == index)
+    #    next_pos = route[index+1]
+    #    current = pos
+    #
+    #
+    #    while (dist(current, next_pos)< path_step)
+    #      delta_y = next_pos['lat'].to_f-pos['lat'].to_f
+    #      delta_x = next_pos['lon'].to_f-pos['lon'].to_f
+    #      angle = Math.atan2(delta_y, delta_x)
+    #      current = {
+    #        'lat' => current['lat'].to_f+path_step*Math.sin(angle),
+    #        'lon' => current['lon'].to_f+path_step*Math.cos(angle)
+    #      }
+    #      new_route << current
+    #      #y = ya + ((x - xa) * (yb - ya) / (xb - xa))  (pos['lat'] + next_pos['lat']
+    #    end
+    #
+    #  end
+    #  Madmass.logger.info "new size is #{new_route.size}"
+    #  Madmass.logger.info "*****************************"
+    #  return new_route
+    #end
+    #
+    #def dist(pos, next_pos)
+    #  delta_y = next_pos['lat'].to_f-pos['lat'].to_f
+    #  delta_x = next_pos['lon'].to_f-pos['lon'].to_f
+    #  return Math.sqrt(delta_x*delta_x+delta_y*delta_y)
+    #end
+
 
   end
 end

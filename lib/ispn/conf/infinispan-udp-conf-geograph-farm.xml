@@ -24,7 +24,7 @@
     <locking
             isolationLevel="REPEATABLE_READ"
             concurrencyLevel="32"
-            writeSkewCheck="false"
+            writeSkewCheck="true"
             useLockStriping="false"
             lockAcquisitionTimeout="10000"/>
     <jmxStatistics

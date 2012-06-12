@@ -2,53 +2,56 @@
 module Behaviors
   class RandomMover < Madmass::AgentFarm::Agent::Behavior
 
-    def initialize(agent)
+    def initialize()
 
       #Madmass.logger.info "Random Mover: creating with  agent_id #{@agent.oid}"
-
-      @agent = agent
 
       # Load GPX routes
       CloudTm::Route.load_routes
 
-      @current_route = nil;
-      @position_in_route = 0;
+      @current_route = nil
+      @position_in_route = 0
     end
 
     #Select a Random route
     def choose!
+      #Madmass.logger.debug("Choosing new plan")
       routes = CloudTm::Route.all
       if routes.any?
         random_route_pos = rand(routes.size - 1)
-        i = 0
-        @current_route = nil
-        routes.each do |r|
+        #Madmass.logger.debug("#{random_route_pos}-th plan out of #{routes.size - 1} plans  chosen")
+        i=0
+        routes.each do |r| #routes cannot be converted to array because of direct mapper
           if (i==random_route_pos)
             @current_route = extract_route(r)
-            @position_in_route = 0;
-            raise MadMass::Exception::CatastrophicError.new("Positions in route missing") if @current_route.include?(nil)
-            #Madmass.logger.info("Found #{i}-th route}")
-            break;
+            #Madmass.logger.debug("#{random_route_pos}-th route is #{@current_route.inspect}")
+            #@current_route.each_index{|ind| Madmass.logger.info "route idx #{ind}"}
+            @position_in_route = 0
+            raise MadMass::Errors::CatastrophicError.new("Positions in route missing") if (@current_route.include?(nil))
+            break
           end
-          #Madmass.logger.info("#{i}-th path considered")
-          i=i+1
+          i+= 1;
         end
       else
-        raise Madmass::Exception::CatastrophicError.new "No GPX routes available!"
+        raise Madmass::Errors::CatastrophicError.new "No GPX routes available!"
       end
-
     end
 
     def defined?
-      @current_route != nil
+     # Madmass.logger.debug("Plan finished when current position is #{@position_in_route}") unless @current_route
+      return (@current_route != nil)
     end
 
     #Select the next action that moves from
     def next_action
-      next_action = move_params(@current_route[@position_in_route])
-      @position_in_route += 1
-      @current_route = nil if @current_route[@position_in_route].nil?
-      return next_action
+      action = move_params(@current_route[@position_in_route])
+      #puts "position #{@position_in_route+1}/#{@current_route.size}"
+      if(@position_in_route < @current_route.size - 1)
+        @position_in_route += 1
+      else
+        @current_route = nil
+      end
+      return action
     end
 
 
@@ -74,7 +77,7 @@ module Behaviors
         #:geo_agent => geo_object,
         :remote => true
       }.merge(opts)
-      puts "Move params #{params.inspect}"
+
       return params
     end
   end

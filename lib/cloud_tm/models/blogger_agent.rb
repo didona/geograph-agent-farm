@@ -31,8 +31,8 @@ require "#{Rails.root}/lib/behaviors/random_blogger"
 
 module CloudTm
   class BloggerAgent
-    def set_behavior
-      @current_behavior = Behaviors::RandomBlogger.new(self)
+    def self.behavior
+      Behaviors::RandomBlogger.new()
     end
   end
 end 

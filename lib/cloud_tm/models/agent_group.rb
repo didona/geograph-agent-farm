@@ -53,9 +53,9 @@ module CloudTm
 
     def start(options = {})
       getAgents.each do |agent|
-        Madmass.logger.info("******* #{agent.inspect} before start *******")
+        #Madmass.logger.info("******* #{agent.inspect} before start *******")
         agent.play
-        Madmass.logger.info("******* #{agent.inspect} after start *******")
+        #Madmass.logger.info("******* #{agent.inspect}  start running*******")
       end
 
       update_attributes(:status => 'started', :last_execution => java.util.Date.new)

@@ -105,7 +105,7 @@ class AgentGroupsController < ApplicationController
   def boot
     agents_ids = []
     delay = 5
-
+    type = nil
     tx_monitor do
       agent_group = CloudTm::AgentGroup.find(@agent_group_id)
       unless agent_group
@@ -114,6 +114,7 @@ class AgentGroupsController < ApplicationController
         raise Madmass::Errors::CatastrophicError.new message
       end
       delay = agent_group.delay
+      type = agent_group.agents_type
       agent_group.getAgents.each do |agent|
         Madmass.logger.info "Found agent in group: #{agent.inspect}"
         agents_ids << agent.oid
@@ -121,22 +122,7 @@ class AgentGroupsController < ApplicationController
       #agent_group.boot #Starts a background tasks for each agent
     end
 
-    #FIXME: This is just for testing, VITTORIO: REMOVE ME PLEASE
-    #tx_monitor do
-    #  my_manager = CloudTm::TxSystem.getManager
-    #  root = my_manager.getRoot
-    #  Madmass.logger.info("Root #{root.oid}")
-    #  groups = root.getAgentGroups
-    #  Madmass.logger.info("Groups #{groups.map(&:inspect)}")
-    #  test_agent = CloudTm::Agent.where_agent({:agent_id => agents_ids.first,
-    #                                           :step => delay,
-    #                                           :agent_group_id => @agent_group_id})
-    #  Madmass.logger.info("Test transaction succeeded") if test_agent
-    #end
-    ################
-
     Madmass.logger.info "Starting #{agents_ids.size} simulations"
-
 
     simulator_opts ={
       :tx => false,
@@ -144,11 +130,17 @@ class AgentGroupsController < ApplicationController
       #:priority => :critical
     }
 
-    scatter_time = 500 #half a second
+    # scatter_time = 500 #half a second
+    Madmass.logger.info("Type: #{type}")
+
+    klass_name = "CloudTm::#{type}"
+
+    klass = klass_name.constantize
+    raise Madmass::Errors::CatastrophicError, "#{klass_name} does not include Madmass::AgentFarm::Agent::AutonomousAgent" unless klass.included_modules.include?(Madmass::AgentFarm::Agent::AutonomousAgent)
 
     agents_ids.each do |agent_id|
 
-      CloudTm::Agent.background(simulator_opts).simulate(
+      klass.background(simulator_opts).simulate(
         {:agent_id => agent_id,
          :step => delay,
          :agent_group_id => @agent_group_id}
@@ -157,5 +149,4 @@ class AgentGroupsController < ApplicationController
       Madmass.logger.info("******* Agent(group:#{@agent_group_id} -- id:#{agent_id}) launched *******")
     end
   end
-
 end

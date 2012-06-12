@@ -31,8 +31,8 @@ require "#{Rails.root}/lib/behaviors/random_reader"
 
 module CloudTm
   class ReaderAgent
-    def set_behavior
-      @current_behavior = Behaviors::RandomReader.new(self)
+    def self.behavior
+      Behaviors::RandomReader.new()
     end
   end
 end 

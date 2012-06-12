@@ -33,7 +33,6 @@ module CloudTm
     include Madmass::AgentFarm::Agent::AutonomousAgent
 
 
-
     def self.where_agent opts
       #Madmass.logger.info "Searching for agent group #{opts[:agent_group_id]}"
       group = CloudTm::AgentGroup.find(opts[:agent_group_id])

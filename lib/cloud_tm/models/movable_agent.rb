@@ -29,13 +29,11 @@
 
 require "#{Rails.root}/lib/behaviors/random_mover"
 
+
 module CloudTm
   class MovableAgent
-
-    def set_behavior
-      @current_behavior = Behaviors::RandomMover.new(self)
+    def self.behavior
+      Behaviors::RandomMover.new
     end
-
-
   end
 end
