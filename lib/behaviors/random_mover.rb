@@ -6,9 +6,6 @@ module Behaviors
 
       #Madmass.logger.info "Random Mover: creating with  agent_id #{@agent.oid}"
 
-      # Load GPX routes
-      CloudTm::Route.load_routes
-
       @current_route = nil
       @position_in_route = 0
     end

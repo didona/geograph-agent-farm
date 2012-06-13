@@ -25,7 +25,7 @@ queues:
 
 tasks:
   Backgroundable:
-    concurrency: 100
+    concurrency: 8
 
 pooling:
   messaging: shared

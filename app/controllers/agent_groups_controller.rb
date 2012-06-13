@@ -43,6 +43,9 @@ class AgentGroupsController < ApplicationController
   # It creates a group of idle agents.
   def create
 
+    #FIXME: Should be loaded at boot
+    CloudTm::Route.load_routes
+
     group_options = params[:agent_group].clone
     group_options[:delay] = group_options[:delay].to_i
     group_options[:status] = 'idle'
@@ -106,13 +109,26 @@ class AgentGroupsController < ApplicationController
     agents_ids = []
     delay = 5
     type = nil
+
     tx_monitor do
-      agent_group = CloudTm::AgentGroup.find(@agent_group_id)
-      unless agent_group
-        message = "Did not find agent group with id (#{@agent_group_id})"
-        Madmass.logger.error message
-        raise Madmass::Errors::CatastrophicError.new message
+
+      retries = 0
+      begin
+        agent_group = CloudTm::AgentGroup.find(@agent_group_id)
+        unless agent_group
+          message = "Did not find agent group with id (#{@agent_group_id})"
+          Madmass.logger.error message
+          raise Madmass::Errors::WrongInputError.new message
+        end
+      rescue Madmass::Errors::WrongInputError => ex
+        raise Madmass::Errors::CatastrophicError.new "Did not find agent group #{@agent_group_id}, retries limit reached" if retries > 4
+        Madmass.logger.error "retrying #{retries}-th time..."
+        retries +=1
+        java.lang.sleep(100**retries)
+        retry
       end
+
+
       delay = agent_group.delay
       type = agent_group.agents_type
       agent_group.getAgents.each do |agent|
@@ -130,7 +146,7 @@ class AgentGroupsController < ApplicationController
       #:priority => :critical
     }
 
-    # scatter_time = 500 #half a second
+    scatter_time = 500 #half a second
     Madmass.logger.info("Type: #{type}")
 
     klass_name = "CloudTm::#{type}"
@@ -145,8 +161,8 @@ class AgentGroupsController < ApplicationController
          :step => delay,
          :agent_group_id => @agent_group_id}
       )
-      #java.lang.Thread.sleep(scatter_time);
       Madmass.logger.info("******* Agent(group:#{@agent_group_id} -- id:#{agent_id}) launched *******")
+      java.lang.Thread.sleep(rand*scatter_time);
     end
   end
 end

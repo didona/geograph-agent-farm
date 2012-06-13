@@ -32,6 +32,10 @@ require "#{Rails.root}/lib/behaviors/random_mover"
 module Behaviors
   class RandomReader < Behaviors::RandomMover
 
+    def initialize
+      super
+    end
+
     def next_action
       next_action = read_post(@current_route[@position_in_route])
       @position_in_route += 1

@@ -45,9 +45,9 @@ class AgentsController < ApplicationController
       @last_execution_times = {}
       agent_groups.each do |group|
         group.getAgents.each do |agent|
-          @last_execution_times[agent.id] = {
+          @last_execution_times[agent.oid] = {
             :delay => group.delay,
-            :last_execution => "n/a" #FIXME, now we avoid writes on cache #agent.last_execution_time_in_seconds
+            :last_execution => (agent.execution_time ? agent.execution_time : -1)
           }
         end
       end

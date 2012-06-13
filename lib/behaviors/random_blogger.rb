@@ -30,7 +30,11 @@
 require "#{Rails.root}/lib/behaviors/random_mover"
 
 module Behaviors
-  class RandomBlogger  <  Behaviors::RandomMover
+  class RandomBlogger < Behaviors::RandomMover
+    def initialize
+      super
+    end
+
     def next_action
       next_action = geo_post_object(@current_route[@position_in_route])
       @position_in_route += 1

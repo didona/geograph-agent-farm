@@ -26,13 +26,13 @@ class AgentGroup {
   String agents_type;
   String status;
   //ADDME String agent_type;
-  Date last_execution; //REMOVE ME
+  Date last_execution; //remove me
 }
 
 class Agent {
   String status;
   String type;
-  Date last_execution;
+  Integer execution_time; //in ms
 }
 
 class BloggerAgent extends Agent {}
