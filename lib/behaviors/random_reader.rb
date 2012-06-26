@@ -52,17 +52,24 @@ module Behaviors
       #lat = (rand * 0.196) + 41.794
       #lon = (rand * 0.351) + 12.314
 
-      lat = opts[:latitude].to_s.to_f + (0.5 - rand) * 0.01
-      lon = opts[:longitude].to_s.to_f + (0.5 - rand) * 0.01
+      lat = opts[:latitude].to_s.to_f + (0.5 - rand) * 0.1
+      lon = opts[:longitude].to_s.to_f + (0.5 - rand) * 0.1
 
       opts[:longitude]
+      ata = opts.clone
+      #
+      #  cmd = "madmass::action::remote"
+      #
       result = {
-        :agent => {:id => @agent.oid},
-        :cmd => 'actions::read_post',
-        :latitude => lat,
-        :longitude => lon,
-        :remote => true
-      }.merge(opts)
+        :cmd => "madmass::action::remote",
+        :data => {
+          :cmd => 'actions::read_post',
+          :latitude => lat,
+          :longitude => lon,
+          :user => {:id => @agent.oid}
+          #:remote => true
+        }
+      }
       return result
     end
 

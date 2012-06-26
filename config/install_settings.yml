@@ -4,7 +4,7 @@
         --- 
 #:ws_adapter: Madmass::Comm::SockySender
 :ws_adapter: Madmass::Comm::JmsSender
-:host: localhost
+:host: madmass-node
 :port: "9090"
 :secure: "false"
 :secret: my_secret_key

@@ -35,7 +35,7 @@ module Behaviors
     end
 
     def defined?
-     # Madmass.logger.debug("Plan finished when current position is #{@position_in_route}") unless @current_route
+      # Madmass.logger.debug("Plan finished when current position is #{@position_in_route}") unless @current_route
       return (@current_route != nil)
     end
 
@@ -43,7 +43,7 @@ module Behaviors
     def next_action
       action = move_params(@current_route[@position_in_route])
       #puts "position #{@position_in_route+1}/#{@current_route.size}"
-      if(@position_in_route < @current_route.size - 1)
+      if (@position_in_route < @current_route.size - 1)
         @position_in_route += 1
       else
         @current_route = nil
@@ -67,15 +67,15 @@ module Behaviors
     end
 
     def move_params opts
-      params = {
-        :user => {:id => @agent.oid},
-        :cmd => 'actions::move',
-        :data => {:type => @agent.type, :body => "Geo Object moved at #{Time.now}"},
-        #:geo_agent => geo_object,
-        :remote => true
-      }.merge(opts)
-
-      return params
+      return {
+        :cmd => "madmass::action::remote",
+        :data => {
+          :cmd => 'actions::move',
+          :data => {:type => @agent.type, :body => "Geo Object moved at #{Time.now}"},
+          :sync => true,
+          :user => {:id => @agent.oid}
+        }.merge(opts)
+      }
     end
   end
 

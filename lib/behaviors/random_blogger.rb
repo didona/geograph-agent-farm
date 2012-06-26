@@ -52,28 +52,31 @@ module Behaviors
       lat = opts[:latitude].to_s.to_f+(0.5-rand) * 0.05
       lon = opts[:longitude].to_s.to_f+(0.5-rand) * 0.05
 
-      result= {
-        :cmd => 'actions::post',
-        # rome
-        :latitude => lat,
-        :longitude => lon,
-        # world
-        #      :latitude => ((rand * 180) - 90),
-        #      :longitude => ((rand * 360) - 180),
-        :data => {:type => @agent.type, :body => 'Some text from agent post'},
-        :user => {:id => @agent.oid},
-        :remote => true
+      return {
+        :cmd => "madmass::action::remote",
+        :data => {
+          :cmd => 'actions::post',
+          # rome
+          :latitude => lat,
+          :longitude => lon,
+          # world
+          #      :latitude => ((rand * 180) - 90),
+          #      :longitude => ((rand * 360) - 180),
+          :data => {:type => @agent.type, :body => "Hello from agent #{@agent.oid}"},
+          :user => {:id => @agent.oid}
+        }#.merge(opts)
       }
+
+      Madmass.logger.debug "Behaviors::RandomBlogger created post action: \n #{result.to_yaml}\n"
       return result;
     end
 
     #FIXME OLD STUFF to RESTORE
     def destroy_geo_object
       {
-        :agent => {:id => @agent.oid},
         :cmd => 'actions::destroy_posts',
         :geo_agent => geo_object,
-        :remote => true
+
       }
     end
 

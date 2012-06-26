@@ -1,5 +1,5 @@
 :hosts:
-  - :host: localhost
+  - :host: madmass-node
     :port: 9090
     :secret: my_secret_key
     :secure: false

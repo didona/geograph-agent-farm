@@ -31,14 +31,23 @@
 # and open the template in the editor.
 
 class Job
-  include Madmass::AgentFarm::Agent::AutonomousAgent
+  include Madmass::AgentFarm::Agent::AutonomousAgent #fixme: executor is enough
 
 
   def set(options)
+
     cmd_params = {
-      :cmd => 'actions::set_job',
-      :remote => true
-    }.merge(options)
+      :cmd => "madmass::action::remote",
+      :data => {
+        :cmd => 'actions::set_job'
+      }.merge(options)
+    }
     execute cmd_params
+  rescue Exception => ex
+    Madmass.logger.error "Could not set edge processor"
+    Madmass.logger.error("Error during processing: #{$!}, #{ex.message}")
+    Madmass.logger.debug("Backtrace:\n\t#{ex.backtrace.join("\n\t")}")
+    #  Madmass.logger.error "CAUSE #{ex.cause.backtrace.join("\n")}" if ex.cause
+    return false
   end
 end

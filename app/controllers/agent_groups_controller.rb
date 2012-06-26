@@ -146,7 +146,7 @@ class AgentGroupsController < ApplicationController
       #:priority => :critical
     }
 
-    scatter_time = 500 #half a second
+    scatter_time = 15 #ms
     Madmass.logger.info("Type: #{type}")
 
     klass_name = "CloudTm::#{type}"
