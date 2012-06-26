@@ -45,3 +45,9 @@ gem 'activerecord-jdbcmysql-adapter'
 gem "devise", '< 2.0.0'
 gem 'nokogiri'
 #gem 'rcov', '0.9.11'
+
+#group :development, :test do
+#  gem 'torquespec', ">= 0.3.5"
+#  gem 'capybara'
+#  gem 'akephalos'
+#end
