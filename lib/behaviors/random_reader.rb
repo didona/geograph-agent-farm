@@ -63,7 +63,7 @@ module Behaviors
       result = {
         :cmd => "madmass::action::remote",
         :data => {
-          :cmd => 'actions::read_post',
+          :cmd => 'read_post',
           :latitude => lat,
           :longitude => lon,
           :user => {:id => @agent.oid}

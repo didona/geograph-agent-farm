@@ -50,14 +50,13 @@ class AgentGroupsController < ApplicationController
     group_options[:delay] = group_options[:delay].to_i
     group_options[:status] = 'idle'
     agents = group_options.delete(:agents)
-    Madmass.logger.info "CREATE: About to create group -- #{agents.inspect} / #{group_options.inspect}--"
+    Madmass.logger.debug "CREATE: About to create group -- #{agents.inspect} / #{group_options.inspect}--"
     @agent_group = CloudTm::AgentGroup.create_group(agents, group_options)
     Madmass.logger.info "CREATE: Created agent group with id #{@agent_group.id} -- #{@agent_group.inspect}"
 
     @agent_group_id = @agent_group.id
-    Madmass.logger.info "CREATE: Retrieving all groups"
+    Madmass.logger.debug "CREATE: Retrieving all groups"
     @agent_groups = CloudTm::AgentGroup.all
-    Madmass.logger.info "CREATE: Responding"
     respond_with(@agent_group)
   end
 

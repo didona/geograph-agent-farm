@@ -51,8 +51,13 @@ module Behaviors
       return action
     end
 
+    def last_wish
+      destroy_agent_params
+    end
+
 
     private
+
 
     def extract_route dml_route
       route = []
@@ -70,13 +75,25 @@ module Behaviors
       return {
         :cmd => "madmass::action::remote",
         :data => {
-          :cmd => 'actions::move',
+          :cmd => 'move',
           :data => {:type => @agent.type, :body => "Geo Object moved at #{Time.now}"},
           :sync => true,
           :user => {:id => @agent.oid}
         }.merge(opts)
       }
     end
+
+    def destroy_agent_params(opts = {})
+      return {
+        :cmd => "madmass::action::remote",
+        :data => {
+          :cmd => 'destroy_agent',
+          :sync => true,
+          :user => {:id => @agent.oid}
+        }.merge(opts)
+      }
+    end
+
   end
 
 end
