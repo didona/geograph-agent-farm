@@ -68,6 +68,9 @@ module Ispn
           Rails.logger.error "PersistenceException. Cause: #{perc.getCause}"
           Java::PtIstFenixframeworkPstm::Transaction.abort
           finished = true
+        rescue Madmass::Errors::RollbackError => rollEx
+          Rails.logger.error "Madmass::Errors::RollbackError. Cause: #{rollEx.getCause}"
+          raise rollEx
         ensure
           unless finished
             Java::PtIstFenixframeworkPstm::Transaction.abort

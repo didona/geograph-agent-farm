@@ -39,7 +39,7 @@ class Job
     cmd_params = {
       :cmd => "madmass::action::remote",
       :data => {
-        :cmd => 'actions::set_job'
+        :cmd => 'actions::set_properties'
       }.merge(options)
     }
     execute cmd_params

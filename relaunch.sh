@@ -8,6 +8,8 @@ rm -rf ${JBOSS_HOME}/standalone/deployments/*
 $JBOSS_HOME/bin/standalone.sh --server-config=standalone-ha.xml &
 sleep 8
 cd ~/dev/geograph && RAILS_ENV=production jruby -S bundle exec rake torquebox:deploy
+#cd ~/dev/geograph && jruby -S bundle exec rake torquebox:deploy
 sleep 15 
 cd ~/dev/geograph-agent-farm && RAILS_ENV=production jruby -S bundle exec rake torquebox:deploy["/farm"]
+#cd ~/dev/geograph-agent-farm && jruby -S bundle exec rake torquebox:deploy["/farm"]
 
