@@ -59,7 +59,7 @@ module CloudTm
                   route.addPositions(position)
 
                 end
-                Rails.logger.info "Created route #{route.name} with #{route.getPositionsCount} positions."
+                Madmass.logger.info "Created route #{route.name} with #{route.getPositionsCount} positions."
               end
             elsif !trks.blank?
               trks.each do |trk|
@@ -74,7 +74,7 @@ module CloudTm
                   )
                   route.addPositions(position)
                 end
-                Rails.logger.info "Created route #{route.name} with #{route.getPositionsCount} positions."
+                Madmass.logger.info "Created route #{route.name} with #{route.getPositionsCount} positions."
               end
 
             elsif !wpts.blank?
@@ -89,7 +89,7 @@ module CloudTm
                 )
                 route.addPositions(position)
               end
-              Rails.logger.info "Created route #{route.name} with #{route.getPositionsCount} positions."
+              Madmass.logger.info "Created route #{route.name} with #{route.getPositionsCount} positions."
             end
 
           ensure

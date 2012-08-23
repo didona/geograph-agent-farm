@@ -45,9 +45,6 @@ module Behaviors
     private
 
     def geo_post_object opts
-      #rome
-      #lat = (rand * 0.196) + 41.794
-      #lon = (rand * 0.351) + 12.314
 
       lat = opts[:latitude].to_s.to_f+(0.5-rand) * 0.05
       lon = opts[:longitude].to_s.to_f+(0.5-rand) * 0.05
@@ -59,10 +56,9 @@ module Behaviors
           # rome
           :latitude => lat,
           :longitude => lon,
-          # world
-          #      :latitude => ((rand * 180) - 90),
-          #      :longitude => ((rand * 360) - 180),
-          :data => {:type => @agent.type, :body => "Hello from agent #{@agent.oid}"},
+          :data => {
+            :type => "Post",
+            :body => "Post from Blogger\n, Coordinates <#{lon},#{lat}>"},
           :user => {:id => @agent.oid}
         }#.merge(opts)
       }

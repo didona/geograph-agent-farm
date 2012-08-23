@@ -83,7 +83,7 @@ class AgentGroupsController < ApplicationController
   def start
     agent_group = CloudTm::AgentGroup.where(:id => params[:id]).first
     # agent_group.update_attribute(:status, 'started')
-    Madmass.logger.info "STARTING AGENT GROUP #{agent_group.inspect}"
+    Madmass.logger.debug "STARTING AGENT GROUP #{agent_group.inspect}"
     agent_group.start if agent_group
     @agent_groups = CloudTm::AgentGroup.all
   end
@@ -131,13 +131,13 @@ class AgentGroupsController < ApplicationController
       delay = agent_group.delay
       type = agent_group.agents_type
       agent_group.getAgents.each do |agent|
-        Madmass.logger.info "Found agent in group: #{agent.inspect}"
+        Madmass.logger.debug "Found agent in group: #{agent.inspect}"
         agents_ids << agent.oid
       end
       #agent_group.boot #Starts a background tasks for each agent
     end
 
-    Madmass.logger.info "Starting #{agents_ids.size} simulations"
+    Madmass.logger.debug "Starting #{agents_ids.size} simulations"
 
     simulator_opts ={
       :tx => false,
@@ -146,7 +146,7 @@ class AgentGroupsController < ApplicationController
     }
 
     scatter_time = 15 #ms
-    Madmass.logger.info("Type: #{type}")
+    Madmass.logger.debug("Type: #{type}")
 
     klass_name = "CloudTm::#{type}"
 
@@ -160,7 +160,7 @@ class AgentGroupsController < ApplicationController
          :step => delay,
          :agent_group_id => @agent_group_id}
       )
-      Madmass.logger.info("******* Agent(group:#{@agent_group_id} -- id:#{agent_id}) launched *******")
+      Madmass.logger.debug("******* Agent(group:#{@agent_group_id} -- id:#{agent_id}) launched *******")
       java.lang.Thread.sleep(rand*scatter_time);
     end
   end

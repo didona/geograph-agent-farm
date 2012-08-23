@@ -61,7 +61,7 @@ GeographGenerator::Application.configure do
 
   # See everything in the log (default is :info)
   #Available levels :debug, :info, :warn, :error, and :fatal
-  config.log_level = :debug
+  config.log_level = :info
 
 
   # Use a different logger for distributed setups

@@ -76,7 +76,10 @@ module Behaviors
         :cmd => "madmass::action::remote",
         :data => {
           :cmd => 'move',
-          :data => {:type => @agent.type, :body => "Geo Object moved at #{Time.now}"},
+          :data => {
+            :type => "Mover",
+            :body => "Mover with position\n <#{opts[:latitude].to_s}, #{opts[:longitude].to_s}>"
+          },
           :sync => true,
           :user => {:id => @agent.oid}
         }.merge(opts)

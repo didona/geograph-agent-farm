@@ -67,7 +67,6 @@ module Behaviors
           :latitude => lat,
           :longitude => lon,
           :user => {:id => @agent.oid}
-          #:remote => true
         }
       }
       return result

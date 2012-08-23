@@ -102,13 +102,13 @@ module CloudTm
     def add_agent(agent_attrs = {})
       agent_klass = "CloudTm::#{self.agents_type}".constantize
       agent_attributes = agent_attrs.merge(:type => self.agents_type)
-      Madmass.logger.info "Agent attributes: #{agent_attributes}"
+      Madmass.logger.debug "Agent attributes: #{agent_attributes}"
       agent = agent_klass.create(agent_attributes)
       agent.status = 'stopped'
 
-      Madmass.logger.info "CREATED #{agent.inspect}"
+      Madmass.logger.debug "CREATED #{agent.inspect}"
       addAgents(agent)
-      Madmass.logger.info "#{agent.inspect} ADDED to group #{self.inspect}"
+      Madmass.logger.debug "#{agent.inspect} ADDED to group #{self.inspect}"
     end
 
     def modify(agent_count, attrs)
@@ -171,7 +171,7 @@ module CloudTm
     def undertaker
       Thread.new do
         #Destroy groups' data *ONLY* after all agents have shutdown!
-        Madmass.logger.info "Undertaker started"
+        Madmass.logger.debug "Undertaker started"
         all_agents = nil
         dead_agents = nil
         begin
@@ -183,7 +183,7 @@ module CloudTm
             tmp = agents.find_all { |a| a.status == 'dead' }
             zombies = agents.find_all { |a| a.status == 'zombie' }
             dead_agents = tmp.size
-            Madmass.logger.info("Undertaker: alive #{all_agents} -- zombies #{zombies.size} -- dead--> #{dead_agents}")
+            Madmass.logger.debug("Undertaker: alive #{all_agents} -- zombies #{zombies.size} -- dead--> #{dead_agents}")
             #Madmass.logger.info("Undertaker: agents are #{agents.size} of which dead #{dead_agents.size}")
             #end
           end
@@ -197,7 +197,7 @@ module CloudTm
         #end
 
 
-        Madmass.logger.info "******* Agent group burried! *********"
+        Madmass.logger.debug "******* Agent group burried! *********"
       end
     end
   end
