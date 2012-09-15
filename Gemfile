@@ -47,7 +47,7 @@ gem 'activerecord-jdbcmysql-adapter'
 #gem "jdbc-sqlite3"
 
 gem "devise", '< 2.0.0'
-gem 'nokogiri'
+gem 'nokogiri', '1.5.0'
 #gem 'rcov', '0.9.11'
 
 #group :development, :test do
