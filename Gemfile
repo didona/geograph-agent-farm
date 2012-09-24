@@ -17,7 +17,7 @@ group :assets do
 end
 
 group :development, :test do
-   gem 'torquebox-server', '= 2.0.3'
+   gem 'torquebox-server', '= 2.1.1'
 end
 
 gem 'jquery-rails', '2.0.2'

@@ -23,9 +23,18 @@ queues:
 #      host: localhost
 #      port: 5445
 
-tasks:
-  Backgroundable:
-    concurrency: 8
+#tasks:
+#  Backgroundable:
+#    concurrency: 1000
+
 
 pooling:
-  messaging: shared
+  messaging:
+    type: shared
+    lazy: false
+  web:
+    type: shared
+    lazy: false
+  jobs:
+    type: shared
+    lazy: false
