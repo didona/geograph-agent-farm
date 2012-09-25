@@ -32,17 +32,21 @@ class AgentGroupsController < ApplicationController
 
 
   before_filter :authenticate_agent
-  around_filter :tx_monitor, :except => :boot
-  after_filter :boot, :only => [:create]
+  #around_filter :tx_monitor, :except => :boot
+  #append_after_filter :boot, :only => [:create]
+
+  around_filter :controller_monitor
+
   respond_to :html, :js
 
   def index
     respond_with(@agent_groups = CloudTm::AgentGroup.all)
   end
 
+
+
   # It creates a group of idle agents.
   def create
-
     #FIXME: Should be loaded at boot
     CloudTm::Route.load_routes
 
@@ -105,39 +109,41 @@ class AgentGroupsController < ApplicationController
   private
 
   def boot
-    agents_ids = []
-    delay = 5
-    type = nil
+    Madmass.logger.debug "############################# BOOT START #############################"
 
-    tx_monitor do
+    retries = 0
 
-      retries = 0
-      begin
+    begin
+      agents_ids = []
+      delay = 5
+      type = nil
+      tx_monitor do
         agent_group = CloudTm::AgentGroup.find(@agent_group_id)
         unless agent_group
           message = "Did not find agent group with id (#{@agent_group_id})"
           Madmass.logger.error message
           raise Madmass::Errors::WrongInputError.new message
         end
-      rescue Madmass::Errors::WrongInputError => ex
-        raise Madmass::Errors::CatastrophicError.new "Did not find agent group #{@agent_group_id}, retries limit reached" if retries > 4
-        Madmass.logger.error "retrying #{retries}-th time..."
-        retries +=1
-        java.lang.sleep(100**retries)
-        retry
-      end
 
-
-      delay = agent_group.delay
-      type = agent_group.agents_type
-      agent_group.getAgents.each do |agent|
-        Madmass.logger.debug "Found agent in group: #{agent.inspect}"
-        agents_ids << agent.oid
+        delay = agent_group.delay
+        type = agent_group.agents_type
+        agent_group.getAgents.each do |agent|
+          Madmass.logger.debug "Found agent in group: #{agent.inspect}"
+          agents_ids << agent.oid
+        end
+        Madmass.logger.info "Agent group and agents found"
+        #agent_group.boot #Starts a background tasks for each agent
       end
-      #agent_group.boot #Starts a background tasks for each agent
+    rescue Madmass::Errors::WrongInputError => ex
+      raise Madmass::Errors::CatastrophicError.new "Did not find agent group #{@agent_group_id}, retries limit reached" if retries > 10
+      Madmass.logger.error "retrying #{retries}-th time..."
+      retries +=1
+      java.lang.sleep((10*retries)**2)
+      retry
     end
 
-    Madmass.logger.debug "Starting #{agents_ids.size} simulations"
+
+    Madmass.logger.info "Starting #{agents_ids.size} simulations"
 
     simulator_opts ={
       :tx => false,
@@ -163,5 +169,14 @@ class AgentGroupsController < ApplicationController
       Madmass.logger.debug("******* Agent(group:#{@agent_group_id} -- id:#{agent_id}) launched *******")
       java.lang.Thread.sleep(rand*scatter_time);
     end
+    Madmass.logger.debug "############################# BOOT END #############################"
+  end
+
+  def controller_monitor
+    tx_monitor do
+      yield
+    end
+    boot if self.action_name == 'create'
+    return
   end
 end
