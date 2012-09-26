@@ -61,7 +61,7 @@ class AgentGroupsController < ApplicationController
     @agent_group_id = @agent_group.id
     Madmass.logger.debug "CREATE: Retrieving all groups"
     @agent_groups = CloudTm::AgentGroup.all
-    respond_with(@agent_group)
+    #respond_with(@agent_group)
   end
 
 

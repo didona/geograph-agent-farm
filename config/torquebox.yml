@@ -31,10 +31,10 @@ queues:
 pooling:
   messaging:
     type: shared
-    lazy: false
+    lazy: true
   web:
     type: shared
-    lazy: false
+    lazy: true
   jobs:
     type: shared
-    lazy: false
+    lazy: true
