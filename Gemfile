@@ -36,7 +36,7 @@ gem 'jquery-rails', '2.0.2'
 
 gem "jruby-openssl"
 
-gem "madmass",  :git => "git://github.com/algorithmica/madmass.git"
+gem "madmass",  :git => "git://github.com/algorithmica/madmass.git", :branch => "dmlv2"
 #gem "madmass", :path => "~/dev/madmass"
 
 gem "jdbc-mysql"
