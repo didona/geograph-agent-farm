@@ -31,7 +31,7 @@ GeographGenerator::Application.routes.draw do
   #match 'commands', :to => 'commands#execute', :via => [:post]
   match 'console', :to => 'farm#console', :via => [:get]
 
-  resources :agent_groups do
+  resources :agent_groups, :id => /.+/ do
     member do
       post 'start'
       post 'stop'
