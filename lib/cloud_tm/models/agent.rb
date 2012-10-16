@@ -38,14 +38,14 @@ module CloudTm
       group = CloudTm::AgentGroup.find(opts[:agent_group_id])
       unless group
         Madmass.logger.error "No agent group with id: #{opts[:agent_group_id]} found"
-        Madmass.logger.error "All groups are: #{CloudTm::AgentGroup.all.map(&:oid)}"
+        Madmass.logger.error "All groups are: #{CloudTm::AgentGroup.all.map(&:getExternalId)}"
         return nil
       end
 
      #Madmass.logger.info "Found group, looking for agent #{opts[:agent_id]}"
       group.getAgents.each do |agent|
         #Madmass.logger.info("Comparing #{agent.oid} == #{opts[:agent_id]} is #{agent.oid == opts[:agent_id]}")
-        return agent if(agent.oid == opts[:agent_id])
+        return agent if(agent.getExternalId == opts[:agent_id])
       end
       Madmass.logger.error "Agent (#{opts[:agent_id]}) not found"
       return nil
@@ -67,7 +67,7 @@ module CloudTm
 
 
     def inspect
-      "<Agent(#{self.oid}), agent_type: '#{self.type}', status: '#{self.status}'>"
+      "<Agent(#{self.getExternalId}), agent_type: '#{self.type}', status: '#{self.status}'>"
     end
 
 

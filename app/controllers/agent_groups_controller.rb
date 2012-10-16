@@ -129,7 +129,7 @@ class AgentGroupsController < ApplicationController
         type = agent_group.agents_type
         agent_group.getAgents.each do |agent|
           Madmass.logger.debug "Found agent in group: #{agent.inspect}"
-          agents_ids << agent.oid
+          agents_ids << agent.getExternalId
         end
         Madmass.logger.info "Agent group and agents found"
         #agent_group.boot #Starts a background tasks for each agent

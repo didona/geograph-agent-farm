@@ -5,9 +5,9 @@
 <%= @agent_groups.each do |group| %>
 
   <h2>Group <%= group.name %></h2>
-  <h3>Group id: <%= group.oid %></h3>
+  <h3>Group id: <%= group.getExternalId %></h3>
 
-  <table id="<%= group.oid %>" class="tablesorter">
+  <table id="<%= group.getExternalId %>" class="tablesorter">
     <thead>
     <tr>
       <th>Agent Id</th>
@@ -23,11 +23,11 @@
     <%= group.getAgents.each do |agent| %>
 
       <tr>
-        <td><%= agent.oid %> </td>
+        <td><%= agent.getExternalId %> </td>
         <td><%= agent.type %></td>
         <td><%= agent.status %></td>
         <td><%= group.delay %></td>
-        <td id="last-execution-<%=agent.oid%>">
+        <td id="last-execution-<%=agent.getExternalId%>">
           <%if(agent.execution_time and (agent.execution_time >= 0))%>
           <%= agent.execution_time %>
           <%else%>

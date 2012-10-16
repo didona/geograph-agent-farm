@@ -61,7 +61,7 @@ module CloudTm
     end
 
     def id #FIXME
-      oid
+      getExternalId
     end
 
     def update_attributes attrs = {}

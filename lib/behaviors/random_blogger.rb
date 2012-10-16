@@ -59,7 +59,7 @@ module Behaviors
           :data => {
             :type => "Post",
             :body => "Post from Blogger\n, Coordinates <#{lon},#{lat}>"},
-          :user => {:id => @agent.oid}
+          :user => {:id => @agent.getExternalId}
         }#.merge(opts)
       }
 

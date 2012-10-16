@@ -81,7 +81,7 @@ module Behaviors
             :body => "Mover with position\n <#{opts[:latitude].to_s}, #{opts[:longitude].to_s}>"
           },
           :sync => true,
-          :user => {:id => @agent.oid}
+          :user => {:id => @agent.getExternalId}
         }.merge(opts)
       }
     end
@@ -92,7 +92,7 @@ module Behaviors
         :data => {
           :cmd => 'destroy_agent',
           :sync => true,
-          :user => {:id => @agent.oid}
+          :user => {:id => @agent.getExternalId}
         }.merge(opts)
       }
     end

@@ -134,7 +134,7 @@ module CloudTm
       def find(oid)
         _oid = oid
         all.each do |agent_group|
-          return agent_group if agent_group.oid == _oid
+          return agent_group if agent_group.getExternalId == _oid
         end
         return nil
       end

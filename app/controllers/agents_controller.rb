@@ -45,7 +45,7 @@ class AgentsController < ApplicationController
       @last_execution_times = {}
       agent_groups.each do |group|
         group.getAgents.each do |agent|
-          @last_execution_times[agent.oid] = {
+          @last_execution_times[agent.getExternalId] = {
             :delay => group.delay,
             :last_execution => (agent.execution_time ? agent.execution_time : -1)
           }
