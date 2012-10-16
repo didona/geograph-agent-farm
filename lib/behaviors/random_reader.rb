@@ -66,7 +66,7 @@ module Behaviors
           :cmd => 'read_post',
           :latitude => lat,
           :longitude => lon,
-          :user => {:id => @agent..getExternalId}
+          :user => {:id => @agent.getExternalId}
         }
       }
       return result
