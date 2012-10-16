@@ -35,7 +35,7 @@ module CloudTm
     extend CloudTm::RouteLoader
 
     def destroy
-      manager.getRoot.removeRoutes(self)
+      FenixFramework.getDomainRoot.getApp.removeRoutes(self)
     end
 
     class << self
@@ -50,14 +50,14 @@ module CloudTm
 
       def create_with_root attrs = {}, &block
         create_without_root(attrs) do |instance|
-          instance.set_root manager.getRoot
+          instance.set_root FenixFramework.getDomainRoot.getApp
         end
       end
 
       alias_method_chain :create, :root
 
       def all
-        manager.getRoot.getRoutes
+        FenixFramework.getDomainRoot.getApp.getRoutes
       end
 
     end

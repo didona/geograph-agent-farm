@@ -96,7 +96,7 @@ module CloudTm
 
 
     def destroy
-      manager.getRoot.removeAgentGroups(self)
+      FenixFramework.getDomainRoot.getApp.removeAgentGroups(self)
     end
 
     def add_agent(agent_attrs = {})
@@ -141,7 +141,7 @@ module CloudTm
 
       def create_with_root attrs = {}, &block
         create_without_root(attrs) do |instance|
-          instance.set_root manager.getRoot
+          instance.set_root FenixFramework.getDomainRoot().getApp
         end
       end
 
@@ -151,7 +151,7 @@ module CloudTm
         #Madmass.logger.info("IN ALL  Manager is #{manager}")
         # Madmass.logger.info("IN ALL  Root is #{manager.getRoot}")
         # Madmass.logger.info("IN ALL  Root oid is #{manager.getRoot.oid}") if manager.getRoot
-        manager.getRoot.getAgentGroups
+        FenixFramework.getDomainRoot.getApp.getAgentGroups
       end
 
       #
@@ -169,13 +169,13 @@ module CloudTm
 
     #Cleans up the group when all agents are dead
     def undertaker
-      Thread.new do
+      #Thread.new do
         #Destroy groups' data *ONLY* after all agents have shutdown!
         Madmass.logger.debug "Undertaker started"
         all_agents = nil
         dead_agents = nil
         begin
-          java.lang.Thread.sleep(delay/2)
+          java.lang.Thread.sleep(delay/2.0)
           #TorqueBox::transaction(:requires_new => true) do
           tx_monitor do
             agents=getAgents
@@ -198,7 +198,7 @@ module CloudTm
 
 
         Madmass.logger.debug "******* Agent group burried! *********"
-      end
+     # end
     end
   end
 end

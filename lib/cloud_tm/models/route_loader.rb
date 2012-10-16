@@ -32,7 +32,7 @@ module CloudTm
     include Madmass::Transaction::TxMonitor
 
     def load_routes(gpx_path = nil)
-      unless manager.getRoot.hasAnyRoutes
+      unless FenixFramework.getDomainRoot.getApp.hasAnyRoutes
         #Route.destroy_all
         gpx_path ||= Dir.glob(File.join(Rails.root, 'vendor', 'gpxs', '*.gpx'))
         gpx_path.each do |gpx|

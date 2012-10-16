@@ -8,7 +8,7 @@ rm -rf ${JBOSS_HOME}/standalone/deployments/*
 echo "" >  ~/dev/geograph/log/production.log
 echo "" >  ~/dev/geograph-agent-farm/log/production.log
 
-jruby -S backstage deploy
+#jruby -S backstage deploy
 
 cd ~/dev/geograph && RAILS_ENV=production jruby -S bundle exec rake torquebox:deploy
 cd ~/dev/geograph-agent-farm && RAILS_ENV=production jruby -S bundle exec rake torquebox:deploy["/farm"]
