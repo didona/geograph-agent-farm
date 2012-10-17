@@ -40,12 +40,8 @@ module CloudTm
 
     class << self
 
-      def find(oid)
-        _oid = oid
-        all.each do |route|
-          return route if route.oid == _oid
-        end
-        return nil
+      def find_by_id(oid)
+        FenixFramework.getDomainObject(id)
       end
 
       def create_with_root attrs = {}, &block

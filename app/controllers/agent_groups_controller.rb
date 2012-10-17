@@ -118,7 +118,7 @@ class AgentGroupsController < ApplicationController
       delay = 5
       type = nil
       tx_monitor do
-        agent_group = CloudTm::AgentGroup.find(@agent_group_id)
+        agent_group = CloudTm::AgentGroup.find_by_id(@agent_group_id)
         unless agent_group
           message = "Did not find agent group with id (#{@agent_group_id})"
           Madmass.logger.error message
