@@ -1,7 +1,7 @@
 # THIS IS AN AUTOMATICALLY GENERATED
 # DO NOT EDIT MANUALLY 
 
-        --- 
+---
 #:ws_adapter: Madmass::Comm::SockySender
 :ws_adapter: Madmass::Comm::JmsSender
 :host: madmass-node

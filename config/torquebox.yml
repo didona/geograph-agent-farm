@@ -38,3 +38,6 @@ pooling:
   jobs:
     type: shared
     lazy: true
+
+ruby:
+  version: 1.9

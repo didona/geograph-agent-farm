@@ -17,7 +17,8 @@ group :assets do
 end
 
 group :development, :test do
-   gem 'torquebox-server', '= 2.1.1'
+  gem 'torquebox'
+  gem 'torquebox-server'
 end
 
 gem 'jquery-rails', '2.0.2'
@@ -36,7 +37,7 @@ gem 'jquery-rails', '2.0.2'
 
 gem "jruby-openssl"
 
-gem "madmass",  :git => "git://github.com/algorithmica/madmass.git"
+gem "madmass", :git => "git://github.com/algorithmica/madmass.git"
 #gem "madmass", :path => "~/dev/madmass"
 
 gem "jdbc-mysql"

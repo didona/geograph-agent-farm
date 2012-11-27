@@ -22,3 +22,5 @@
 /Gemfile.lock
 /config/database.yml
 /lib/cloud_tm/old
+
+.rvmrc
