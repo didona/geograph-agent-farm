@@ -18,6 +18,7 @@ set :torquebox_home,    "/opt/torquebox/current"
 set :jboss_init_script, "/etc/init.d/jboss-as-standalone"
 #set :app_environment,   "RAILS_ENV: production" DOES NOT WORK!!!
 set :app_context,       "/farm"
+set :app_ruby_version,  '1.9'
 
 
 #Added by vittorio

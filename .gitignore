@@ -24,3 +24,26 @@
 /lib/cloud_tm/old
 
 .rvmrc
+
+
+fenix-framework-*.jar
+dml-maven-plugin*.jar
+dap-framework-*.jar
+
+old_rvmc
+
+lib/cloud_tm/jars/dml-maven-plugin-2.0-cloudtm-SNAPSHOT.jar
+
+lib/cloud_tm/jars/fenix-framework-adt-bplustree-2.0-cloudtm-SNAPSHOT.jar
+
+lib/cloud_tm/jars/fenix-framework-backend-infinispan-2.0-cloudtm-SNAPSHOT.jar
+
+lib/cloud_tm/jars/fenix-framework-bplustree-domain-object-2.0-cloudtm-SNAPSHOT.jar
+
+lib/cloud_tm/jars/fenix-framework-core-2.0-cloudtm-SNAPSHOT.jar
+
+lib/cloud_tm/jars/fenix-framework-dml-compiler-2.0-cloudtm-SNAPSHOT.jar
+
+lib/cloud_tm/jars/fenix-framework-indexes-2.0-cloudtm-SNAPSHOT.jar
+
+lib/cloud_tm/jars/fenix-framework-project-2.0-cloudtm-SNAPSHOT.jar
