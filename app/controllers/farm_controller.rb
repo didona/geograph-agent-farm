@@ -30,15 +30,16 @@
 class FarmController < ApplicationController
   before_filter :authenticate_agent
   respond_to :js, :html
+  #REMOVEME restore transact (instead of transact_def) HACK to test DEF
   around_filter :transact, :only => [:console]
-  
+
   def index
     @agent = Madmass.current_agent
   end
 
   def console
     @agent_groups = CloudTm::AgentGroup.all
-    @agent_groups.map(&:getAgents).flatten.each{|el| logger.debug el.inspect}
+    @agent_groups.map(&:getAgents).flatten.each { |el| logger.debug el.inspect }
     @agent_group = CloudTm::AgentGroup.new
   end
 
@@ -51,9 +52,54 @@ class FarmController < ApplicationController
 
   private
 
+  #REMOVEME HACK to test DEF
+  def transact_def
+    #GET CACHE
+    cache = get_ispn
+    puts("\n################# got this cache #{cache.class}\n")
+
+    #GET DistributedExecutorService (DES)
+    #https://docs.jboss.org/author/display/ISPN/Infinispan+Distributed+Execution+Framework
+    des = CloudTm::DefaultExecutorService.new(cache)
+    puts("\n################# got this des #{des.class}\n")
+    #EXECUTE transact on every node with DES
+    results = des.submitEverywhere DEFTask.new do
+      CloudTm::FenixFramework.getTransactionManager.withTransaction do
+        yield
+      end
+    end
+  end
+
   def transact
     CloudTm::FenixFramework.getTransactionManager.withTransaction do
       yield
     end
   end
+
+  #REMOVEME HACK to test DEF
+  def get_ispn
+    ispnBackEnd = CloudTm::FenixFramework.getConfig.getBackEnd;
+    ispnBackEnd.getInfinispanCache;
+  end
 end
+
+#MOVEME HACK to test DEF
+#FIXME BROKEN
+#Cannot do: https://groups.google.com/forum/#!topic/jruby-users/krk9iND6ERg/discussion
+=begin
+class DEFTask
+  java_implements java.util.Concurrent.Callable
+  java_implements java.io.Serializable
+
+  @@serialVersionUID = 3496135215525904755.0
+
+  def initialize(&block)
+    @work = block
+  end
+
+  def call
+    @work.call
+  end
+
+end
+=end

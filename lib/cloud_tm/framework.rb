@@ -71,6 +71,7 @@ end
 # TODO: make this step dynamic
 # Load domain models
 
+CloudTm::DefaultExecutorService = Java::OrgInfinispanDistexec::DefaultExecutorService
 CloudTm::AgentGroup = Java::ItAlgoGeographAgentfarmDomain::AgentGroup
 CloudTm::Agent = Java::ItAlgoGeographAgentfarmDomain::Agent
 CloudTm::BloggerAgent = Java::ItAlgoGeographAgentfarmDomain::BloggerAgent
