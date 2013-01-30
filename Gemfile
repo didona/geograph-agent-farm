@@ -17,7 +17,6 @@ group :assets do
 end
 
 group :development, :test do
-  gem 'torquebox'
   gem 'torquebox-server'
 end
 
