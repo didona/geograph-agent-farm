@@ -47,3 +47,5 @@ lib/cloud_tm/jars/fenix-framework-dml-compiler-2.0-cloudtm-SNAPSHOT.jar
 lib/cloud_tm/jars/fenix-framework-indexes-2.0-cloudtm-SNAPSHOT.jar
 
 lib/cloud_tm/jars/fenix-framework-project-2.0-cloudtm-SNAPSHOT.jar
+
+db/schema.rb

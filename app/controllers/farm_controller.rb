@@ -31,7 +31,7 @@ class FarmController < ApplicationController
   before_filter :authenticate_agent
   respond_to :js, :html
   #REMOVEME restore transact (instead of transact_def) HACK to test DEF
-  around_filter :transact, :only => [:console]
+  around_filter :transact_def, :only => [:console]
 
   def index
     @agent = Madmass.current_agent
@@ -63,11 +63,21 @@ class FarmController < ApplicationController
     des = CloudTm::DefaultExecutorService.new(cache)
     puts("\n################# got this des #{des.class}\n")
     #EXECUTE transact on every node with DES
-    results = des.submitEverywhere DEFTask.new do
+
+    task = CloudTm::DefTask.new("TEST")
+    puts("\n################# got this def task #{task.class}\n")
+    result = des.submitEverywhere(task)
+    puts("\n################# task submitted\n")
+
+=begin
+    result = des.submitEverywhere do
+
       CloudTm::FenixFramework.getTransactionManager.withTransaction do
         yield
       end
+
     end
+=end
   end
 
   def transact

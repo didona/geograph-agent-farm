@@ -39,6 +39,8 @@ gem "jruby-openssl"
 gem "madmass", :git => "git://github.com/algorithmica/madmass.git"
 #gem "madmass", :path => "~/dev/madmass"
 
+gem 'twitter-bootstrap-rails'
+
 gem "jdbc-mysql"
 gem 'activerecord-jdbcmysql-adapter'
 
