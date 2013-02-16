@@ -1,42 +1,124 @@
-<!-- a simple heading title -->
-<h1>Geograph Agent Farm</h1>
+<div class=" row-fluid">
 
+  <div class='span5 sandbox'>
+
+    <div class="row-fluid">
+      <div class="span7">
+        <h3>WORKLOAD SANDBOX</h3>
+      </div>
+    </div>
+
+
+    <div class="row-fluid">
+      <div class="input-prepend span9">
+        <%= button_tag "export to benchmark", :class => 'btn', :type => "button",
+                       :onclick => %Q{$.ajax({url: '#{add_static_profile_path}', type: 'PUT',data: {'duration': $(appendedInputButton).val()},
+                                              success: function(details){
+                                              $('#current_profile_details').html(details);
+                                              }
+                                              });}.html_safe %>
+        <input id="appendedInputButton" type="text" placeholder="with duration (in minutes)">
+      </div>
+      <div class="span2 btn-group">
+        <%= button_tag "new group", :class => 'btn btn-primary', :onclick => "newGroup();" %>
+      </div>
+    </div>
+
+    <br/>
+
+    <div class="row-fluid">
+      <div id='agent-groups' class="span12">
+        <%= render 'agent_groups/index' %>
+      </div>
+    </div>
+
+  </div>
+
+  <div class='span7 sandbox'>
+    <div class="row-fluid">
+      <div class="span12">
+        <h3>CURRENT BENCHMARK: <%= current_user.current_profile.name if current_user.current_profile %></h3>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <%= simple_form_for(@dynamic_profile, :html => {:class => 'input-prepend span5 btn-low'}) do |f| %>
+        <%= f.button :submit, 'create', {html: {class: "btn new-profile-btn", type: "button"}} %>
+        <%= f.input_field :name, placeholder: "benchmark name", html: {class: "span2", id: "appendedInputButton", type: "text"} %>
+      <% end %>
+      <div class="span2">
+        <h4>or select an</h4>
+      </div>
+      <div class="span4 btn-low">
+        <%#= form_for(current_user, :url => edit_user_registration_path(:id => current_user.id)) do |f| %>
+        <%= select_tag "current_profile_id", options_for_select(@profiles), :prompt => "existing benchmark",
+                       :onchange => "$.ajax({
+                   url: '#{update_profile_path}',
+                   type: 'PUT',
+                   data: {'current_profile_id': $(this).val()},
+                   success: function(details){
+                     $('#current_profile_details').html(details);
+                   }
+                 });"
+        %>
+
+        <%# end %>
+      </div>
+    </div>
+
+    <br/>
+
+
+    <div id="current_profile_details" class="row-fluid">
+      <%= render 'shared/profile_details' %>
+    </div>
+  </div>
+
+<%# '.form-horizontal', '.form-inline', '.form-search' or
+  '.form-vertical', %>
+
+
+</div>
+<!--
 <div id="container">
 
- <div id="buttons-container">
-  <div id="new-group-container">
-    <%= button_tag "new group", :id => 'new-group-button', :onclick => "newGroup();" %>
-  </div>
 
-  <div id="process-edges-container">
-    <%= button_tag "edges processor", :id => 'process-edges-button', :onclick => "chooseProcess();" %>
-  </div>
+  <div id="buttons-container">
+    <div id="new-group-container">
+      <%#= button_tag "new group", :id => 'new-group-button', :onclick => "newGroup();" %>
+    </div>
 
-  <div id="inspect-container">
-    <%= button_tag "inspect agents", :id => 'inspect', :onclick => "location.href='agents'" %>
+    <div id="process-edges-container">
+      <%#= button_tag "edges processor", :id => 'process-edges-button', :onclick => "chooseProcess();" %>
+    </div>
+
+    <div id="inspect-container">
+      <%#= button_tag "inspect agents", :id => 'inspect', :onclick => "location.href='agents'" %>
+    </div>
   </div>
- </div>
 
   <div id="agent-groups" class="agent-group-list">
-      <%= render 'agent_groups/index' %>
-    </div>
+    <%#= render 'agent_groups/index' %>
+  </div>
+
 </div>
+-->
 
 
 <div id="new-group" style="display: none;">
-  <%= form_for :agent_group, :url => agent_groups_path(@agent_group), :remote => true, :html => { :id => :new_agent_group } do |f| %>
+  <%= form_for :agent_group, :url => agent_groups_path(@agent_group), :remote => true, :html => {:id => :new_agent_group} do |f| %>
     <label for="name">name</label>
     <%= f.text_field :name, :class => "text ui-widget-content ui-corner-all" %>
-    <br />
+    <br/>
 
     <label for="type">agents type</label>
-    <%= f.select :agents_type, AGENT_TYPES.map{|at| [at.sub(/Agent$/, '').downcase, at]}, {}, :class => "ui-select" %>
-    <br /><br />
+    <%= f.select :agents_type, AGENT_TYPES.map { |at| [at.sub(/Agent$/, '').downcase, at] }, {}, :class => "ui-select" %>
+    <br/><br/>
 
     <label for="name">agents <span id="agents-selected-new">0</span></label>
     <%= hidden_field_tag 'agent_group[agents]' %>
     <div class="agents-slider slider" rel="new"></div>
-    <br />
+    <br/>
 
     <label for="name">delay <span id="delay-selected-new">0</span> (ms)</label>
     <%= f.hidden_field :delay %>
@@ -47,17 +129,14 @@
 </div>
 
 
-
-
-
 <div id="edges-processor" style="display: none;">
-  
-    <label for="process-edges" id="label-process-edges">process type</label>
-    <%= select(:process, :edges, ['none', 'job', 'action'], {:selected => 'none'}, {:class => 'ui-select'}) %>
-    <br /><br />
 
-    <label for="name">distance <span id="distance-selected-new">0</span> (mt)</label>
-    <%= hidden_field_tag "process[distance]" %>
-    <div class="distance-slider slider" rel="new"></div>
-  
+  <label for="process-edges" id="label-process-edges">process type</label>
+  <%= select(:process, :edges, ['none', 'job', 'action'], {:selected => 'none'}, {:class => 'ui-select'}) %>
+  <br/><br/>
+
+  <label for="name">distance <span id="distance-selected-new">0</span> (mt)</label>
+  <%= hidden_field_tag "process[distance]" %>
+  <div class="distance-slider slider" rel="new"></div>
+
 </div>

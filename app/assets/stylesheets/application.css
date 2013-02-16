@@ -6,10 +6,11 @@
  *= require vendor
  *= require_tree . 
 */
+/*
 body {
   font-family: arial, verdana ,sans-serif
 }
 
-/*td {
+td {
   font-weight: bold;
 }*/

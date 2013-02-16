@@ -29,7 +29,7 @@
 
 GeographGenerator::Application.routes.draw do
   #match 'commands', :to => 'commands#execute', :via => [:post]
-  match 'console', :to => 'farm#console', :via => [:get]
+  match 'console', :to => 'farm#console', :via => :get, :as => :console
 
   resources :agent_groups, :id => /.+/ do
     member do
@@ -38,6 +38,8 @@ GeographGenerator::Application.routes.draw do
       post 'pause'
     end
   end
+
+  resources :dynamic_profiles, :static_profiles
 
   resources :farm do
     member do
@@ -50,12 +52,18 @@ GeographGenerator::Application.routes.draw do
       get "refresh_time"
     end
   end
-  
-  devise_for :users
+
+  match 'update_profile' => "farm#update_profile"
+  match 'add_static_profile' => "farm#add_static_profile"
+
+  devise_for :users, :path_prefix => 'my'
+  resources :users
 
   mount Madmass::Engine => '/madmass', :as => 'madmass_engine'
 
   root :to => 'farm#console'
+
+  match 'benchmark', :to => 'farm#benchmark', :via => :get, :as => :benchmark
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

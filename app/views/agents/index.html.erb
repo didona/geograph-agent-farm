@@ -1,13 +1,8 @@
-<h1>Agents Monitor</h1>
-
-
 
 <%= @agent_groups.each do |group| %>
 
-  <h2>Group <%= group.name %></h2>
-  <h3>Group id: <%= group.getExternalId %></h3>
-
-  <table id="<%= group.getExternalId %>" class="tablesorter">
+  <h4>Group <%= group.name %> (id: <%= group.getExternalId %>)</h4>
+  <table id="<%= group.getExternalId %>" class="table table-striped">
     <thead>
     <tr>
       <th>Agent Id</th>

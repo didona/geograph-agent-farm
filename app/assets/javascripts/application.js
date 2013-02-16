@@ -6,17 +6,42 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require jquery-ui-1.8.16.custom.min
 //= require jtable
 //= require jquery.blockUI
 //= require jquery.tablesorter.min
+
+
+$(document).ready(function() {
+  /*menu handler*/
+  $(function(){
+    function stripTrailingSlash(str) {
+      if(str.substr(-1) == '/') {
+        return str.substr(0, str.length - 1);
+      }
+      return str;
+    }
+
+    var url = window.location.pathname;
+    var activePage = stripTrailingSlash(url);
+
+    $('.nav li a').each(function(){
+      var currentPage = stripTrailingSlash($(this).attr('href'));
+
+      if (activePage == currentPage) {
+        $(this).parent().addClass('active');
+      }
+    });
+  });
+});
 
 $(window).load(function() {
   $('#new-group-button').button();
   $('#process-edges-button').button();
   $('#inspect').button();
 
-  $('#new-group-button').ajaxStart(function(){
+  $('#new-group-button').ajaxStart(function() {
     $.blockUI({ css: {
       border: 'none',
       padding: '15px',
@@ -28,7 +53,7 @@ $(window).load(function() {
     } });
   });
 
-  $('#new-group-button').ajaxStop(function(){
+  $('#new-group-button').ajaxStop(function() {
     $.unblockUI();
   });
 
@@ -80,7 +105,7 @@ function loadSliders() {
     }
   });
 
-  
+
   $('.distance-slider').slider({
     min: 0,
     max: 100000,
@@ -102,10 +127,10 @@ function loadSliders() {
       distance.attr('value', ui.value);
     }
   });
-  
+
 }
 
-function newGroup(){
+function newGroup() {
   $('.delay-slider').slider("value", $('#agent_group_delay').val());
   $('.agents-slider').slider("value", $('#agent_group_agents').val());
   $('#new-group').dialog({
@@ -113,9 +138,9 @@ function newGroup(){
     height: 420,
     width: 450,
     buttons: {
-      "create": function(){
-        $( '#new_agent_group' ).submit();
-        $( this ).dialog( "close" );
+      "create": function() {
+        $('#new_agent_group').submit();
+        $(this).dialog("close");
       }
     }
   });
@@ -127,10 +152,10 @@ function editGroup(group) {
     height: 420,
     width: 450,
     buttons: {
-      "update": function(){
-        $( '#edit-agent-group-' + group['id'] ).submit();
-        $( this ).dialog( "destroy" );
-        $( this ).empty().remove();
+      "update": function() {
+        $('#edit-agent-group-' + group['id']).submit();
+        $(this).dialog("destroy");
+        $(this).empty().remove();
       }
     }
   });
@@ -189,7 +214,7 @@ function chooseProcess() {
     height: 300,
     width: 450,
     buttons: {
-      "set": function(){
+      "set": function() {
         //$( '#new_agent_group' ).submit();
         $.ajax({
           url: 'farm/' + $('#process_edges').val() + '/choose_process',
@@ -197,7 +222,7 @@ function chooseProcess() {
           type: 'POST',
           dataType: 'script'
         });
-        $( this ).dialog( "close" );
+        $(this).dialog("close");
       }
     }
   });

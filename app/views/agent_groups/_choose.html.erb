@@ -1,5 +1,17 @@
 <% agent_group.possible_actions.each do |action| %>
   <%= button_tag action, :class => "button-action", :onclick => "#{action}Group(#{agent_group.to_json});" do %>
-    <%= image_tag "#{action}.jpg", :border => 0, :title => action %>
+    <%#= image_tag "#{action}.jpg", :border => 0, :title => action %>
+    <% case action %>
+    <% when 'start' %>
+      <i class="icon-play"></i>
+    <% when 'stop' %>
+      <i class="icon-stop"></i>
+    <% when 'destroy' %>
+      <i class="icon-eject"></i>
+    <% when 'pause' %>
+      <i class="icon-pause"></i>
+    <% else %>
+      <i class=" icon-warning-sign"></i> Error!
+    <% end %>
   <% end %>
 <% end %>

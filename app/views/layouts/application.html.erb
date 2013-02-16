@@ -7,8 +7,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="container">
-  <% render 'shared/header' %>
+<div class="container-fluid">
+  <%= render 'shared/header' %>
+  <%= bootstrap_flash %>
   <%= yield %>
 </div>
 </body>

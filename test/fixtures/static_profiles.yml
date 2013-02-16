@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  duration: 1
+  dynamic_profile_id: 1
+  position: 1
+
+two:
+  duration: 1
+  dynamic_profile_id: 1
+  position: 1

@@ -1,51 +1,48 @@
-<table class="jtable">
+<table class="table table-striped">
   <thead>
   <tr>
-    <th class="hcol1">Name</th>
-    <th class="hcol2">Agents</th>
-    <th class="hcol3">Delay (msec)</th>
-    <th class="hcol4">Status</th>
-    <th class="hcol5">Actions</th>
-    <th class="hcol6">Running</th>
-    <th class="hcol7">Stopped</th>
-    <th class="hcol8">Paused</th>
-    <th class="hcol9">Zombies</th>
-    <th class="hcol10">Dead</th>
+    <th>simulator</th>
+    <th>threads</th>
+    <th>sleep (msec)</th>
+    <th>status</th>
+    <th>actions</th>
+
   </tr>
   </thead>
   <tbody>
   <% @agent_groups.each do |agent_group| %>
     <tr>
-      <td class="bcol1">
+      <td>
         <% unless agent_group.started? %>
-          <%= link_to agent_group.name, 'javascript:void(0);', :onclick => "editGroup(#{agent_group.to_json});" %>
+          <%= link_to agent_group.agents_type, 'javascript:void(0);', :onclick => "editGroup(#{agent_group.to_json});" %>
         <% else %>
-          <%= agent_group.name %>
+          <%= agent_group.agents_type %>
         <% end %>
       </td>
-      <td class="bcol2"><%= agent_group.agents.size %></td>
-      <td class="bcol3"><%= agent_group.delay %></td>
-      <td class="bcol4 status-<%= agent_group.status %>"><%= agent_group.status %></td>
-      <td class="bcol5">
+      <td><%= agent_group.agents.size %></td>
+      <td><%= agent_group.delay %></td>
+      <td class="status-<%= agent_group.status %>"><%= agent_group.status %></td>
+      <td>
         <%= render 'agent_groups/choose', :agent_group => agent_group %>
       </td>
-      <td class="bcol6">
-        <%= agent_group.agents.select{|agent|agent.status == "running"}.size %>
+      <!--
+      <td>
+        <%#= agent_group.agents.select { |agent| agent.status == "running" }.size %>
       </td>
-      <td class="bcol7">
-        <%= agent_group.agents.select{|agent|agent.status == "stopped"}.size %>
+      <td>
+        <%#= agent_group.agents.select { |agent| agent.status == "stopped" }.size %>
       </td>
-      <td class="bcol8">
-        <%= agent_group.agents.select{|agent|agent.status == "paused"}.size %>
+      <td>
+        <%#= agent_group.agents.select { |agent| agent.status == "paused" }.size %>
       </td>
-      <td class="bcol9">
-        <%= agent_group.agents.select{|agent|agent.status == "zombie"}.size %>
+      <td>
+        <%#= agent_group.agents.select { |agent| agent.status == "zombie" }.size %>
       </td>
-      <td class="bcol10">
-        <%= agent_group.agents.select{|agent|agent.status == "dead"}.size %>
+      <td>
+        <%#= agent_group.agents.select { |agent| agent.status == "dead" }.size %>
       </td>
     </tr>
-
+-->
     <div id="edit-group-<%= agent_group.id %>" style="display: none;">
       <%= form_for(:agent_group, :url => agent_group_path(agent_group.id), :remote => true, :method => :put, :html => {:id => "edit-agent-group-#{agent_group.id}"}) do |f| %>
         <label for="name">name</label>
@@ -71,3 +68,4 @@
   <% end %>
   </tbody>
 </table>
+
