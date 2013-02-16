@@ -10,7 +10,7 @@
   </tr>
   </thead>
   <tbody>
-  <% @agent_groups.each do |agent_group| %>
+  <% (@agent_groups || []).each do |agent_group| %>
     <tr>
       <td>
         <% unless agent_group.started? %>

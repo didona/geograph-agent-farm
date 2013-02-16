@@ -3,24 +3,25 @@
   <div class='span5 sandbox'>
 
     <div class="row-fluid">
-      <div class="span7">
+      <div class="span12">
         <h3>WORKLOAD SANDBOX</h3>
       </div>
     </div>
 
 
     <div class="row-fluid">
-      <div class="input-prepend span9">
-        <%= button_tag "export to benchmark", :class => 'btn', :type => "button",
+      <div class="span2 btn-group">
+        <%= button_tag "new group", :class => 'btn btn-primary', :onclick => "newGroup();" %>
+      </div>
+
+      <div class="input-prepend offset1 span9">
+        <%= button_tag "to benchmark", :class => 'btn', :type => "button",
                        :onclick => %Q{$.ajax({url: '#{add_static_profile_path}', type: 'PUT',data: {'duration': $(appendedInputButton).val()},
                                               success: function(details){
                                               $('#current_profile_details').html(details);
                                               }
                                               });}.html_safe %>
-        <input id="appendedInputButton" type="text" placeholder="with duration (in minutes)">
-      </div>
-      <div class="span2 btn-group">
-        <%= button_tag "new group", :class => 'btn btn-primary', :onclick => "newGroup();" %>
+        <input id="appendedInputButton" class="span6" type="text" placeholder="with duration (in minutes)">
       </div>
     </div>
 
@@ -37,7 +38,7 @@
   <div class='span7 sandbox'>
     <div class="row-fluid">
       <div class="span12">
-        <h3>CURRENT BENCHMARK: <%= current_user.current_profile.name if current_user.current_profile %></h3>
+        <h3>BENCHMARKS</h3>
       </div>
     </div>
 
@@ -65,9 +66,6 @@
         <%# end %>
       </div>
     </div>
-
-    <br/>
-
 
     <div id="current_profile_details" class="row-fluid">
       <%= render 'shared/profile_details' %>

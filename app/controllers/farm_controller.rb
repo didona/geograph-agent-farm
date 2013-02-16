@@ -38,10 +38,17 @@ class FarmController < ApplicationController
   end
 
   def update_profile
-      current_user.current_profile = DynamicProfile.find_by_id params[:current_profile_id]
-      current_user.save!
-      Rails.logger.info("updating profile #{params[:current_profile_id]}")
-      render :layout => false
+    current_user.current_profile = DynamicProfile.find_by_id params[:current_profile_id]
+    current_user.save!
+    Rails.logger.info("updating profile #{params[:current_profile_id]}")
+    render :layout => false
+  end
+
+  def delete_profile
+    current_user.current_profile.delete if current_user.current_profile
+    current_user.current_profile = nil
+    current_user.save!
+    render :layout => false
   end
 
   def benchmark
@@ -52,9 +59,16 @@ class FarmController < ApplicationController
 
   def add_static_profile
     @agent_groups = CloudTm::AgentGroup.all
-    static_profile = StaticProfile.create(:duration => params[:duration] )
-    static_profile.dynamic_profile_id = current_user.current_profile_id
-    static_profile.move_to_bottom
+    @static_profile = StaticProfile.create(:duration => params[:duration])
+    @static_profile.dynamic_profile_id = current_user.current_profile_id
+    @static_profile.move_to_bottom
+
+    @agent_groups.each do |g|
+      group = AgentGroup.create(:simulator => g.agents_type, :sleep => g.delay, :threads => g.agents.size)
+      group.static_profile_id = @static_profile.id
+      group.save!
+    end
+    @static_profile.save!
     render :layout => false
     #current_user.current_profile.static_profiles << static_profile #FIXME ACTS AS LIST
   end
@@ -68,7 +82,9 @@ class FarmController < ApplicationController
 
     @user = current_user
     @profiles = []
-    @profiles << (current_user.current_profile ? [current_user.current_profile.name, current_user.current_profile.id] : ["select a benchmark", -1])
+    if current_user.current_profile
+      @profiles << [current_user.current_profile.name, current_user.current_profile.id]
+    end
     current_user.dynamic_profiles.each do |p|
       @profiles << [p.name, p.id] unless (p == current_user.current_profile)
     end

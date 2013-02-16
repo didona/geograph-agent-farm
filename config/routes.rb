@@ -54,6 +54,7 @@ GeographGenerator::Application.routes.draw do
   end
 
   match 'update_profile' => "farm#update_profile"
+  match 'delete_profile' => "farm#delete_profile"
   match 'add_static_profile' => "farm#add_static_profile"
 
   devise_for :users, :path_prefix => 'my'

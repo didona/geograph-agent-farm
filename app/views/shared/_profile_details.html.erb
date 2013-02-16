@@ -1,51 +1,49 @@
-<div class="accordion" id="accordion2">
-  <% current_user.current_profile.static_profiles.each do |p|%>
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <%="<a class='accordion-toggle' data-toggle='collapse' data-parent='#accordion2' href='#collapse#{p.position}'>".html_safe %>
-         <%= "profile #{p.position} (#{p.duration} min)".html_safe  %>
-      </a>
+<% if (current_user.current_profile) %>
+  <h5> CURRENT BENCHMARK: <%= current_user.current_profile.name %>
+    <%= button_tag "delete", :class => 'btn', :type => "button",
+                   :onclick => %Q{$.ajax({
+                                          url: '#{delete_profile_path}',
+                                          type: 'PUT',
+                                          success: function(details){
+                                            $('#current_profile_details').html(details);
+                                          }
+                                        });}.html_safe %>
+   </h5>
+
+  <div class="span10  accordion" id="accordion2">
+    <% if (current_user.current_profile.static_profiles) %>
+      <% current_user.current_profile.static_profiles.each do |p| %>
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <%= "<a class='accordion-toggle' data-toggle='collapse' data-parent='#accordion2' href='#collapse#{p.position}'>".html_safe %>
+            <%= "profile #{p.position} (#{p.duration} min)".html_safe %>
+            <i class="icon-trash"></i>
+            </a>
+          </div>
+          <%= "<div id='collapse#{p.position}' class='accordion-body collapse'>".html_safe %>
+          <div class="accordion-inner">
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th>simulator</th>
+                <th># threads</th>
+                <th>sleep (msec)</th>
+              </tr>
+              </thead>
+              <tbody>
+              <!-- FIXME -->
+              <% p.agent_groups.each do |agent_group| %>
+                <tr>
+                  <td><%= agent_group.simulator %></td>
+                  <td><%= agent_group.threads %></td>
+                  <td><%= agent_group.sleep %></td>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        </div>
+      <% end %>
+    <% end %>
     </div>
-    <%="<div id='collapse#{p.position}' class='accordion-body collapse'>".html_safe %>
-      <div class="accordion-inner">
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th>simulator</th>
-            <th>threads</th>
-            <th>sleep (msec)</th>
-            <th>status</th>
-            <th>actions</th>
-
-          </tr>
-          </thead>
-          <tbody>
-          <!-- FIXME -->
-          <% @agent_groups.each do |agent_group| %>
-            <tr>
-              <td>
-                <% unless agent_group.started? %>
-                  <%= link_to agent_group.agents_type, 'javascript:void(0);', :onclick => "editGroup(#{agent_group.to_json});" %>
-                <% else %>
-                  <%= agent_group.agents_type %>
-                <% end %>
-              </td>
-              <td><%= agent_group.agents.size %></td>
-              <td><%= agent_group.delay %></td>
-              <td class="status-<%= agent_group.status %>"><%= agent_group.status %></td>
-              <td>
-                <%= render 'agent_groups/choose', :agent_group => agent_group %>
-              </td>
-
-
-          <% end %>
-          </tbody>
-        </table>
-
-
-        more detail
-      </div>
-    </div>
-  </div>
-   <% end %>
-</div>
+<% end %>
