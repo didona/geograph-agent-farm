@@ -1,10 +1,10 @@
 
 development:
   adapter: mysql
-  xa: false
   database: agentfarm_development
   #host: 10.100.0.1
   host: localhost
+  xa: false
   username: root
   password: geograph
   encoding: utf8
@@ -20,9 +20,9 @@ test:
 
 production:
   adapter: mysql
-  xa: false
   database: agentfarm_production
   host: 10.100.0.1
+  xa: false
   username: geograph
   password: geograph_passwd
   encoding: utf8

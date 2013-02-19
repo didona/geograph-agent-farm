@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AgentGroupTest < ActiveSupport::TestCase
+class DynamicProfileControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end

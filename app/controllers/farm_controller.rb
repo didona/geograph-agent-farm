@@ -30,17 +30,65 @@
 class FarmController < ApplicationController
   before_filter :authenticate_agent
   respond_to :js, :html
-  #REMOVEME restore transact (instead of transact_def) HACK to test DEF
-  around_filter :transact_def, :only => [:console]
+
+  around_filter :transact, :only => [:console, :benchmark_tool]
 
   def index
     @agent = Madmass.current_agent
   end
 
+  def update_profile
+    current_user.current_profile = DynamicProfile.find_by_id params[:current_profile_id]
+    current_user.save!
+    Rails.logger.info("updating profile #{params[:current_profile_id]}")
+    render :layout => false
+  end
+
+  def delete_profile
+    current_user.current_profile.delete if current_user.current_profile
+    current_user.current_profile = nil
+    current_user.save!
+    render :layout => false
+  end
+
+  def benchmark
+    @agent_groups = CloudTm::AgentGroup.all
+    @agent_groups.map(&:getAgents).flatten.each { |el| logger.debug el.inspect }
+    @agent_group = CloudTm::AgentGroup.new
+  end
+
+  def add_static_profile
+    @agent_groups = CloudTm::AgentGroup.all
+    @static_profile = StaticProfile.create(:duration => params[:duration])
+    @static_profile.dynamic_profile_id = current_user.current_profile_id
+    @static_profile.move_to_bottom
+
+    @agent_groups.each do |g|
+      group = AgentGroup.create(:simulator => g.agents_type, :sleep => g.delay, :threads => g.agents.size)
+      group.static_profile_id = @static_profile.id
+      group.save!
+    end
+    @static_profile.save!
+    render :layout => false
+    #current_user.current_profile.static_profiles << static_profile #FIXME ACTS AS LIST
+  end
+
+
   def console
     @agent_groups = CloudTm::AgentGroup.all
     @agent_groups.map(&:getAgents).flatten.each { |el| logger.debug el.inspect }
     @agent_group = CloudTm::AgentGroup.new
+    @dynamic_profile = DynamicProfile.new
+
+    @user = current_user
+    @profiles = []
+    if current_user.current_profile
+      @profiles << [current_user.current_profile.name, current_user.current_profile.id]
+    end
+    current_user.dynamic_profiles.each do |p|
+      @profiles << [p.name, p.id] unless (p == current_user.current_profile)
+    end
+
   end
 
   def choose_process
@@ -52,33 +100,6 @@ class FarmController < ApplicationController
 
   private
 
-  #REMOVEME HACK to test DEF
-  def transact_def
-    #GET CACHE
-    cache = get_ispn
-    puts("\n################# got this cache #{cache.class}\n")
-
-    #GET DistributedExecutorService (DES)
-    #https://docs.jboss.org/author/display/ISPN/Infinispan+Distributed+Execution+Framework
-    des = CloudTm::DefaultExecutorService.new(cache)
-    puts("\n################# got this des #{des.class}\n")
-    #EXECUTE transact on every node with DES
-
-    task = CloudTm::DefTask.new("TEST")
-    puts("\n################# got this def task #{task.class}\n")
-    result = des.submitEverywhere(task)
-    puts("\n################# task submitted\n")
-
-=begin
-    result = des.submitEverywhere do
-
-      CloudTm::FenixFramework.getTransactionManager.withTransaction do
-        yield
-      end
-
-    end
-=end
-  end
 
   def transact
     CloudTm::FenixFramework.getTransactionManager.withTransaction do
@@ -86,30 +107,6 @@ class FarmController < ApplicationController
     end
   end
 
-  #REMOVEME HACK to test DEF
-  def get_ispn
-    ispnBackEnd = CloudTm::FenixFramework.getConfig.getBackEnd;
-    ispnBackEnd.getInfinispanCache;
-  end
-end
-
-#MOVEME HACK to test DEF
-#FIXME BROKEN
-#Cannot do: https://groups.google.com/forum/#!topic/jruby-users/krk9iND6ERg/discussion
-=begin
-class DEFTask
-  java_implements java.util.Concurrent.Callable
-  java_implements java.io.Serializable
-
-  @@serialVersionUID = 3496135215525904755.0
-
-  def initialize(&block)
-    @work = block
-  end
-
-  def call
-    @work.call
-  end
 
 end
-=end
+

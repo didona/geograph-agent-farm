@@ -52,6 +52,9 @@ gem "devise", '< 2.0.0'
 gem 'nokogiri', '1.5.0'
 #gem 'rcov', '0.9.11'
 
+gem 'acts_as_list'
+gem 'simple_form'
+
 #group :development, :test do
 #  gem 'torquespec', ">= 0.3.5"
 #  gem 'capybara'

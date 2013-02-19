@@ -80,7 +80,7 @@ CloudTm::MovableAgent = Java::ItAlgoGeographAgentfarmDomain::MovableAgent
 CloudTm::Route = Java::ItAlgoGeographAgentfarmDomain::Route
 CloudTm::Position = Java::ItAlgoGeographAgentfarmDomain::Position
 CloudTm::Root = Java::ItAlgoGeographAgentfarmDomain::Root
-CloudTm::DefTask= Java::ItAlgoGeographAgentfarm::RubyCallable
+#CloudTm::DefTask= Java::ItAlgoGeographAgentfarm::RubyCallable
 
 
 Dir[File.join(CLOUDTM_PATH, '*.rb')].each { |ruby|
