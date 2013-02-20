@@ -21,25 +21,49 @@
             <li class="dropdown closed bigmenu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">settings <b class="caret"></b></a>
 
-                <ul class="dropdown-menu">
+              <ul class="dropdown-menu row-fluid">
 
-                  <li class="nav-header">EDGE PROCESSOR PROPERTIES</li>
-                  <li class="divider"></li>
-                  <%= select_tag "current_profile_id", options_for_select(['none', 'job', 'action']), :prompt => "processor type",:class => 'span10 edge_processor_type'
-                  %>
+                <li class="divider"></li>
+                <li class="nav-header">EDGE PROCESSOR</li>
+                <%= select_tag "current_profile_id", options_for_select(['none', 'job', 'action']), :prompt => "processor type", :class => 'span10 edge_processor_type'
+                %>
 
-                  <label class="edge_processor_type" for="name">distance <span id="distance-selected-new"><%= 0 %></span> (mt)</label>
-                  <%= hidden_field_tag "process[distance]" %>
+                <li ><label class="edge_processor_type" for="name">distance
+                  <span id="distance-selected-new"><%= 0 %></span>
+                  (mt)</label></li>
+                <%= hidden_field_tag "process[distance]" %>
+
+                <li>
                   <div class="distance-slider slider edge_processor_type" rel="new"></div>
-                  <%= button_tag "save", :class =>'btn btn-primary dropdown-save', :onclick => "$.ajax({
+                </li>
+                <li class="span12">
+                  <%= button_tag "save", :class => 'btn btn-primary btn-mini dropdown-save', :onclick => "$.ajax({
                                                                                          url: '#{set_properties_path}',
                                                                                          type: 'PUT',
                                                                                          data: {'distance': $('#process_distance').val(), 'id': $('#current_profile_id').val() },
                                                                                          success: function(details){
                                                                                          }
                                                                                        });" %>
+                </li>
 
-                </ul>
+                <li class="divider divider-hack"></li>
+                <li class="nav-header">MAP URL</li>
+                <li><form class="navbar-form pull-left url-box">
+                                  <input type="text"  placeholder="http://example.com:8080">
+                                </form></li>
+                <li class="span12">
+                                  <%= button_tag "save", :class => 'btn btn-primary btn-mini dropdown-save', :onclick => "alert('TODO');" %>
+                                </li>
+                <li class="divider divider-hack"></li>
+                <li class="nav-header">STATS URL</li>
+                <li><form class="navbar-form pull-left url-box">
+                  <input type="text"  placeholder="http://example.com:8080">
+                </form></li>
+                <li class="span12">
+                                  <%= button_tag "save", :class => 'btn btn-primary btn-mini dropdown-save', :onclick => "alert('TODO');" %>
+                                </li>
+
+              </ul>
             </li>
           </ul>
           </li>

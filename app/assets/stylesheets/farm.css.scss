@@ -37,34 +37,51 @@ h4 {
   }
 
   h5 {
-      padding-left: 0px;
-      line-height: 32px;
-    }
+    padding-left: 0px;
+    line-height: 32px;
+  }
 }
 
-.new-profile-btn{
+.new-profile-btn {
   margin-top: -10px;
 }
 
-.sign-out{
+.sign-out {
   float: right;
 }
 
-.bigmenu{
+.bigmenu {
   width: 230px;
 }
-.edge_processor_type{
+
+.edge_processor_type {
   margin-left: 20px !important;
   margin-right: 20px !important;
 }
 
 .dropdown-save {
-  float:right;
+  float: right;
   margin-right: 20px;
+  margin-bottom: 15px;
+  margin-top: 15px !important;
 }
-.map{
+
+.map {
   height: 1000px;
-  border:  none;
+  border: none;
 }
+
+.divider-hack {
+  width: 100%;
+}
+
+.url-box {
+  margin-left: 20px;
+  margin-right: 20px;
+  input{
+    width: 175px;
+  }
+}
+
 //vittorio END
 
