@@ -1,0 +1,31 @@
+<h3> BENCHMARK SCHEDULE </h3>
+
+
+
+<div class="row-fluid">
+  TOTAL NUMBER OF ITERATIONS   <%=   number_field_tag 'number_iterations', @experiment.iterations, :in => 1...100000,
+                               :class => "span1",
+                               :onchange => %Q{$.ajax({url: '#{create_benchmark_path}', type: 'PUT',data: {'name': $('#number_iterations').val()}});}.html_safe%>
+
+
+      </div>
+
+
+Schedule<br/>
+
+<%= select_tag "current_profile_id", options_for_select(@dynamic_profiles.map(&:name)), :prompt => "add benchmark",
+                       :onchange => "$.ajax({
+                   url: '#{add_benchmark_unit_path}',
+                   type: 'PUT',
+                   data: {'current_profile_id': $(this).val()},
+                   success: function(details){
+                     $('#current_profile_details').html(details);
+                   }
+                 });"
+        %>
+
+
+<% @benchmarks.each do |b |%>
+  <%= b.name %><br/>
+<%end %>
+
