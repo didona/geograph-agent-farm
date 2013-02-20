@@ -37,6 +37,9 @@ class FarmController < ApplicationController
     @agent = Madmass.current_agent
   end
 
+  def map
+  end
+  
   def update_profile
     current_user.current_profile = DynamicProfile.find_by_id params[:current_profile_id]
     current_user.save!

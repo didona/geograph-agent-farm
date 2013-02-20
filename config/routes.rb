@@ -58,7 +58,7 @@ GeographGenerator::Application.routes.draw do
   match 'add_static_profile' => "farm#add_static_profile"
   match 'create_benchmark' => "dynamic_profiles#create"
   match 'set_properties' => "farm#choose_process"
-
+  match 'map' => "farm#map"
   devise_for :users, :path_prefix => 'my'
   resources :users
 
