@@ -92,10 +92,10 @@ class FarmController < ApplicationController
   end
 
   def choose_process
-    Job.new.set(
-      :name => params[:id],
-      :distance => params[:distance]
-    )
+    options = {}
+    options[:name] = params[:id] if params[:id]
+    options[:distance] = params[:distance] if params[:distance]
+    Job.new.set(options)
   end
 
   private

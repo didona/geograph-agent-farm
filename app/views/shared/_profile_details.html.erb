@@ -1,6 +1,6 @@
 <% if (current_user.current_profile) %>
-  <h5> CURRENT BENCHMARK: <%= current_user.current_profile.name %>
-    <%= button_tag "delete", :class => 'btn', :type => "button",
+  <h4> CURRENT BENCHMARK: <%= current_user.current_profile.name.upcase %>
+     <%= button_tag "delete", :class => 'btn btn-mini btn-danger', :type => "button",
                    :onclick => %Q{$.ajax({
                                           url: '#{delete_profile_path}',
                                           type: 'PUT',
@@ -8,7 +8,7 @@
                                             $('#current_profile_details').html(details);
                                           }
                                         });}.html_safe %>
-   </h5>
+   </h4>
 
   <div class="span10  accordion" id="accordion2">
     <% if (current_user.current_profile.static_profiles) %>

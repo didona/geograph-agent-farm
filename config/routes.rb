@@ -41,11 +41,11 @@ GeographGenerator::Application.routes.draw do
 
   resources :dynamic_profiles, :static_profiles
 
-  resources :farm do
-    member do
-      post 'choose_process'
-    end
-  end
+  #resources :farm do
+  #  member do
+  #    post 'choose_process'
+  #  end
+  #end
 
   resources :agents do
     collection do
@@ -56,6 +56,8 @@ GeographGenerator::Application.routes.draw do
   match 'update_profile' => "farm#update_profile"
   match 'delete_profile' => "farm#delete_profile"
   match 'add_static_profile' => "farm#add_static_profile"
+  match 'create_benchmark' => "dynamic_profiles#create"
+  match 'set_properties' => "farm#choose_process"
 
   devise_for :users, :path_prefix => 'my'
   resources :users
@@ -65,6 +67,7 @@ GeographGenerator::Application.routes.draw do
   root :to => 'farm#console'
 
   match 'benchmark', :to => 'farm#benchmark', :via => :get, :as => :benchmark
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

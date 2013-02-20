@@ -13,23 +13,34 @@
 
         <div class="nav-collapse collapse navbar-responsive-collapse">
           <ul class="nav span7">
-            <li><%= link_to "workload editor", console_path %></li>
+            <li><%= link_to "editor", console_path %></li>
             <li><%= link_to "benchmark", benchmark_path %></li>
             <li><a href="#">stats</a></li>
-            <li><%= link_to "inspect agents", agents_path %></li>
+            <li><%= link_to "inspect", agents_path %></li>
 
-            <li class="dropdown closed">
+            <li class="dropdown closed bigmenu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">settings <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <form class="navbar-form pull-left">
-                  <input type="text" class="span2">
-                  <button type="submit" class="btn">Submit</button>
-                </form>
-                <li class="divider"></li>
-                <li class="nav-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
+
+                <ul class="dropdown-menu">
+
+                  <li class="nav-header">EDGE PROCESSOR PROPERTIES</li>
+                  <li class="divider"></li>
+                  <%= select_tag "current_profile_id", options_for_select(['none', 'job', 'action']), :prompt => "processor type",:class => 'span10 edge_processor_type'
+                  %>
+
+                  <label class="edge_processor_type" for="name">distance <span id="distance-selected-new">0</span> (mt)</label>
+                  <%= hidden_field_tag "process[distance]" %>
+                  <div class="distance-slider slider edge_processor_type" rel="new"></div>
+
+                  <%= button_tag "save", :class =>'btn btn-primary', :onclick => "$.ajax({
+                                                                                         url: '#{set_properties_path}',
+                                                                                         type: 'PUT',
+                                                                                         data: {'distance': $('#process_distance').val(), 'id': $('#current_profile_id').val() },
+                                                                                         success: function(details){
+                                                                                         }
+                                                                                       });" %>
+
+                </ul>
             </li>
           </ul>
           </li>
