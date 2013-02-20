@@ -1,0 +1,2 @@
+module BenchmarkSchedulesControllerHelper
+end

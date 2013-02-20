@@ -51,12 +51,6 @@ class FarmController < ApplicationController
     render :layout => false
   end
 
-  def benchmark
-    @agent_groups = CloudTm::AgentGroup.all
-    @agent_groups.map(&:getAgents).flatten.each { |el| logger.debug el.inspect }
-    @agent_group = CloudTm::AgentGroup.new
-  end
-
   def add_static_profile
     @agent_groups = CloudTm::AgentGroup.all
     @static_profile = StaticProfile.create(:duration => params[:duration])

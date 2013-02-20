@@ -83,35 +83,8 @@
     </div>
   </div>
 
-<%# '.form-horizontal', '.form-inline', '.form-search' or
-  '.form-vertical', %>
-
 
 </div>
-<!--
-<div id="container">
-
-
-  <div id="buttons-container">
-    <div id="new-group-container">
-      <%#= button_tag "new group", :id => 'new-group-button', :onclick => "newGroup();" %>
-    </div>
-
-    <div id="process-edges-container">
-      <%#= button_tag "edges processor", :id => 'process-edges-button', :onclick => "chooseProcess();" %>
-    </div>
-
-    <div id="inspect-container">
-      <%#= button_tag "inspect agents", :id => 'inspect', :onclick => "location.href='agents'" %>
-    </div>
-  </div>
-
-  <div id="agent-groups" class="agent-group-list">
-    <%#= render 'agent_groups/index' %>
-  </div>
-
-</div>
--->
 
 
 <div id="new-group" style="display: none;">
@@ -137,15 +110,3 @@
   <% end %>
 </div>
 
-
-<div id="edges-processor" style="display: none;">
-
-  <label for="process-edges" id="label-process-edges">process type</label>
-  <%= select(:process, :edges, ['none', 'job', 'action'], {:selected => 'none'}, {:class => 'ui-select'}) %>
-  <br/><br/>
-
-  <label for="name">distance <span id="distance-selected-new">0</span> (mt)</label>
-  <%= hidden_field_tag "process[distance]" %>
-  <div class="distance-slider slider" rel="new"></div>
-
-</div>

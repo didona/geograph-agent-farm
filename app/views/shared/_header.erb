@@ -28,11 +28,10 @@
                   <%= select_tag "current_profile_id", options_for_select(['none', 'job', 'action']), :prompt => "processor type",:class => 'span10 edge_processor_type'
                   %>
 
-                  <label class="edge_processor_type" for="name">distance <span id="distance-selected-new">0</span> (mt)</label>
+                  <label class="edge_processor_type" for="name">distance <span id="distance-selected-new"><%= 0 %></span> (mt)</label>
                   <%= hidden_field_tag "process[distance]" %>
                   <div class="distance-slider slider edge_processor_type" rel="new"></div>
-
-                  <%= button_tag "save", :class =>'btn btn-primary', :onclick => "$.ajax({
+                  <%= button_tag "save", :class =>'btn btn-primary dropdown-save', :onclick => "$.ajax({
                                                                                          url: '#{set_properties_path}',
                                                                                          type: 'PUT',
                                                                                          data: {'distance': $('#process_distance').val(), 'id': $('#current_profile_id').val() },
