@@ -16,6 +16,11 @@ queues:
 #    description: Run Agent Groups
 #    singleton: true
 
+services:
+  BenchmarkService:
+    config:
+      sleep: 5
+
 #services:
 #  PerceptionsService:
 #    config:

@@ -43,10 +43,8 @@ gem 'twitter-bootstrap-rails'
 
 gem "jdbc-mysql"
 gem 'activerecord-jdbcmysql-adapter'
+gem "activerecord-jdbc-adapter"
 
-#gem 'activerecord-jdbcsqlite3-adapter'
-#gem "activerecord-jdbc-adapter"
-#gem "jdbc-sqlite3"
 
 gem "devise", '< 2.0.0'
 gem 'nokogiri', '1.5.0'

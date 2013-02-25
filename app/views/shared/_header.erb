@@ -15,7 +15,7 @@
           <ul class="nav span7">
             <li><%= link_to "editor", console_path %></li>
             <li><%= link_to "benchmark", benchmark_path %></li>
-            <li><a href="#">stats</a></li>
+            <li><%= link_to "stats", stats_path %></li>
             <li><%= link_to "inspect", agents_path %></li>
             <li><%= link_to "map", map_path %></li>
             <li class="dropdown closed bigmenu">
@@ -28,7 +28,7 @@
                 <%= select_tag "current_profile_id", options_for_select(['none', 'job', 'action']), :prompt => "processor type", :class => 'span10 edge_processor_type'
                 %>
 
-                <li ><label class="edge_processor_type" for="name">distance
+                <li><label class="edge_processor_type" for="name">distance
                   <span id="distance-selected-new"><%= 0 %></span>
                   (mt)</label></li>
                 <%= hidden_field_tag "process[distance]" %>
@@ -48,20 +48,32 @@
 
                 <li class="divider divider-hack"></li>
                 <li class="nav-header">MAP URL</li>
-                <li><form class="navbar-form pull-left url-box">
-                                  <input type="text"  placeholder="http://example.com:8080">
-                                </form></li>
+                <li>
+                  <form class="navbar-form pull-left url-box">
+                    <input id="map-url" type="text" placeholder=<%= "http://example.com:8080" %>>
+                  </form>
+                </li>
+
                 <li class="span12">
-                                  <%= button_tag "save", :class => 'btn btn-primary btn-mini dropdown-save', :onclick => "alert('TODO');" %>
-                                </li>
+                  <%= button_tag "save", :class => 'btn btn-primary btn-mini dropdown-save',
+                                 :onclick => "$.ajax({
+                                                url: '#{map_url_path}',
+                                                type: 'PUT',
+                                                data: {'map_url': $('#map-url').val()}});" %>
+                </li>
                 <li class="divider divider-hack"></li>
                 <li class="nav-header">STATS URL</li>
-                <li><form class="navbar-form pull-left url-box">
-                  <input type="text"  placeholder="http://example.com:8080">
-                </form></li>
+                <li>
+                  <form class="navbar-form pull-left url-box">
+                    <input id="stats-url" type="text" placeholder="http://example.com:8080">
+                  </form>
+                </li>
                 <li class="span12">
-                                  <%= button_tag "save", :class => 'btn btn-primary btn-mini dropdown-save', :onclick => "alert('TODO');" %>
-                                </li>
+                  <%= button_tag "save", :class => 'btn btn-primary btn-mini dropdown-save', :onclick => "$.ajax({
+                                                                  url: '#{stats_url_path}',
+                                                                  type: 'PUT',
+                                                                  data: {'stats_url': $('#stats-url').val()}});" %>
+                </li>
 
               </ul>
             </li>

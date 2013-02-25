@@ -67,8 +67,16 @@ GeographGenerator::Application.routes.draw do
   root :to => 'farm#console'
 
   match 'benchmark'=> "benchmark_schedules#index"
+  match 'play_schedule' => "benchmark_schedules#play"
+  match 'stop_schedule' => "benchmark_schedules#stop"
+  match 'set_schedule' => "benchmark_schedules#set_benchmark"
   match 'add_workload'=> "benchmark_schedules#add_workload"
   match 'update_iterations'=> "benchmark_schedules#update_iterations"
+
+  match 'map_url'=> "settings#map"
+  match 'stats_url'=> "settings#stats"
+
+  match 'stats' => "farm#stats"
 
 
   # The priority is based upon order of creation:

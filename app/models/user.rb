@@ -35,6 +35,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :dynamic_profiles
   has_one :benchmark_schedule
+  has_one :setting
   belongs_to :current_profile, :class_name => "DynamicProfile", :foreign_key => "current_profile_id"
 
   # Setup accessible (or protected) attributes for your model

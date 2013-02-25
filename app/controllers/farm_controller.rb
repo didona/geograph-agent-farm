@@ -38,8 +38,16 @@ class FarmController < ApplicationController
   end
 
   def map
+    @map_url = "http://madmass-node:8080"
+    @map_url = current_user.setting.map_url if current_user.setting
   end
-  
+
+  def stats
+    @stats_url = "http://www.algorithmica.it"
+    @stats_url = current_user.setting.stats_url if current_user.setting
+    Rails.logger.debug("stats url to render is #{@stats_url}")
+  end
+
   def update_profile
     current_user.current_profile = DynamicProfile.find_by_id params[:current_profile_id]
     current_user.save!
