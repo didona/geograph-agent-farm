@@ -89,7 +89,7 @@
   $(document).ready(function() {
     $('#create-static-profile-with-group').on('click', function() {
       $.ajax({
-        url: '/static_profiles/create_with_group', 
+        url: 'static_profiles/create_with_group', 
         type: 'POST',
         data: {'duration': $('#appendedInputButton').val()}
       }).done(function(details) {
@@ -99,7 +99,7 @@
 
     $('#create-benchmark').on('click', function() {
       $.ajax({
-        url: '/create_benchmark', 
+        url: 'create_benchmark', 
         type: 'PUT',
         data: {'name': $('#benchmark_name').val()}
       }).done(function(details) {
