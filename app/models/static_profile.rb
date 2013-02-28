@@ -11,10 +11,10 @@ class StaticProfile < ActiveRecord::Base
 	end
 
   def start
-
+    Rails.logger.debug "Starting Static Profile"
   end
 
   def stop
-
+    Rails.logger.debug "Stopping Static Profile"
   end
 end
