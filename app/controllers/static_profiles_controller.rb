@@ -52,6 +52,12 @@ class StaticProfilesController < ApplicationController
     render :index, :layout => false
 	end
 
+	def new_group
+		static_profile = StaticProfile.find params[:id]
+		@agent_group = static_profile.agent_groups.create
+		render :layout => false
+	end
+
 	def edit_groups
 		@static_profile = StaticProfile.find params[:id]
 		render :layout => false
@@ -61,6 +67,13 @@ class StaticProfilesController < ApplicationController
 		group = AgentGroup.find(params[:id])
 		group.update_attribute(params[:attribute], params[:value])
 		flash.now[:notice] = "Agent group modified."
+		render :index, :layout => false
+	end
+
+	def destroy_group
+		group = AgentGroup.find(params[:id])
+		group.destroy
+		flash.now[:notice] = "Agent group deleted."
 		render :index, :layout => false
 	end
 

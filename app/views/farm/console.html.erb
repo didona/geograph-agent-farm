@@ -10,7 +10,7 @@
 
     <div class="row-fluid">
       <div class="span2 btn-group">
-        <%= button_tag "new group", :class => 'btn btn-primary', :onclick => "newGroup();" %>
+        <%= button_tag "new group", :class => 'btn btn-primary', :id => 'new-agent-group-button' %>
       </div>
 
       <div class="input-prepend offset1 span9">
@@ -62,31 +62,44 @@
 </div>
 
 
-<div id="new-group" style="display: none;">
+<!-- Modal -->
+<div id="new-group-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="addAgentGroup" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="addAgentGroup">New Agent Group</h3>
+  </div>
+
   <%= form_for :agent_group, :url => agent_groups_path(@agent_group), :remote => true, :html => {:id => :new_agent_group} do |f| %>
-    <label for="name">name</label>
-    <%= f.text_field :name, :class => "" %>
-    <br/>
+    <fieldset>
+      <div class="modal-body row">  
+          <label for="agents" class="span2">Agents Type</label>
+          <%= f.select :agents_type, AGENT_TYPES.map { |at| [at.sub(/Agent$/, '').downcase, at] }, {}, :class => "" %>
 
-    <label for="type">agents type</label>
-    <%= f.select :agents_type, AGENT_TYPES.map { |at| [at.sub(/Agent$/, '').downcase, at] }, {}, :class => "" %>
-    <br/><br/>
+          <label for="agents" class="span2">Agents</label>
+          <%= number_field_tag 'agent_group[agents]', 0, :in => 0...100000 %>
 
-    <label for="name">agents <span id="agents-selected-new">0</span></label>
-    <%= hidden_field_tag 'agent_group[agents]' %>
-    <div class="agents-slider slider" rel="new"></div>
-    <br/>
-
-    <label for="name">delay <span id="delay-selected-new">0</span> (ms)</label>
-    <%= f.hidden_field :delay %>
-    <div class="delay-slider slider" rel="new"></div>
-
-
-  <% end %>
+          <label for="delay" class="span2">Delay</label>
+          <%= number_field_tag 'agent_group[delay]', 0, :in => 0...100000 %>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <%= submit_tag 'Add', :class => 'btn btn-primary' %>
+      </div>
+    </fieldset>
+  <% end %> 
 </div>
+
 
 <script>
   $(document).ready(function() {
+      $('#new-agent-group-button').on('click', function() {
+        newGroup();
+      });
+
+      $('#new_agent_group').on('submit', function() {
+        $('#new-group-modal').modal('hide');
+      });
+
     $('#create-static-profile-with-group').on('click', function() {
       $.ajax({
         url: 'static_profiles/create_with_group', 

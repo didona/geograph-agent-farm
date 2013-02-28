@@ -57,6 +57,8 @@ GeographGenerator::Application.routes.draw do
     member do
       get 'edit_groups'
       put 'update_groups'
+      get 'new_group'
+      delete 'destroy_group'
     end
 
     collection do

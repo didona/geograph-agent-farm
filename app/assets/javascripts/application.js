@@ -34,6 +34,7 @@ $(document).ready(function() {
       }
     });
   });
+
 });
 
 $(window).load(function() {
@@ -131,19 +132,7 @@ function loadSliders() {
 }
 
 function newGroup() {
-  $('.delay-slider').slider("value", $('#agent_group_delay').val());
-  $('.agents-slider').slider("value", $('#agent_group_agents').val());
-  $('#new-group').dialog({
-    title: "New Agent Group",
-    height: 420,
-    width: 450,
-    buttons: {
-      "create": function() {
-        $('#new_agent_group').submit();
-        $(this).dialog("close");
-      }
-    }
-  });
+  $('#new-group-modal').modal();
 }
 
 function editGroup(group) {

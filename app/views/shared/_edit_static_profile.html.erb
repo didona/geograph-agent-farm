@@ -23,3 +23,77 @@
     </fieldset>
   <% end %> 
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#update-static-profile-modal').on('click', '#add-group-button', function() {
+      $.ajax({
+        url: 'static_profiles/' + $(this).data('profile') + '/new_group'
+      }).done(function(data) {
+        $('.group-container').append(data);
+      });
+    });
+
+    $('#update-static-profile-modal').on('click', '.delete-agent-group-button', function() {
+      var groupId = $(this).data('group');
+      $.ajax({
+        url: 'static_profiles/' + groupId + '/destroy_group',
+        type: 'delete'
+      }).done(function(data) {
+        $('#current_profile_details').html(data);
+        $('#group-for-' + groupId).remove();
+      });
+    });
+
+    $('#update-static-profile-modal').on('click', '.save-agent-group-simulator', function() {
+      var groupId = $(this).data('group');
+      var simulator = $(this).parent().find('#agent_group_simulator').val();
+      $.ajax({
+        url: 'static_profiles/' +  groupId + '/update_groups',
+        data: {attribute: 'simulator', value: simulator},
+        type: 'put'
+      }).done(function(data) {
+        $('#current_profile_details').html(data);
+        addAlertSuccess(groupId);
+      });
+    });
+
+    $('#update-static-profile-modal').on('click', '.save-agent-group-threads', function() {
+      var groupId = $(this).data('group');
+      var threads = $(this).parent().find('#agent_group_threads').val();
+      $.ajax({
+        url: 'static_profiles/' +  groupId + '/update_groups',
+        data: {attribute: 'threads', value: threads},
+        type: 'put'
+      }).done(function(data) {
+        $('#current_profile_details').html(data);
+        addAlertSuccess(groupId);
+      });
+    });
+
+    $('#update-static-profile-modal').on('click', '.save-agent-group-sleep', function() {
+      var groupId = $(this).data('group');
+      var sleep = $(this).parent().find('#agent_group_sleep').val();
+      $.ajax({
+        url: 'static_profiles/' +  groupId + '/update_groups',
+        data: {attribute: 'sleep', value: sleep},
+        type: 'put'
+      }).done(function(data) {
+        $('#current_profile_details').html(data);
+        addAlertSuccess(groupId);
+      });
+    });
+
+  });
+
+  function addAlertSuccess(groupId) {
+    var alertDom = $('#form-success').clone();
+    var container = $('#group-for-' + groupId);
+    container.find('.static-profile-form-success').remove();
+    container.prepend(alertDom);
+    var formAlert = container.find('.static-profile-form-success');
+    formAlert.removeClass('hidden');
+    formAlert.show();
+  }
+  
+</script>

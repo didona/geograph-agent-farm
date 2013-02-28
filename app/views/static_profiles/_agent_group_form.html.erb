@@ -1,0 +1,23 @@
+<div id="group-for-<%= agent_group.id %>" class="well row" style="margin-left: 0;">
+	<button type="button" class="btn btn-danger delete-agent-group-button" data-group="<%= agent_group.id %>">delete</button>
+
+	<h6> Agent Group (<%= agent_group.id %>) </h6>
+	<label for="simulator" class="span3">Simulator</label>
+	<div class="input-append">
+	  <%= select_tag 'agent_group[simulator]', options_for_select(['MovableAgent', 'ReaderAgent', 'BloggerAgent'], agent_group.simulator) %>
+	  <button class="btn btn-success save-agent-group-simulator" type="button" data-group="<%= agent_group.id %>">Save</button>
+	</div>        	
+
+	<label for="threads" class="span3">Threads</label>
+	<div class="input-append span7" style="margin-left: 0;">
+		<%= number_field_tag 'agent_group[threads]', agent_group.threads, :in => 1...100000 %>
+		<button class="btn btn-success save-agent-group-threads" type="button" data-group="<%= agent_group.id %>">Save</button>
+	</div>
+
+	<label for="sleep" class="span3">Sleep</label>
+	<div class="input-append span7"  style="margin-left: 0;">				
+		<%= number_field_tag 'agent_group[sleep]', agent_group.sleep, :in => 0...100000 %>
+		<button class="btn btn-success save-agent-group-sleep" type="button" data-group="<%= agent_group.id %>">Save</button>
+	</div>
+
+</div>
