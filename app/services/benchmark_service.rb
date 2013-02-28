@@ -40,7 +40,8 @@ class BenchmarkService
         @current_benchmark = benchmark
         @step_start_time = Time.now
         @current_position += 1
-        @current_profile = @current_benchmark.dynamic_profiles.first.static_profiles.where(:position => @current_position)
+
+        @current_profile = @current_benchmark.dynamic_profiles.first.static_profiles.where(:position => @current_position).first
         Rails.logger.debug "Starting profile at position #{@current_position}"
         @current_profile.start
         Rails.logger.debug "=================="
@@ -48,7 +49,7 @@ class BenchmarkService
       end
 
       #Execution of current step
-      @current_profile = @current_benchmark.dynamic_profiles.first.static_profiles.where(:position => @current_position)
+      @current_profile = @current_benchmark.dynamic_profiles.first.static_profiles.where(:position => @current_position).first
 
       #Checks if the step is finished
       if (@current_profile.duration*60 <= (Time.now-@step_start_time))
@@ -57,7 +58,7 @@ class BenchmarkService
         sleep(2*@sleep) #FIXME: put max among delays @current_profile.max_delay
         @step_start_time = Time.now
         @current_position += 1
-        @current_profile = @current_benchmark.dynamic_profiles.first.static_profiles.where(:position => @current_position)
+        @current_profile = @current_benchmark.dynamic_profiles.first.static_profiles.where(:position => @current_position).first
         #It was the last step
         unless @current_profile
           Rails.logger.debug "Benchmark completed"
