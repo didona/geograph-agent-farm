@@ -57,6 +57,13 @@ class StaticProfilesController < ApplicationController
 		render :layout => false
 	end
 
+	def update_groups
+		group = AgentGroup.find(params[:id])
+		group.update_attribute(params[:attribute], params[:value])
+		flash.now[:notice] = "Agent group modified."
+		render :index, :layout => false
+	end
+
 	private
 
 
@@ -65,5 +72,5 @@ class StaticProfilesController < ApplicationController
       yield
     end
   end
-  
+
 end

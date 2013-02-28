@@ -56,7 +56,7 @@
         });
 
         $.ajax({
-          url: '/static_profiles/sort',
+          url: 'static_profiles/sort',
           type: 'put',
           data: {ids: sortedProfiles}
         })
@@ -66,7 +66,7 @@
     $('#delete-benchmark').on('click', function() {
       if(confirm("Are you sure you want delete benchmarck")) {
         $.ajax({
-          url: '/delete_profile',
+          url: 'delete_profile',
           type: 'PUT'
         }).done(function(details) {
            $('#current_profile_details').html(details);
@@ -79,7 +79,7 @@
       var icon = $(this);
       if(confirm("Are you sure you want delete profile " + icon.data('profile') +' ?')) {
         $.ajax({
-          url: '/static_profiles/' + icon.data('profile'),
+          url: 'static_profiles/' + icon.data('profile'),
           type: 'delete'
         }).done(function(details) {
           $('#current_profile_details').html(details);
@@ -144,12 +144,6 @@
   });
 </script>
 
-<div id="form-alert" class="alert alert-error hidden static-profile-form-alert">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <h4>Warning!</h4>
-  Use numeric value for duration!
-</div>
 
 
-<%= render '/shared/new_static_profile' %>
-<%= render '/shared/edit_static_profile' %>
+

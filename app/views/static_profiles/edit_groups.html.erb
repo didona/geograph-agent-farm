@@ -1,41 +1,82 @@
+<div class="group-container">
 <% @static_profile.agent_groups.each do |agent_group| %>
-	<div class="group-container">
-		<div class="well">
+	
+		<div id="group-for-<%= agent_group.id %>" class="well row" style="margin-left: 0;">
 			<h6> Agent Group (<%= agent_group.id %>) </h6>
 			<label for="simulator" class="span3">Simulator</label>
 			<div class="input-append">
-			  <%= text_field_tag 'agent_group[simulator]', agent_group.simulator %>
+			  <%= select_tag 'agent_group[simulator]', options_for_select(['MovableAgent', 'ReaderAgent', 'BloggerAgent'], agent_group.simulator) %>
 			  <button class="btn btn-success save-agent-group-simulator" type="button" data-group="<%= agent_group.id %>">Save</button>
 			</div>        	
 
 			<label for="threads" class="span3">Threads</label>
-			<%= number_field_tag 'agent_group[threads]', agent_group.threads, :in => 1...100000, :class => "span6" %>
+			<div class="input-append span7" style="margin-left: 0;">
+				<%= number_field_tag 'agent_group[threads]', agent_group.threads, :in => 1...100000 %>
+				<button class="btn btn-success save-agent-group-threads" type="button" data-group="<%= agent_group.id %>">Save</button>
+			</div>
 
 			<label for="sleep" class="span3">Sleep</label>
-			<%= number_field_tag 'agent_group[sleep]', agent_group.sleep, :in => 0...100000, :class => "span6" %>
+			<div class="input-append span7"  style="margin-left: 0;">				
+				<%= number_field_tag 'agent_group[sleep]', agent_group.sleep, :in => 0...100000 %>
+				<button class="btn btn-success save-agent-group-sleep" type="button" data-group="<%= agent_group.id %>">Save</button>
+			</div>
     </div>
 			
 		</div>
-	</div>
-<% end %>
+		<% end %>
+</div>
 
 <script>
 	$(document).ready(function() {
 		$('.save-agent-group-simulator').on('click', function() {
 			var groupId = $(this).data('group');
 			var simulator = $('#agent_group_simulator').val();
-			console.log('clicked: ' + groupId + " - " + simulator);
+			$.ajax({
+				url: 'static_profiles/' +  groupId + '/update_groups',
+				data: {attribute: 'simulator', value: simulator},
+				type: 'put'
+			}).done(function(data) {
+				$('#current_profile_details').html(data);
+				addAlertSuccess(groupId);
+			});
 		});
 
-		$('#agent_group_threads').on('change', function() {
-			var threads = $(this).val();
-			console.log('changed threads - ' + threads);
+		$('.save-agent-group-threads').on('click', function() {
+			var groupId = $(this).data('group');
+			var threads = $('#agent_group_threads').val();
+			$.ajax({
+				url: 'static_profiles/' +  groupId + '/update_groups',
+				data: {attribute: 'threads', value: threads},
+				type: 'put'
+			}).done(function(data) {
+				$('#current_profile_details').html(data);
+				addAlertSuccess(groupId);
+			});
 		});
 
-		$('#agent_group_sleep').on('change', function() {
-			var sleep = $(this).val();
-			console.log('changed sleep - ' + sleep);
+		$('.save-agent-group-sleep').on('click', function() {
+			var groupId = $(this).data('group');
+			var sleep = $('#agent_group_sleep').val();
+			$.ajax({
+				url: 'static_profiles/' +  groupId + '/update_groups',
+				data: {attribute: 'sleep', value: sleep},
+				type: 'put'
+			}).done(function(data) {
+				$('#current_profile_details').html(data);
+				addAlertSuccess(groupId);
+			});
 		});
+
 	});
+
+	function addAlertSuccess(groupId) {
+		var alertDom = $('#form-success').clone();
+		var container = $('#group-for-' + groupId);
+    container.find('.static-profile-form-success').remove();
+    container.prepend(alertDom);
+    var formAlert = container.find('.static-profile-form-success');
+    formAlert.removeClass('hidden');
+    formAlert.show();
+	}
 	
 </script>

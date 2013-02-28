@@ -56,6 +56,7 @@ GeographGenerator::Application.routes.draw do
   resources :static_profiles do
     member do
       get 'edit_groups'
+      put 'update_groups'
     end
 
     collection do
