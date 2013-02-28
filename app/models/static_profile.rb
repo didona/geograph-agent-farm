@@ -4,6 +4,12 @@ class StaticProfile < ActiveRecord::Base
   has_many :agent_groups, :dependent => :destroy
   belongs_to :dynamic_profile
 
+  class << self
+	  def max_position dynamic_profile_id
+	  	joins(:dynamic_profile).where("dynamic_profiles.id = ?", dynamic_profile_id).maximum(:position)
+	  end
+	end
+
   def start
 
   end

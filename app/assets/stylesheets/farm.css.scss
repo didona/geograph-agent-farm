@@ -85,3 +85,22 @@ h4 {
 
 //vittorio END
 
+.add-static-profile-button {
+  margin-left: 50px;
+}
+
+.static-profile-form-alert {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.accordion-toggle {
+  &:hover {
+    text-decoration: none;
+  }  
+}
+
+.static-profile-action {
+  float: right;
+  margin-left: 5px;
+}

@@ -39,7 +39,7 @@ GeographGenerator::Application.routes.draw do
     end
   end
 
-  resources :dynamic_profiles, :static_profiles
+  resources :dynamic_profiles
 
   #resources :farm do
   #  member do
@@ -53,9 +53,19 @@ GeographGenerator::Application.routes.draw do
     end
   end
 
+  resources :static_profiles do
+    member do
+      get 'edit_groups'
+    end
+
+    collection do
+      post 'create_with_group'
+      put 'sort'
+    end
+  end
+
   match 'update_profile' => "farm#update_profile"
   match 'delete_profile' => "farm#delete_profile"
-  match 'add_static_profile' => "farm#add_static_profile"
   match 'create_benchmark' => "dynamic_profiles#create"
   match 'set_properties' => "farm#choose_process"
   match 'map' => "farm#map"

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-#gem 'rails', '3.1.3'
+gem 'rails', '>= 3.2.12'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -36,8 +36,8 @@ gem 'jquery-rails', '2.0.2'
 
 gem "jruby-openssl"
 
-gem "madmass", :git => "git://github.com/algorithmica/madmass.git"
-#gem "madmass", :path => "~/dev/madmass"
+#gem "madmass", :git => "git://github.com/algorithmica/madmass.git"
+gem "madmass", :path => "../madmass"
 
 gem 'twitter-bootstrap-rails'
 

@@ -1,0 +1,41 @@
+<% @static_profile.agent_groups.each do |agent_group| %>
+	<div class="group-container">
+		<div class="well">
+			<h6> Agent Group (<%= agent_group.id %>) </h6>
+			<label for="simulator" class="span3">Simulator</label>
+			<div class="input-append">
+			  <%= text_field_tag 'agent_group[simulator]', agent_group.simulator %>
+			  <button class="btn btn-success save-agent-group-simulator" type="button" data-group="<%= agent_group.id %>">Save</button>
+			</div>        	
+
+			<label for="threads" class="span3">Threads</label>
+			<%= number_field_tag 'agent_group[threads]', agent_group.threads, :in => 1...100000, :class => "span6" %>
+
+			<label for="sleep" class="span3">Sleep</label>
+			<%= number_field_tag 'agent_group[sleep]', agent_group.sleep, :in => 0...100000, :class => "span6" %>
+    </div>
+			
+		</div>
+	</div>
+<% end %>
+
+<script>
+	$(document).ready(function() {
+		$('.save-agent-group-simulator').on('click', function() {
+			var groupId = $(this).data('group');
+			var simulator = $('#agent_group_simulator').val();
+			console.log('clicked: ' + groupId + " - " + simulator);
+		});
+
+		$('#agent_group_threads').on('change', function() {
+			var threads = $(this).val();
+			console.log('changed threads - ' + threads);
+		});
+
+		$('#agent_group_sleep').on('change', function() {
+			var sleep = $(this).val();
+			console.log('changed sleep - ' + sleep);
+		});
+	});
+	
+</script>

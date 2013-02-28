@@ -1,49 +1,155 @@
 <% if (current_user.current_profile) %>
   <h4> CURRENT BENCHMARK: <%= current_user.current_profile.name.upcase %>
-     <%= button_tag "delete", :class => 'btn btn-mini btn-danger', :type => "button",
-                   :onclick => %Q{$.ajax({
-                                          url: '#{delete_profile_path}',
-                                          type: 'PUT',
-                                          success: function(details){
-                                            $('#current_profile_details').html(details);
-                                          }
-                                        });}.html_safe %>
+     <%= link_to "add", '#static-profile-modal', 
+                :class => 'add-static-profile-button btn btn-mini btn-success', 
+                :type => "button", 
+                :data => {:toggle => 'modal'} -%>
+     <%= button_tag "delete", :class => 'btn btn-mini btn-danger', :type => "button", :id => 'delete-benchmark' %>
    </h4>
 
   <div class="span10  accordion" id="accordion2">
     <% if (current_user.current_profile.static_profiles) %>
-      <% current_user.current_profile.static_profiles.each do |p| %>
-        <div class="accordion-group">
+      <% current_user.current_profile.static_profiles.each do |profile| %>
+        <div class="accordion-group" data-profile="<%= profile.id %>">
           <div class="accordion-heading">
-            <%= "<a class='accordion-toggle' data-toggle='collapse' data-parent='#accordion2' href='#collapse#{p.position}'>".html_safe %>
-            <%= "profile #{p.position} (#{p.duration} min)".html_safe %>
-            <i class="icon-trash"></i>
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse<%= profile.position %>">
+              <%= "profile #{profile.id} (#{profile.duration} min)".html_safe %>
+              <i class="static-profile-action icon-trash" data-profile="<%= profile.id %>"></i>
+              <i class="static-profile-action icon-edit" data-profile="<%= profile.id %>" data-duration="<%= profile.duration %>"></i>              
             </a>
           </div>
-          <%= "<div id='collapse#{p.position}' class='accordion-body collapse'>".html_safe %>
-          <div class="accordion-inner">
-            <table class="table table-striped">
-              <thead>
-              <tr>
-                <th>simulator</th>
-                <th># threads</th>
-                <th>sleep (msec)</th>
-              </tr>
-              </thead>
-              <tbody>
-              <!-- FIXME -->
-              <% p.agent_groups.each do |agent_group| %>
+          <div id="collapse<%= profile.position %>" class="accordion-body collapse">
+            <div class="accordion-inner">
+              <table class="table table-striped">
+                <thead>
                 <tr>
-                  <td><%= agent_group.simulator %></td>
-                  <td><%= agent_group.threads %></td>
-                  <td><%= agent_group.sleep %></td>
-              <% end %>
-              </tbody>
-            </table>
+                  <th>simulator</th>
+                  <th># threads</th>
+                  <th>sleep (msec)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- FIXME -->
+                <% profile.agent_groups.each do |agent_group| %>
+                  <tr>
+                    <td><%= agent_group.simulator %></td>
+                    <td><%= agent_group.threads %></td>
+                    <td><%= agent_group.sleep %></td>
+                <% end %>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
         </div>
       <% end %>
     <% end %>
     </div>
 <% end %>
+
+<script>
+  $(document).ready(function() {
+    $('#accordion2').sortable({
+      stop: function() {
+        var sortedProfiles = [];
+        $('#accordion2').find('.accordion-group').each(function(index, elem) {
+          sortedProfiles.push($(elem).data('profile'));
+        });
+
+        $.ajax({
+          url: '/static_profiles/sort',
+          type: 'put',
+          data: {ids: sortedProfiles}
+        })
+      }
+    });
+
+    $('#delete-benchmark').on('click', function() {
+      if(confirm("Are you sure you want delete benchmarck")) {
+        $.ajax({
+          url: '/delete_profile',
+          type: 'PUT'
+        }).done(function(details) {
+           $('#current_profile_details').html(details);
+        });
+      }
+    });
+
+    $('.icon-trash').on('click', function(event) {
+      event.stopPropagation();
+      var icon = $(this);
+      if(confirm("Are you sure you want delete profile " + icon.data('profile') +' ?')) {
+        $.ajax({
+          url: '/static_profiles/' + icon.data('profile'),
+          type: 'delete'
+        }).done(function(details) {
+          $('#current_profile_details').html(details);
+        });
+      } 
+    });
+
+    $('.icon-edit').on('click', function(event) {
+      event.stopPropagation();
+      var icon = $(this);
+      var profileId = icon.data('profile');
+      var duration = icon.data('duration');
+
+      $.ajax({
+        url: 'static_profiles/' + profileId + '/edit_groups',
+        async: false
+      }).done(function(groups) {
+        $('#static-profile-groups').html(groups);
+      });
+
+      $('#static_profile_duration').val(duration);
+      $('#id').val(profileId);
+      var action = $('#update-static-profile-form').attr('action');
+      $('#update-static-profile-form').attr('action', action.replace(/\/\d+/, '/' + profileId));
+      $('#update-static-profile-modal').modal('show');
+    });
+
+    $('#static-profile-form').on('ajax:complete', function(event, data) {
+      $('#static-profile-modal').modal('hide');
+      $('#current_profile_details').html(data.responseText);
+    }).on('submit', function() {
+      if(parseInt($(this).find('#duration').val())) {
+        return true;
+      } else {
+        var alertDom = $('#form-alert').clone();
+        $('#static-profile-form').parent().find('.static-profile-form-alert').remove();
+        $('#static-profile-form').prepend(alertDom);
+        var formAlert = $('#static-profile-form').parent().find('.static-profile-form-alert');
+        formAlert.removeClass('hidden');
+        formAlert.show();
+        return false;
+      }
+    });
+
+    $('#update-static-profile-form').on('ajax:complete', function(event, data) {
+      $('#update-static-profile-modal').modal('hide');
+      $('#current_profile_details').html(data.responseText);
+    }).on('submit', function() {
+      if(parseInt($(this).find('#static_profile_duration').val())) {
+        return true;
+      } else {
+        var alertDom = $('#form-alert').clone();
+        $('#update-static-profile-form').parent().find('.static-profile-form-alert').remove();
+        $('#update-profile-form').prepend(alertDom);
+        var formAlert = $('#static-profile-form').parent().find('.static-profile-form-alert');
+        formAlert.removeClass('hidden');
+        formAlert.show();
+        return false;
+      }
+      
+    });
+  });
+</script>
+
+<div id="form-alert" class="alert alert-error hidden static-profile-form-alert">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <h4>Warning!</h4>
+  Use numeric value for duration!
+</div>
+
+
+<%= render '/shared/new_static_profile' %>
+<%= render '/shared/edit_static_profile' %>

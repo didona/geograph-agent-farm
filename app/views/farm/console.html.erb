@@ -8,19 +8,13 @@
       </div>
     </div>
 
-
     <div class="row-fluid">
       <div class="span2 btn-group">
         <%= button_tag "new group", :class => 'btn btn-primary', :onclick => "newGroup();" %>
       </div>
 
       <div class="input-prepend offset1 span9">
-        <%= button_tag "to benchmark", :class => 'btn', :type => "button",
-                       :onclick => %Q{$.ajax({url: '#{add_static_profile_path}', type: 'PUT',data: {'duration': $('#appendedInputButton').val()},
-                                              success: function(details){
-                                              $('#current_profile_details').html(details);
-                                              }
-                                              });}.html_safe %>
+        <%= button_tag "to benchmark", :class => 'btn', :type => "button", :id => 'create-static-profile-with-group' %>
         <input id="appendedInputButton" class="span6" type="text" placeholder="with duration (in minutes)">
       </div>
     </div>
@@ -44,37 +38,16 @@
 
     <div class="row-fluid">
       <div class="input-prepend span4 btn-low">
-        <%= button_tag "create", :class => 'btn', :type => "button",
-                       :onclick => %Q{$.ajax({url: '#{create_benchmark_path}', type: 'PUT',data: {'name': $('#benchmark_name').val()},
-                                              success: function(details){
-                                              $('#current_profile_details').html(details);
-                                              }
-                                              });}.html_safe %>
+        <%= button_tag "create", :class => 'btn', :type => "button", :id => 'create-benchmark' %>
         <input id="benchmark_name" class="span9" type="text" placeholder="benchmark name">
       </div>
 
 
-      <%#= simple_form_for(@dynamic_profile, :html => {:class => 'input-prepend span5 btn-low'}) do |f| %>
-        <%#= f.button :submit, 'create', {html: {class: "btn new-profile-btn", type: "button"}} %>
-        <%#= f.input_field :name, placeholder: "benchmark name", html: {class: "span2", id: "appendedInputButton", type: "text"} %>
-      <%# end %>
       <div class="span2">
         <h4>or select an</h4>
       </div>
       <div class="span4 btn-low">
-        <%#= form_for(current_user, :url => edit_user_registration_path(:id => current_user.id)) do |f| %>
-        <%= select_tag "current_profile_id", options_for_select(@profiles), :prompt => "existing benchmark",
-                       :onchange => "$.ajax({
-                   url: '#{update_profile_path}',
-                   type: 'PUT',
-                   data: {'current_profile_id': $(this).val()},
-                   success: function(details){
-                     $('#current_profile_details').html(details);
-                   }
-                 });"
-        %>
-
-        <%# end %>
+        <%= select_tag "current_benchmark_id", options_for_select(@profiles), :prompt => "existing benchmark" %>
       </div>
     </div>
 
@@ -109,4 +82,39 @@
 
   <% end %>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#create-static-profile-with-group').on('click', function() {
+      $.ajax({
+        url: '/static_profiles/create_with_group', 
+        type: 'POST',
+        data: {'duration': $('#appendedInputButton').val()}
+      }).done(function(details) {
+        $('#current_profile_details').html(details);
+      });
+    });
+
+    $('#create-benchmark').on('click', function() {
+      $.ajax({
+        url: '/create_benchmark', 
+        type: 'PUT',
+        data: {'name': $('#benchmark_name').val()}
+      }).done(function(details) {
+        $('#current_profile_details').html(details);
+      });              
+    });
+
+    $('#current_benchmark_id').on('change', function() {
+      $.ajax({
+        url: 'update_profile',
+        type: 'PUT',
+        data: {'current_profile_id': $(this).val()}
+      }).done(function(details) {
+        $('#current_profile_details').html(details);
+      });
+    });
+
+  });
+</script>
 

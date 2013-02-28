@@ -1,0 +1,20 @@
+<!-- Modal -->
+<div id="static-profile-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="addStaticProfile" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="addStaticProfile">Add Static Profile</h3>
+  </div>
+
+  <%= form_tag '/static_profiles', :id => 'static-profile-form', :method => 'post', :remote => true do %>
+    <fieldset>
+      <div class="modal-body">  
+          <%= label_tag(:duration, 'Duration') %>
+          <%= text_field_tag :duration, '', :placeholder => 'in minutes' %>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <%= submit_tag 'Add', :class => 'btn btn-primary' %>
+      </div>
+    </fieldset>
+  <% end %> 
+</div>

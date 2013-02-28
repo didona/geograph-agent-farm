@@ -1,24 +1,26 @@
 development:
   adapter: jdbcmysql
   database: agentfarm_development
-  reconnect: false
+  reconnect: true
   pool: 20
+  host: localhost
   username: root
-  password: geograph
+  password: hokuto
 
 test:
   adapter: jdbcmysql
   database: agentfarm_test
   reconnect: false
   pool: 20
+  host: localhost
   username: root
-  password: geograph
+  password: hokuto
 
 production:
   adapter: jdbcmysql
   database: agentfarm_production
-  host: 10.100.0.1
-  reconnect: false
+  host: localhost
+  reconnect: true
   pool: 20
   username: root
-  password: geograph
+  password: hokuto

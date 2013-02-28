@@ -62,23 +62,6 @@ class FarmController < ApplicationController
     render :layout => false
   end
 
-  def add_static_profile
-    @agent_groups = CloudTm::AgentGroup.all
-    @static_profile = StaticProfile.create(:duration => params[:duration])
-    @static_profile.dynamic_profile_id = current_user.current_profile_id
-    @static_profile.move_to_bottom
-
-    @agent_groups.each do |g|
-      group = AgentGroup.create(:simulator => g.agents_type, :sleep => g.delay, :threads => g.agents.size)
-      group.static_profile_id = @static_profile.id
-      group.save!
-    end
-    @static_profile.save!
-    render :layout => false
-    #current_user.current_profile.static_profiles << static_profile #FIXME ACTS AS LIST
-  end
-
-
   def console
     @agent_groups = CloudTm::AgentGroup.all
     @agent_groups.map(&:getAgents).flatten.each { |el| logger.debug el.inspect }
