@@ -114,7 +114,7 @@ function loadSliders() {
     value: 0,
     create: function(event, ui) {
       var slider = $(this);
-      var distance = slider.siblings('#process_distance');
+      var distance = $('#process_distance');
       $(this).slider('value', distance.attr('value'));
     },
     slide: function(event, ui) {
@@ -124,7 +124,7 @@ function loadSliders() {
       var label = $("#distance-selected-" + group_id);
       label.html(ui.value);
 
-      var distance = slider.siblings('#process_distance');
+      var distance = $('#process_distance');
       distance.attr('value', ui.value);
     }
   });

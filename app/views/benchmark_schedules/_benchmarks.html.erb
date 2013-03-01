@@ -17,8 +17,7 @@
         $('#benchmark-accordion').find('.dynamic-profile-container').each(function(index, elem) {
           sortedProfiles.push($(elem).data('profile'));
         });
-        console.log(sortedProfiles);
-
+        
         $.ajax({
           url: 'benchmark_schedules/sort',
           type: 'put',

@@ -28,14 +28,17 @@
                 <%= select_tag "current_profile_id", options_for_select(['none', 'job', 'action']), :prompt => "processor type", :class => 'span10 edge_processor_type'
                 %>
 
-                <li><label class="edge_processor_type" for="name">distance
-                  <span id="distance-selected-new"><%= 0 %></span>
-                  (mt)</label></li>
+                <li>
+                  <label class="edge_processor_type" for="name">
+                    distance <span id="distance-selected-new"><%= 0 %></span> (mt)
+                  </label>
+                </li>
                 <%= hidden_field_tag "process[distance]" %>
 
                 <li>
                   <div class="distance-slider slider edge_processor_type" rel="new"></div>
                 </li>
+
                 <li class="span12">
                   <%= button_tag "save", :class => 'btn btn-primary btn-mini dropdown-save', :onclick => "$.ajax({
                                                                                          url: '#{set_properties_path}',
@@ -50,7 +53,7 @@
                 <li class="nav-header">MAP URL</li>
                 <li>
                   <form class="navbar-form pull-left url-box">
-                    <input id="map-url" type="text" placeholder=<%= "http://example.com:8080" %>>
+                    <input id="map-url" type="text" placeholder="http://example.com:8080" value="<%= current_user ? current_user.setting.map_url : nil %>"/>
                   </form>
                 </li>
 
@@ -65,7 +68,7 @@
                 <li class="nav-header">STATS URL</li>
                 <li>
                   <form class="navbar-form pull-left url-box">
-                    <input id="stats-url" type="text" placeholder="http://example.com:8080">
+                    <input id="stats-url" type="text" placeholder="http://example.com:8080" value="<%= current_user ? current_user.setting.stats_url : nil %>">
                   </form>
                 </li>
                 <li class="span12">
