@@ -1,0 +1,30 @@
+<div class="span10  accordion" id="benchmark-accordion">
+	<% @schedule.dynamic_profiles.each do |dynamic_profile| %>
+		<div class="dynamic-profile-container" data-profile="<%= dynamic_profile.id %>">
+			<label class="label label-info"><%= dynamic_profile.name.upcase %></label>
+			<i class="dynamic-profile-action icon-trash" data-profile="<%= dynamic_profile.id %>"></i>
+			<%= render :partial => 'shared/benchmark_profile_list', 
+								 :locals => { :static_profiles => dynamic_profile.static_profiles, :accordion_id => "benchmark-accordion" } %>  
+		</div>
+	<% end %>
+</div>
+
+<script>
+	$(document).ready(function() {
+    $('#benchmark-accordion').sortable({
+      stop: function() {
+        var sortedProfiles = [];
+        $('#benchmark-accordion').find('.dynamic-profile-container').each(function(index, elem) {
+          sortedProfiles.push($(elem).data('profile'));
+        });
+        console.log(sortedProfiles);
+
+        $.ajax({
+          url: 'benchmark_schedules/sort',
+          type: 'put',
+          data: {ids: sortedProfiles}
+        })
+      }
+    });
+  });
+</script>

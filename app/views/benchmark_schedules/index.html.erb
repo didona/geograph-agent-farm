@@ -3,6 +3,7 @@
 <div id="status"> <%= "Benchmark is running" if @schedule.active? %></div>
 
 <div class="row-fluid">
+
   TOTAL NUMBER OF ITERATIONS   <%= number_field_tag 'number_iterations', @schedule.iterations, :in => 1...100000,
                                                     :class => "span1",
                                                     :onchange => %Q{$.ajax({url: '#{update_iterations_path}',
@@ -12,36 +13,80 @@
 </div>
 
 <div class="row-fluid">
-Schedule<br/>
+  <h3 class="span3"> Schedule </h3>
 
-<%= select_tag "current_profile_id", options_for_select(@dynamic_profiles.map(&:name)), :prompt => "add benchmark",
-               :onchange => "$.ajax({
-                   url: '#{set_schedule_path}',
-                   type: 'PUT',
-                   data: {'schedule_name': $(this).val()},
-                   success: function(details){
-                     $('#current_profile_details').html(details);
-                   }
-                 });"
-%>
+  <div class="row-fluid benchmark-buttons">
+    <div class="well span6">
+      <%= button_tag "start", :class=>"btn btn-large btn-block btn-success", :id => 'start-benchmark-button' %>
+      <%= button_tag "stop", :class=>"btn btn-large btn-block btn-danger", :id => 'stop-benchmark-button' %>
+    </div>
+  </div>
 
-<%= button_tag "start", :class=>"btn btn-primary",:onclick =>  "$.ajax({
-                   url: '#{play_schedule_path}',
-                   type: 'PUT',
-                   success: function(){
-                     $('#status').html('Benchmark is running');
-                   }
-                 });"%>
+  <div class="row-fluid benchmark-buttons">
+    <div class="span2">
+      <%= select_tag "dynamic-profile-select", options_from_collection_for_select(@dynamic_profiles, 'id', 'name'), :prompt => "add benchmark" %>
+    </div>
+    <button type="button" class="btn btn-primary span1" id="add-dynamic-profile-button">add</button>
+  </div>
 
-<%= button_tag "stop", :class=>"btn btn-primary",:onclick =>  "$.ajax({
-                   url: '#{stop_schedule_path}',
-                   type: 'PUT',
-                   success: function(){
-                   $('#status').html('Benchmark is stopped');
-                   }
-                 });"%>
+  <div id="dynamic-profiles-container">
+    <%= render 'benchmarks' %>
+  </div>
 
-<% @benchmarks.each do |b| %>
-  <%= b.name %><br/>
-<% end %>
 </div>
+
+
+<script>
+  $(document).ready(function() {
+    $('#dynamic-profiles-container').on('click', '.icon-trash', function(event) {
+      event.stopPropagation();
+      var icon = $(this);
+      if(confirm("Are you sure you want remove profile " + icon.data('profile') +' from this benchmark?')) {
+        $.ajax({
+          url: 'benchmark_schedules/remove_profile',
+          data: { profile: icon.data('profile') },
+          type: 'delete'
+        }).done(function(data) {
+          $('#dynamic-profiles-container').html(data);
+        });
+      } 
+    });
+
+    $('#add-dynamic-profile-button').on('click', function() {
+      var dynamicProfile = $('#dynamic-profile-select').val();
+      if(dynamicProfile == '') return;
+      
+      $.ajax({
+        url: 'benchmark_schedules/set_benchmark',
+        data: { profile: dynamicProfile },
+        type: 'post'
+      }).done(function(data) {
+        $('#dynamic-profiles-container').html(data);
+      });
+    });
+
+
+    // start the benchmark
+    $('#start-benchmark-button').on('click', function() {
+      $.ajax({
+        url: 'benchmark_schedules/play',
+        type: 'PUT',
+        success: function(){
+          $('#status').html('Benchmark is running');
+        }
+      });
+    });
+
+    // stop the benchmark
+    $('#stop-benchmark-button').on('click', function() {
+      $.ajax({
+        url: 'benchmark_schedules/stop',
+        type: 'PUT',
+        success: function(){
+          $('#status').html('Benchmark is stopped');
+        }
+      });
+    });
+
+  });
+</script>

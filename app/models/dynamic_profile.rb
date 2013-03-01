@@ -3,5 +3,12 @@ class DynamicProfile < ActiveRecord::Base
   attr_accessible :name, :user_id
   belongs_to :user
   belongs_to :benchmark_schedule
+  acts_as_list :scope => :benchmark_schedule
   has_many :static_profiles, :order => "position", :dependent => :destroy
+
+  class << self
+	  def max_position benchmark_schedule_id
+	  	joins(:benchmark_schedule).where("benchmark_schedules.id = ?", benchmark_schedule_id).maximum(:position) || 0
+	  end
+	end
 end

@@ -4,7 +4,7 @@ class StaticProfilesController < ApplicationController
 	around_filter :transact, :only => [:create_with_group]
 
 	def create
-		last_position = StaticProfile.max_position(current_user.current_profile_id) || 0
+		last_position = StaticProfile.max_position(current_user.current_profile_id)
     static_profile = current_user.current_profile.static_profiles.create(
       :duration => params[:duration],
       :position => last_position + 1      
@@ -13,7 +13,7 @@ class StaticProfilesController < ApplicationController
 	end
 
 	def create_with_group
-		last_position = StaticProfile.max_position(current_user.current_profile_id) || 0
+		last_position = StaticProfile.max_position(current_user.current_profile_id)
     static_profile = current_user.current_profile.static_profiles.create(
       :duration => params[:duration],
       :position => last_position + 1      

@@ -6,7 +6,7 @@ class StaticProfile < ActiveRecord::Base
 
   class << self
 	  def max_position dynamic_profile_id
-	  	joins(:dynamic_profile).where("dynamic_profiles.id = ?", dynamic_profile_id).maximum(:position)
+	  	joins(:dynamic_profile).where("dynamic_profiles.id = ?", dynamic_profile_id).maximum(:position) || 0
 	  end
 	end
 

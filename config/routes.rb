@@ -39,7 +39,18 @@ GeographGenerator::Application.routes.draw do
     end
   end
 
-  resources :dynamic_profiles
+  resources :dynamic_profiles do
+  end
+
+  resources :benchmark_schedules do
+    collection do
+      post 'set_benchmark'
+      put 'play'
+      put 'stop'
+      delete 'remove_profile'
+      put 'sort'
+    end
+  end
 
   #resources :farm do
   #  member do
@@ -79,10 +90,10 @@ GeographGenerator::Application.routes.draw do
 
   root :to => 'farm#console'
 
-  match 'benchmark'=> "benchmark_schedules#index"
-  match 'play_schedule' => "benchmark_schedules#play"
-  match 'stop_schedule' => "benchmark_schedules#stop"
-  match 'set_schedule' => "benchmark_schedules#set_benchmark"
+  match 'benchmark' => "benchmark_schedules#index"
+  #match 'play_schedule' => "benchmark_schedules#play"
+  #match 'stop_schedule' => "benchmark_schedules#stop"
+  #match 'set_schedule' => "benchmark_schedules#set_benchmark"
   match 'add_workload'=> "benchmark_schedules#add_workload"
   match 'update_iterations'=> "benchmark_schedules#update_iterations"
 

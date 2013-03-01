@@ -1,0 +1,37 @@
+<div class="span10  accordion" id="<%= accordion_id %>">
+<% if static_profiles %>
+  <% static_profiles.each do |profile| %>
+    <div class="accordion-group" data-profile="<%= profile.id %>">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#<%= accordion_id %>" href="#collapse<%= profile.position %>">
+          <%= "profile #{profile.id} (#{profile.duration} min)".html_safe %>
+          <i class="static-profile-action icon-trash" data-profile="<%= profile.id %>"></i>
+          <i class="static-profile-action icon-edit" data-profile="<%= profile.id %>" data-duration="<%= profile.duration %>"></i>              
+        </a>
+      </div>
+      <div id="collapse<%= profile.position %>" class="accordion-body collapse">
+        <div class="accordion-inner">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>simulator</th>
+              <th># threads</th>
+              <th>sleep (msec)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- FIXME -->
+            <% profile.agent_groups.each do |agent_group| %>
+              <tr>
+                <td><%= agent_group.simulator %></td>
+                <td><%= agent_group.threads %></td>
+                <td><%= agent_group.sleep %></td>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+</div>

@@ -9,14 +9,10 @@ class BenchmarkSchedulesController < ApplicationController
   end
 
   def set_benchmark
-    profile = DynamicProfile.where(:name => params[:schedule_name])
-    if(profile.length !=1)
-     @errors = "multiple benchmarks with name #{params[:schedule_name]}"
-    end
-    profile = profile.first
-    Rails.logger.debug "+++++++PROFILE #{profile.inspect}"
-    profile.benchmark_schedule_id= @schedule.id
-    profile.save!
+    profile = DynamicProfile.find(params[:profile])
+    @schedule.dynamic_profiles << profile
+    last_position = DynamicProfile.max_position(@schedule.id)
+    profile.update_attribute(:position, last_position)
     render :layout => false
   end
 
@@ -40,11 +36,25 @@ class BenchmarkSchedulesController < ApplicationController
     end
     @benchmarks = @schedule.dynamic_profiles || []
     @dynamic_profiles = current_user.dynamic_profiles
+  end
 
+  def remove_profile
+    dynamic_profile = DynamicProfile.find(params[:profile])
+    @schedule.dynamic_profiles.delete(dynamic_profile)
+    render 'benchmarks', :layout => false
+  end
+
+  def sort
+    params[:ids].each_with_index do |profile_id, index|
+      dynamic_profile = DynamicProfile.find_by_id(profile_id)
+      dynamic_profile.update_attribute(:position, index + 1) if dynamic_profile
+    end
+    render :nothing => true
   end
 
   private
-     def get_schedule
-       @schedule = current_user.benchmark_schedule
-     end
+
+   def get_schedule
+     @schedule = current_user.benchmark_schedule
+   end
 end
