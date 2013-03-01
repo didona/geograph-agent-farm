@@ -36,6 +36,11 @@ class BenchmarkService
       #there is no benchmark
       unless benchmark
         Rails.logger.debug "No active benchmark"
+        @current_static_profile.stop if @current_static_profile
+        @current_benchmark = nil
+        @step_start_time = nil
+        #@current_position = 0
+        @current_dynamic_profile = nil
         sleep(@sleep)
         Rails.logger.debug "=================="
         next
@@ -57,24 +62,24 @@ class BenchmarkService
         @current_dynamic_profile = @current_benchmark.dynamic_profiles.first
 
         @current_static_profile = @current_dynamic_profile.static_profiles.first
-        
-        Rails.logger.debug "Starting profile at position"  #{@current_position}
+
+        Rails.logger.debug "Starting profile at position" #{@current_position}
         @current_static_profile.start
         Rails.logger.debug "=================="
         next
       end
 
-      profile_progress = ((Time.now - @step_start_time) / (@current_static_profile.duration * 60)) * 100 
+      profile_progress = ((Time.now - @step_start_time) / (@current_static_profile.duration * 60)) * 100
       @current_benchmark.update_attributes(:static_profile_id => @current_static_profile.id, :static_profile_progress => profile_progress)
 
       #Execution of current step
       #Checks if the step is finished
-      if( (@current_static_profile.duration * 60) <= (Time.now - @step_start_time) )
+      if ((@current_static_profile.duration * 60) <= (Time.now - @step_start_time))
         Rails.logger.debug "Step #{@current_static_profile.id} completed"
         @current_static_profile.stop
         sleep(2 * @sleep) #FIXME: put max among delays @current_static_profile.max_delay
         @step_start_time = Time.now
-        
+
         #@current_position += 1
         #@current_static_profile = @current_benchmark.dynamic_profiles.first.static_profiles.where(:position => @current_position).first
         next_step
@@ -100,10 +105,10 @@ class BenchmarkService
   def next_step
     # Get the next profile
     previous_index = @current_dynamic_profile.static_profiles.index(@current_static_profile)
-    if( @current_dynamic_profile.static_profiles.size == previous_index + 1 )
+    if (@current_dynamic_profile.static_profiles.size == previous_index + 1)
       # go to next dynamic profile
       previous_dynamic_index = @current_benchmark.dynamic_profiles.index(@current_dynamic_profile)
-      if( @current_benchmark.dynamic_profiles.size == previous_dynamic_index + 1 )
+      if (@current_benchmark.dynamic_profiles.size == previous_dynamic_index + 1)
         # benchmark completed!
         @current_static_profile = nil
         @current_dynamic_profile = nil
@@ -113,7 +118,7 @@ class BenchmarkService
         next
       else
         # go to next dynamic profile
-        @current_dynamic_profile = @current_benchmark.dynamic_profiles[previous_dynamic_index + 1]  
+        @current_dynamic_profile = @current_benchmark.dynamic_profiles[previous_dynamic_index + 1]
         @current_static_profile = @current_dynamic_profile.static_profiles.first
       end
     else
