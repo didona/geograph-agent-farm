@@ -1,4 +1,5 @@
 class BenchmarkService
+  include Madmass::Transaction::TxMonitor
 
   def initialize(opts={})
     @sleep = opts['sleep']
@@ -18,6 +19,11 @@ class BenchmarkService
     @step_start_time = nil
     #@current_position = 0
     @current_dynamic_profile = nil
+
+    tx_monitor do
+      CloudTm::Route.load_routes #Preload routes
+    end
+
 
     until @done
 
