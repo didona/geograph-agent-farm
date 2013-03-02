@@ -5,7 +5,7 @@ development:
   pool: 20
   host: localhost
   username: root
-  password: hokuto
+  password: geograph
 
 test:
   adapter: jdbcmysql
@@ -14,7 +14,7 @@ test:
   pool: 20
   host: localhost
   username: root
-  password: hokuto
+  password: geograph
 
 production:
   adapter: jdbcmysql
@@ -23,4 +23,4 @@ production:
   reconnect: true
   pool: 20
   username: root
-  password: hokuto
+  password: geograph

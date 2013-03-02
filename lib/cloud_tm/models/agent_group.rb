@@ -40,6 +40,71 @@ module CloudTm
     always_background :undertaker
 
 
+
+    def boot(opts)
+      Madmass.logger.debug "############################# BOOT START #############################"
+
+      retries = 0
+
+      begin
+        agents_ids = []
+        delay = 5
+        type = nil
+        tx_monitor do
+          agent_group = CloudTm::AgentGroup.find_by_id(opts[:agent_group_id])
+          unless agent_group
+            message = "Did not find agent group with id (#{opts[:agent_group_id]})"
+            Madmass.logger.error message
+            raise Madmass::Errors::WrongInputError.new message
+          end
+
+          delay = agent_group.delay
+          type = agent_group.agents_type
+          agent_group.getAgents.each do |agent|
+            Madmass.logger.debug "Found agent in group: #{agent.inspect}"
+            agents_ids << agent.getExternalId
+          end
+          Madmass.logger.info "Agent group and agents found"
+          #agent_group.boot #Starts a background tasks for each agent
+        end
+      rescue Madmass::Errors::WrongInputError => ex
+        raise Madmass::Errors::CatastrophicError.new "Did not find agent group #{opts[:agent_group_id]}, retries limit reached" if retries > 10
+        Madmass.logger.error "retrying #{retries}-th time..."
+        retries +=1
+        java.lang.sleep((10*retries)**2)
+        retry
+      end
+
+
+      Madmass.logger.info "Starting #{agents_ids.size} simulations"
+
+      simulator_opts ={
+        :tx => false,
+        :persistent => false,
+        #:priority => :critical
+      }
+
+      scatter_time = 15 #ms
+      Madmass.logger.debug("Type: #{type}")
+
+      klass_name = "CloudTm::#{type}"
+
+      klass = klass_name.constantize
+      raise Madmass::Errors::CatastrophicError, "#{klass_name} does not include Madmass::AgentFarm::Agent::AutonomousAgent" unless klass.included_modules.include?(Madmass::AgentFarm::Agent::AutonomousAgent)
+
+      agents_ids.each do |agent_id|
+
+        klass.background(simulator_opts).simulate(
+          {:agent_id => agent_id,
+           :step => delay,
+           :agent_group_id => opts[:agent_group_id]}
+        )
+        Madmass.logger.debug("******* Agent(group:#{opts[:agent_group_id]} -- id:#{agent_id}) launched *******")
+        java.lang.Thread.sleep(rand*scatter_time);
+      end
+      Madmass.logger.debug "############################# BOOT END #############################"
+    end
+
     def shutdown
 
       #Send the shutdown signal
@@ -170,6 +235,8 @@ module CloudTm
       Madmass.logger.debug "Undertaker started"
       all_agents = nil
       dead_agents = nil
+      start_time = Time.now
+
       begin
         java.lang.Thread.sleep(delay/2.0)
         #TorqueBox::transaction(:requires_new => true) do
@@ -183,9 +250,11 @@ module CloudTm
           #Madmass.logger.info("Undertaker: agents are #{agents.size} of which dead #{dead_agents.size}")
           #end
         end
-      end while (all_agents != dead_agents)
+      end while ((all_agents != dead_agents) && (Time.now-start_time < 3*delay))
 
-
+      if (Time.now-start_time >= 3*delay)
+        Madmass.logger.error "******* Timed out waiting for  group to die (probably threads aborted)*********"
+      end
       #TorqueBox::transaction(:requires_new => true) do
       tx_monitor do
         destroy
