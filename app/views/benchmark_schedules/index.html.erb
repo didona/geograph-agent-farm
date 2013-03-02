@@ -9,31 +9,38 @@
       <%= button_tag "stop", :class => "btn btn-large btn-block btn-danger", :id => 'stop-benchmark-button' %>
     </div>
   </div>
+</div>
 
+<h3>Benchmarking Schedule</h3>
 
-  <h3>Benchmarking Schedule</h3>
-  <div class="row-fluid">
+<div class=" span4 row-fluid">
+  <div class="span1">
+    ITERATIONS:
+  </div>
 
-    TOTAL NUMBER OF ITERATIONS   <%= number_field_tag 'number_iterations', @schedule.iterations, :in => 1...100000,
-                                                      :class => "span1",
-                                                      :onchange => %Q{$.ajax({url: '#{update_iterations_path}',
+  <div class="span1">
+    <%= number_field_tag 'number_iterations', @schedule.iterations, :in => 1...100000,
+                         :class => "span12",
+                         :onchange => %Q{$.ajax({url: '#{update_iterations_path}',
                                  type: 'PUT',data: {'iterations': $(this).val()}});}.html_safe %>
   </div>
 
-  <div class="row-fluid benchmark-buttons">
-    <div class="span2">
-      <%= select_tag "dynamic-profile-select", options_from_collection_for_select(@dynamic_profiles, 'id', 'name'), :prompt => "add benchmark" %>
-    </div>
-    <button type="button" class="btn btn-primary span1" id="add-dynamic-profile-button">add</button>
+  <div class="span1">
+    <button type="button" class="span12 btn btn-primary" id="add-dynamic-profile-button">add</button>
   </div>
 
-
-
-  <div id="dynamic-profiles-container">
-    <%= render 'benchmarks' %>
+  <div class="span2">
+    <%= select_tag "dynamic-profile-select", options_from_collection_for_select(@dynamic_profiles, 'id', 'name'), :prompt => "add benchmark" %>
   </div>
 
 </div>
+
+
+<div id="dynamic-profiles-container">
+  <%= render 'benchmarks' %>
+</div>
+
+
 
 
 <script>
