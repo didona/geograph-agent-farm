@@ -52,7 +52,6 @@
       if(data.static_profiles) {
         $.each(data.static_profiles, function(key, value) {
           var progress = $('#static-profile-progress-' + key);
-          console.log(progress);
           progress.html(value + '%');
           progress.css({width: value + '%'});
         });
