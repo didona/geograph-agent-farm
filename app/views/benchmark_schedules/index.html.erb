@@ -37,7 +37,33 @@
 
 
 <script>
+  function refreshProgresses() {
+    $.ajax({
+      url: 'benchmark_schedules/progress',
+      accept: 'json'
+    }).done(function(data) {
+      if(data.dynamic_profiles) {
+        $.each(data.dynamic_profiles, function(key, value) {
+          var progress = $('#dynamic-profile-progress-' + key);
+          progress.html(value + '%');
+          progress.css({width: value + '%'});
+        });  
+      }
+      if(data.static_profiles) {
+        $.each(data.static_profiles, function(key, value) {
+          var progress = $('#static-profile-progress-' + key);
+          console.log(progress);
+          progress.html(value + '%');
+          progress.css({width: value + '%'});
+        });
+      }
+    });
+  }
+
   $(document).ready(function() {
+
+    setInterval(refreshProgresses, 2000);
+
     $('#dynamic-profiles-container').on('click', '.icon-trash', function(event) {
       event.stopPropagation();
       var icon = $(this);

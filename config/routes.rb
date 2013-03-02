@@ -49,6 +49,7 @@ GeographGenerator::Application.routes.draw do
       put 'stop'
       delete 'remove_profile'
       put 'sort'
+      get 'progress'
     end
   end
 

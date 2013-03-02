@@ -3,6 +3,12 @@
 		<div class="dynamic-profile-container" data-profile="<%= dynamic_profile.id %>">
 			<label class="label label-info"><%= dynamic_profile.name.upcase %></label>
 			<i class="dynamic-profile-action icon-trash" data-profile="<%= dynamic_profile.id %>"></i>
+      
+      <div class="progress progress-success progress-striped" style="width: 300px;">
+        <% progress = @progress_data[:dynamic_profiles][dynamic_profile.id] %>
+        <div id="dynamic-profile-progress-<%= dynamic_profile.id %>" class="bar" style="width: <%= progress %>%"><%= progress %>%</div>
+      </div>
+
 			<%= render :partial => 'shared/benchmark_profile_list', 
 								 :locals => { :static_profiles => dynamic_profile.static_profiles, :accordion_id => "benchmark-accordion" } %>  
 		</div>

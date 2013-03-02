@@ -1,13 +1,13 @@
 <% if static_profiles %>
-  <% static_profiles.each do |profile| %>
+  <% static_profiles.each_with_index do |profile, index| %>
     <div class="accordion-group" data-profile="<%= profile.id %>">
       
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#<%= accordion_id %>" href="#collapse<%= profile.id %>">
           <%= "profile #{profile.id} (#{profile.duration} min)".html_safe %>
-
           <div class="progress progress-info progress-striped" style="width: 300px; display: inline-block; margin: 0 0 0 20px; float: right;">
-            <div class="bar" style="width: 54%">54%</div>
+            <% progress = @progress_data[:static_profiles][profile.id] %>
+            <div id="static-profile-progress-<%= profile.id %>" class="bar" style="width: <%= progress %>%"><%= progress %>%</div>
           </div>
         </a>
 
@@ -22,7 +22,7 @@
                 <th>simulator</th>
                 <th># threads</th>
                 <th>sleep (msec)</th>
-                <th>% progress</th>
+                <!-- <th>% progress</th> -->
               </tr>
             </thead>
             <tbody>
@@ -31,11 +31,13 @@
                   <td><%= agent_group.simulator %></td>
                   <td><%= agent_group.threads %></td>
                   <td><%= agent_group.sleep %></td>
+                  <!--
                   <td>
                     <div class="progress progress-success progress-striped" style="width: 150px;">
                       <div class="bar" style="width: 87%">87%</div>
                     </div>
                   </td>
+                  -->
               <% end %>
             </tbody>
           </table>

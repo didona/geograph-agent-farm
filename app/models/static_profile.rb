@@ -3,6 +3,7 @@ class StaticProfile < ActiveRecord::Base
   acts_as_list :scope => :dynamic_profile
   has_many :agent_groups, :dependent => :destroy
   belongs_to :dynamic_profile
+  has_one :static_profile
 
   class << self
 	  def max_position dynamic_profile_id
