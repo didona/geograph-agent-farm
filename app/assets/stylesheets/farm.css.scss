@@ -21,6 +21,27 @@ h4 {
   color: #999999;
 }
 
+.schedule-header{
+  margin-top: 25px;
+  margin-bottom: 0px;
+}
+.new-benchmark {
+  margin-top: 5px;
+}
+.iterations{
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+.spaced-label{
+  margin-top: 40px;
+  margin-bottom: 10px;
+
+}
+
+.benchmark-console {
+  padding: 30px 30px 30px 30px;
+}
+
 .sandbox {
   padding: 0px 15px 0px 15px;
   border-radius: 12px;
@@ -78,7 +99,7 @@ h4 {
 .url-box {
   margin-left: 20px;
   margin-right: 20px;
-  input{
+  input {
     width: 175px;
   }
 }
@@ -97,7 +118,7 @@ h4 {
 .accordion-toggle {
   &:hover {
     text-decoration: none;
-  }  
+  }
 }
 
 .static-profile-action {
@@ -131,5 +152,5 @@ h4 {
   .bar {
     font-size: 17px;
   }
-  
+
 }

@@ -3,8 +3,40 @@
 
 <div class="row-fluid">
 
-  <div class="row-fluid benchmark-buttons">
-    <div class="offset3 well span6">
+
+  <div class="span7">
+    <div class="schedule-header">
+      <h2>
+        <div class="span6">Benchmarking Schedule</div>
+
+        <div class="span1 new-benchmark btn-group">
+          <button type="button" class="span12 btn btn-primary" id="add-dynamic-profile-button">add</button>
+          <%= select_tag "dynamic-profile-select",  options_from_collection_for_select(@dynamic_profiles, 'id', 'name'), :prompt => "add benchmark" %>
+        </div>
+      </h2>
+    </div>
+
+    <div id="dynamic-profiles-container">
+      <%= render 'benchmarks' %>
+    </div>
+  </div>
+
+  <div class="span5 benchmark-console">
+
+    <div class="well span12">
+      <div class="span12 iterations row-fluid">
+        <div class="span4 ">
+          <h4># ITERATIONS: </h4>
+        </div>
+
+        <div class="span2">
+          <%= number_field_tag 'number_iterations', @schedule.iterations, :in => 1...100000,
+                               :class => "span12",
+                               :onchange => %Q{$.ajax({url: '#{update_iterations_path}',
+                                       type: 'PUT',data: {'iterations': $(this).val()}});}.html_safe %>
+        </div>
+      </div>
+
       <%= button_tag "start", :class => "btn btn-large btn-block btn-success", :id => 'start-benchmark-button' %>
       <%= button_tag "stop", :class => "btn btn-large btn-block btn-danger", :id => 'stop-benchmark-button' %>
       <div id="global-progress-bar" class="progress progress-warning progress-striped">
@@ -13,39 +45,8 @@
       </div>
     </div>
   </div>
-</div>
-
-<h3>Benchmarking Schedule</h3>
-
-<div class=" span4 row-fluid">
-  <div class="span1">
-    ITERATIONS:
-  </div>
-
-  <div class="span1">
-    <%= number_field_tag 'number_iterations', @schedule.iterations, :in => 1...100000,
-                         :class => "span12",
-                         :onchange => %Q{$.ajax({url: '#{update_iterations_path}',
-                                 type: 'PUT',data: {'iterations': $(this).val()}});}.html_safe %>
-  </div>
-
-  <div class="span1">
-    <button type="button" class="span12 btn btn-primary" id="add-dynamic-profile-button">add</button>
-  </div>
-
-  <div class="span2">
-    <%= select_tag "dynamic-profile-select", options_from_collection_for_select(@dynamic_profiles, 'id', 'name'), :prompt => "add benchmark" %>
-  </div>
 
 </div>
-
-
-<div id="dynamic-profiles-container">
-  <%= render 'benchmarks' %>
-</div>
-
-
-
 
 <script>
   function refreshProgresses() {
@@ -53,24 +54,24 @@
       url: 'benchmark_schedules/progress',
       accept: 'json'
     }).done(function(data) {
-      if(data.dynamic_profiles) {
-        $.each(data.dynamic_profiles, function(key, value) {
-          var progress = $('#dynamic-profile-progress-' + key);
-          progress.html(value + '%');
-          progress.css({width: value + '%'});
-        });  
-      }
-      if(data.static_profiles) {
-        $.each(data.static_profiles, function(key, value) {
-          var progress = $('#static-profile-progress-' + key);
-          progress.html(value + '%');
-          progress.css({width: value + '%'});
-        });
-      }
-      var globalProgress = $('#global-progress');
-      globalProgress.html(data.global_progress + '%');
-      globalProgress.css({width: data.global_progress + '%'});
-    });
+        if(data.dynamic_profiles) {
+          $.each(data.dynamic_profiles, function(key, value) {
+            var progress = $('#dynamic-profile-progress-' + key);
+            progress.html(value + '%');
+            progress.css({width: value + '%'});
+          });
+        }
+        if(data.static_profiles) {
+          $.each(data.static_profiles, function(key, value) {
+            var progress = $('#static-profile-progress-' + key);
+            progress.html(value + '%');
+            progress.css({width: value + '%'});
+          });
+        }
+        var globalProgress = $('#global-progress');
+        globalProgress.html(data.global_progress + '%');
+        globalProgress.css({width: data.global_progress + '%'});
+      });
   }
 
   $(document).ready(function() {

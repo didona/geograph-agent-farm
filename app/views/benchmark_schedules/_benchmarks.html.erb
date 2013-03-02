@@ -1,7 +1,7 @@
-<div class="span10  accordion" id="benchmark-accordion">
+<div class="span11  accordion" id="benchmark-accordion">
 	<% @schedule.dynamic_profiles.each do |dynamic_profile| %>
 		<div class="dynamic-profile-container" data-profile="<%= dynamic_profile.id %>">
-			<label class="label label-info"><%= dynamic_profile.name.upcase %></label>
+			<label class="label spaced-label label-info"><%= dynamic_profile.name.upcase %></label>
 			<i class="dynamic-profile-action icon-trash" data-profile="<%= dynamic_profile.id %>"></i>
       
       <div class="progress progress-success progress-striped" style="width: 300px;">
