@@ -76,15 +76,18 @@ class BenchmarkSchedulesController < ApplicationController
           progress_data[:dynamic_profiles][dynamic_profile.id] = 0
           progress_data[:static_profiles].merge! static_profiles_progress(dynamic_profile.static_profiles, 0)
         elsif(dynamic_index == dindex)
-          progress_data[:static_profiles].merge! static_profiles_progress(dynamic_profile.static_profiles, 0)
-          medium_progress = progress_data[:static_profiles].values.inject(0){ |sum, prog| sum + prog } / progress_data[:static_profiles].size
-          progress_data[:dynamic_profiles][dynamic_profile.id] = medium_progress
+          this_progress = static_profiles_progress(dynamic_profile.static_profiles, 0)
+          progress_data[:static_profiles].merge! this_progress
+          medium_progress = this_progress.values.inject(0){ |sum, prog| sum + prog } / this_progress.size
+          progress_data[:dynamic_profiles][dynamic_profile.id] = medium_progress > 100 ? 100 : medium_progress
         else
           progress_data[:dynamic_profiles][dynamic_profile.id] = 100
           progress_data[:static_profiles].merge! static_profiles_progress(dynamic_profile.static_profiles, 100)
         end
       end
     end
+    static_size = progress_data[:static_profiles].size > 0 ? progress_data[:static_profiles].size : 1
+    progress_data[:global_progress] = progress_data[:static_profiles].values.inject(0){ |sum, prog| sum + prog } / static_size
     progress_data
   end
 

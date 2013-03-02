@@ -124,3 +124,12 @@ h4 {
 .benchmark-buttons {
   margin: 20px 0 20px 0;
 }
+
+#global-progress-bar {
+  height: 40px;
+  margin-top: 5px;
+  .bar {
+    font-size: 17px;
+  }
+  
+}

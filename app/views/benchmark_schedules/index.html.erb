@@ -7,6 +7,10 @@
     <div class="offset3 well span6">
       <%= button_tag "start", :class => "btn btn-large btn-block btn-success", :id => 'start-benchmark-button' %>
       <%= button_tag "stop", :class => "btn btn-large btn-block btn-danger", :id => 'stop-benchmark-button' %>
+      <div id="global-progress-bar" class="progress progress-warning progress-striped">
+        <% progress = @progress_data[:global_progress] %>
+        <div id="global-progress" class="bar" style="width: <%= progress %>%"><%= progress %>%</div>
+      </div>
     </div>
   </div>
 </div>
@@ -49,22 +53,24 @@
       url: 'benchmark_schedules/progress',
       accept: 'json'
     }).done(function(data) {
-        if(data.dynamic_profiles) {
-          $.each(data.dynamic_profiles, function(key, value) {
-            var progress = $('#dynamic-profile-progress-' + key);
-            progress.html(value + '%');
-            progress.css({width: value + '%'});
-          });
-        }
-        if(data.static_profiles) {
-          $.each(data.static_profiles, function(key, value) {
-            var progress = $('#static-profile-progress-' + key);
-            console.log(progress);
-            progress.html(value + '%');
-            progress.css({width: value + '%'});
-          });
-        }
-      });
+      if(data.dynamic_profiles) {
+        $.each(data.dynamic_profiles, function(key, value) {
+          var progress = $('#dynamic-profile-progress-' + key);
+          progress.html(value + '%');
+          progress.css({width: value + '%'});
+        });  
+      }
+      if(data.static_profiles) {
+        $.each(data.static_profiles, function(key, value) {
+          var progress = $('#static-profile-progress-' + key);
+          progress.html(value + '%');
+          progress.css({width: value + '%'});
+        });
+      }
+      var globalProgress = $('#global-progress');
+      globalProgress.html(data.global_progress + '%');
+      globalProgress.css({width: data.global_progress + '%'});
+    });
   }
 
   $(document).ready(function() {
