@@ -39,7 +39,7 @@ class BenchmarkService
         @current_static_profile.stop if @current_static_profile
         @current_benchmark = nil
         @step_start_time = nil
-        #@current_position = 0
+        @current_static_profile = nil
         @current_dynamic_profile = nil
         sleep(@sleep)
         Rails.logger.debug "=================="
