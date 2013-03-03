@@ -57,6 +57,7 @@ class BenchmarkService
         Rails.logger.debug "setting new benchmark"
         @current_benchmark = benchmark
         @step_start_time = Time.now
+        @current_benchmark.update_attribute(:start_time, @step_start_time)
         #@current_position = 1
 
         @current_dynamic_profile = @current_benchmark.dynamic_profiles.first

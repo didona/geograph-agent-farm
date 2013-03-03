@@ -11,6 +11,7 @@
 //= require jtable
 //= require jquery.blockUI
 //= require jquery.tablesorter.min
+//= require jquery.countup
 
 
 $(document).ready(function() {

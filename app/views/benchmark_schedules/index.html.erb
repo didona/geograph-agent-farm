@@ -43,7 +43,12 @@
         <% progress = @progress_data[:global_progress] %>
         <div id="global-progress" class="bar" style="width: <%= progress %>%"><%= progress %>%</div>
       </div>
+
+      <div id="countup"></div>
     </div>
+
+    
+    
   </div>
 
 </div>
@@ -54,27 +59,43 @@
       url: 'benchmark_schedules/progress',
       accept: 'json'
     }).done(function(data) {
-        if(data.dynamic_profiles) {
-          $.each(data.dynamic_profiles, function(key, value) {
-            var progress = $('#dynamic-profile-progress-' + key);
-            progress.html(value + '%');
-            progress.css({width: value + '%'});
-          });
-        }
-        if(data.static_profiles) {
-          $.each(data.static_profiles, function(key, value) {
-            var progress = $('#static-profile-progress-' + key);
-            progress.html(value + '%');
-            progress.css({width: value + '%'});
-          });
-        }
-        var globalProgress = $('#global-progress');
-        globalProgress.html(data.global_progress + '%');
-        globalProgress.css({width: data.global_progress + '%'});
-      });
+      if(data.dynamic_profiles) {
+        $.each(data.dynamic_profiles, function(key, value) {
+          var progress = $('#dynamic-profile-progress-' + key);
+          progress.html(value + '%');
+          progress.css({width: value + '%'});
+        });
+      }
+      if(data.static_profiles) {
+        $.each(data.static_profiles, function(key, value) {
+          var progress = $('#static-profile-progress-' + key);
+          progress.html(value + '%');
+          progress.css({width: value + '%'});
+        });
+      }
+      var globalProgress = $('#global-progress');
+      globalProgress.html(data.global_progress + '%');
+      globalProgress.css({width: data.global_progress + '%'});
+      if(data.global_progress >= 100) {
+        $('#countup').countup({stop: true});
+      }
+    });
   }
 
   $(document).ready(function() {
+
+    
+    var scheduleActive = <%= @schedule.active %>;
+    if(scheduleActive) {
+      var stringDate = '<%= @schedule.start_time ? (@schedule.start_time + 1.hour).strftime("%Y/%m/%d %H:%M:%S") : '' %>';
+      var startDate = new Date();
+      if(stringDate != '') 
+        startDate = new Date(stringDate);
+      $('#countup').countup({start: startDate});
+    } else {
+      $('#countup').countup();
+      $('#countup').countup({stop: true});
+    }
 
     setInterval(refreshProgresses, 2000);
 
@@ -113,6 +134,7 @@
         type: 'PUT',
         success: function() {
           $('#status').html('Benchmark is running');
+          $('#countup').countup({restart: true});
         }
       });
     });
@@ -124,6 +146,7 @@
         type: 'PUT',
         success: function() {
           $('#status').html('Benchmark is stopped');
+          $('#countup').countup({stop: true});
         }
       });
     });

@@ -1,5 +1,5 @@
 class BenchmarkSchedulesController < ApplicationController
-
+  before_filter :authenticate_agent
   before_filter :get_schedule
 
   def update_iterations
@@ -13,6 +13,7 @@ class BenchmarkSchedulesController < ApplicationController
     @schedule.dynamic_profiles << profile
     last_position = DynamicProfile.max_position(@schedule.id)
     profile.update_attribute(:position, last_position)
+    @progress_data = get_progress_data
     render :layout => false
   end
 
@@ -42,6 +43,7 @@ class BenchmarkSchedulesController < ApplicationController
   def remove_profile
     dynamic_profile = DynamicProfile.find(params[:profile])
     @schedule.dynamic_profiles.delete(dynamic_profile)
+    @progress_data = get_progress_data
     render 'benchmarks', :layout => false
   end
 
@@ -50,6 +52,7 @@ class BenchmarkSchedulesController < ApplicationController
       dynamic_profile = DynamicProfile.find_by_id(profile_id)
       dynamic_profile.update_attribute(:position, index + 1) if dynamic_profile
     end
+    @progress_data = get_progress_data
     render :nothing => true
   end
 
@@ -100,7 +103,7 @@ class BenchmarkSchedulesController < ApplicationController
         # the current profile is in this group
         if(@schedule.static_profile == profile)
           # this is the profile running now
-          progress[profile.id] = @schedule.static_profile_progress
+          progress[profile.id] = @schedule.static_profile_progress > 100 ? 100 : @schedule.static_profile_progress
         elsif(index < index_of_current)
           # the current profile is after this one (this is completed)
           progress[profile.id] = 100
