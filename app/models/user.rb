@@ -40,4 +40,12 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
+
+ after_create :add_settings
+   def add_settings
+     my_setting = Setting.create
+     my_setting.user = self
+     my_setting.save!
+   end
+
 end

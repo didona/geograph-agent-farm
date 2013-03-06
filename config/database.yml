@@ -17,10 +17,10 @@ test:
   password: geograph
 
 production:
-  adapter: jdbcmysql
-  database: agentfarm_production
-  host: localhost
-  reconnect: true
-  pool: 20
-  username: root
-  password: geograph
+  adapter: mysql
+  xa: false
+  database: geograph_production
+  host: 10.100.0.1
+  username: geograph
+  password: geograph_passwd
+  encoding: utf8

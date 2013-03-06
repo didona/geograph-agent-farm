@@ -20,6 +20,9 @@ group :development, :test do
   gem 'torquebox-server'
 end
 
+gem 'execjs'
+gem 'therubyrhino'
+
 gem 'jquery-rails', '2.0.2'
 
 # To use ActiveModel has_secure_password
@@ -36,8 +39,8 @@ gem 'jquery-rails', '2.0.2'
 
 gem "jruby-openssl"
 
-#gem "madmass", :git => "git://github.com/algorithmica/madmass.git"
-gem "madmass", :path => "../madmass"
+gem "madmass", :git => "git://github.com/algorithmica/madmass.git"
+#gem "madmass", :path => "../madmass"
 
 gem 'twitter-bootstrap-rails'
 
