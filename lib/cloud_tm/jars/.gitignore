@@ -1,4 +1,1 @@
 # Do not commit fenix-framework dependencies. They should be put here from the geograph-agent-farm-domain. See README there.
-fenix-framework-*.jar
-dml-maven-plugin*.jar
-dap-framework-*.jar
