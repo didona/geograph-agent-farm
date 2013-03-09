@@ -41,7 +41,7 @@ class BenchmarkService
         @step_start_time = nil
         @current_static_profile = nil
         @current_dynamic_profile = nil
-        sleep(@sleep)
+        #sleep(@sleep)
         Rails.logger.debug "=================="
         next
       end
@@ -78,7 +78,7 @@ class BenchmarkService
       if ((@current_static_profile.duration * 60) <= (Time.now - @step_start_time))
         Rails.logger.debug "Step #{@current_static_profile.id} completed"
         @current_static_profile.stop
-        sleep(2 * @sleep) #FIXME: put max among delays @current_static_profile.max_delay
+        #sleep(2 * @sleep) #FIXME: put max among delays @current_static_profile.max_delay
         @step_start_time = Time.now
 
         #@current_position += 1

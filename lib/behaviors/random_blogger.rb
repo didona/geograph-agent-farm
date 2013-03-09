@@ -42,6 +42,11 @@ module Behaviors
       return next_action
     end
 
+    def last_wish
+      #do nothing
+      nil
+    end
+
     private
 
     def geo_post_object opts

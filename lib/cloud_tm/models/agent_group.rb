@@ -237,8 +237,9 @@ module CloudTm
       dead_agents = nil
       start_time = Time.now
 
+      timeout = [3*delay, 1000].max #timeout should not be 0, while delay can be 0
       begin
-        java.lang.Thread.sleep(delay/2.0)
+        java.lang.Thread.sleep(100+delay/2.0)
         #TorqueBox::transaction(:requires_new => true) do
         tx_monitor do
           agents=getAgents
@@ -250,10 +251,10 @@ module CloudTm
           #Madmass.logger.info("Undertaker: agents are #{agents.size} of which dead #{dead_agents.size}")
           #end
         end
-      end while ((all_agents != dead_agents) && (Time.now-start_time < 3*delay))
+      end while ((all_agents != dead_agents) && (Time.now-start_time < timeout))
 
-      if (Time.now-start_time >= 3*delay)
-        Madmass.logger.error "******* Timed out waiting for  group to die (probably threads aborted)*********"
+      if (Time.now-start_time >= timeout)
+        Madmass.logger.error "******* Timeout (#{timeout} msec) triggered after waiting #{Time.now-start_time}  for  group to die (probably threads aborted)*********"
       end
       #TorqueBox::transaction(:requires_new => true) do
       tx_monitor do
