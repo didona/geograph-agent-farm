@@ -50,6 +50,8 @@ GeographGenerator::Application.routes.draw do
       delete 'remove_profile'
       put 'sort'
       get 'progress'
+      put 'update_iterations'
+      put 'update_profile_iterations'
     end
   end
 
@@ -92,11 +94,8 @@ GeographGenerator::Application.routes.draw do
   root :to => 'farm#console'
 
   match 'benchmark' => "benchmark_schedules#index"
-  #match 'play_schedule' => "benchmark_schedules#play"
-  #match 'stop_schedule' => "benchmark_schedules#stop"
-  #match 'set_schedule' => "benchmark_schedules#set_benchmark"
-  match 'add_workload'=> "benchmark_schedules#add_workload"
-  match 'update_iterations'=> "benchmark_schedules#update_iterations"
+  #match 'add_workload'=> "benchmark_schedules#add_workload"
+  
 
   match 'map_url'=> "settings#map"
   match 'stats_url'=> "settings#stats"

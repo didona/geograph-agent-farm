@@ -1,6 +1,6 @@
 class DynamicProfile < ActiveRecord::Base
   validates_uniqueness_of :name
-  attr_accessible :name, :user_id
+  attr_accessible :name, :user_id, :iterations, :current_iteration
   belongs_to :user
   belongs_to :benchmark_schedule
   acts_as_list :scope => :benchmark_schedule

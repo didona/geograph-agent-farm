@@ -40,7 +40,7 @@
 		positions = this.find('.position');
 
 		(function tick(){
-
+			
 			// Calculate the passed time
 			passed = Math.floor((new Date() - options.start) / 1000);
 

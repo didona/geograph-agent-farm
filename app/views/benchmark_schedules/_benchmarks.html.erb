@@ -3,10 +3,22 @@
 		<div class="dynamic-profile-container" data-profile="<%= dynamic_profile.id %>">
 			<label class="label spaced-label label-info"><%= dynamic_profile.name.upcase %></label>
 			<i class="dynamic-profile-action icon-trash" data-profile="<%= dynamic_profile.id %>"></i>
-      
-      <div class="progress progress-success progress-striped" style="width: 300px;">
-        <% progress = @progress_data[:dynamic_profiles][dynamic_profile.id] %>
-        <div id="dynamic-profile-progress-<%= dynamic_profile.id %>" class="bar" style="width: <%= progress %>%"><%= progress %>%</div>
+
+      <div class="profile-box-container">
+        <div class="profile-cell dynamic-progress-container">
+          <div class="progress progress-success progress-striped" style="width: 300px;">
+            <% progress = @progress_data[:dynamic_profiles][dynamic_profile.id] %>
+            <div id="dynamic-profile-progress-<%= dynamic_profile.id %>" class="bar" style="width: <%= progress %>%"><%= progress %>%</div>
+          </div>
+        </div>
+
+        <label class="label label-success profile-cell little-left-margin">iteration</label>
+        <div id="current-iteration-<%= dynamic_profile.id %>" class="label label-success profile-cell">
+          #<%= dynamic_profile.current_iteration || 1 %>
+        </div>
+
+        <%= number_field_tag "number-iterations-#{dynamic_profile.id}", dynamic_profile.iterations, :in => 1...100000, :class => "profile-iterations span1", :data => {:profile => dynamic_profile.id}, :style => 'float: left; margin-left: 10px; margin-top: -6px; float: right;' %>
+        <label class="label label-info profile-cell right-position"># iterations</label>
       </div>
 
 			<%= render :partial => 'shared/benchmark_profile_list', 

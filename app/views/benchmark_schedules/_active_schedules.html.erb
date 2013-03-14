@@ -1,0 +1,12 @@
+<% if @active_schedules.empty? %>
+	<div class="btn btn-success btn-large">
+		<i class="icon-user"></i> no active benchmarks
+	</div>
+<% else %>
+	<h4> Warning! Active Benchmarks: </h4>
+	<% @active_schedules.each do |schedule| %>
+		<div class="btn btn-danger btn-large">
+			<i class="icon-user"></i> <%= schedule.user.email %>
+		</div>
+	<% end %>
+<% end %>

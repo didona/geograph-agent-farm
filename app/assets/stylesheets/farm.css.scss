@@ -16,7 +16,7 @@
   padding-left: 40px;
 }
 
-h4 {
+h4, h2 {
   padding-left: 0px;
   color: #999999;
 }
@@ -35,11 +35,17 @@ h4 {
 .spaced-label{
   margin-top: 40px;
   margin-bottom: 10px;
-
+  font-size: 16px;
 }
 
 .benchmark-console {
   padding: 30px 30px 30px 30px;
+
+  .current-iteration {
+    font-size: 16px;
+    line-height: 25px;
+    text-align: center;
+  }
 }
 
 .sandbox {
@@ -153,4 +159,24 @@ h4 {
     font-size: 17px;
   }
 
+}
+
+.profile-cell {
+  float: left;
+}
+
+.little-left-margin {
+  margin-left: 10px;  
+}
+
+.right-position {
+  float: right;
+}
+
+.dynamic-progress-container {
+  width: 300px;
+}
+
+.profile-box-container {
+  height: 40px;
 }

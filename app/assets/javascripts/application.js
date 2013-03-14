@@ -12,6 +12,7 @@
 //= require jquery.blockUI
 //= require jquery.tablesorter.min
 //= require jquery.countup
+//= require benchmark
 
 
 $(document).ready(function() {

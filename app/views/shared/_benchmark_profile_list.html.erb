@@ -5,8 +5,8 @@
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#<%= accordion_id %>" href="#collapse<%= profile.id %>">
           <%= "profile #{profile.id} (#{profile.duration} min)".html_safe %>
-          <div class="progress progress-info progress-striped" style="width: 300px; display: inline-block; margin: 0 0 0 20px; float: right;">
-            <% progress = @progress_data[:static_profiles][profile.id] %>
+          <div class="progress progress-info progress-striped" style="width: 150px; display: inline-block; margin: 0 0 0 20px; float: right;">
+            <% progress = @progress_data[:static_profiles][profile.id][:progress] %>
             <div id="static-profile-progress-<%= profile.id %>" class="bar" style="width: <%= progress %>%"><%= progress %>%</div>
           </div>
         </a>
@@ -31,13 +31,6 @@
                   <td><%= agent_group.simulator %></td>
                   <td><%= agent_group.threads %></td>
                   <td><%= agent_group.sleep %></td>
-                  <!--
-                  <td>
-                    <div class="progress progress-success progress-striped" style="width: 150px;">
-                      <div class="bar" style="width: 87%">87%</div>
-                    </div>
-                  </td>
-                  -->
               <% end %>
             </tbody>
           </table>

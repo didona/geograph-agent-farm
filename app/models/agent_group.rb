@@ -5,7 +5,6 @@ class AgentGroup < ActiveRecord::Base
 
 
   def deploy
-
     group_options ={"agents_type" => simulator, "delay" => sleep, "status" => "idle"}
     Madmass.logger.debug "DEPLOY: About to create group -- #{threads} agents #{group_options.inspect}--"
 
