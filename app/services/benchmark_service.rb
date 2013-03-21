@@ -36,7 +36,7 @@ class BenchmarkService
 
   def run
     # temp
-    distribute_task
+    #distribute_task
 
     @current_benchmark = nil
     @step_start_time = nil
