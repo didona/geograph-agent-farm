@@ -51,7 +51,7 @@ function refreshProgresses() {
 }
 
 function attachBenchmarkListeners() {
-  setInterval(refreshProgresses, 2000);
+  setInterval(refreshProgresses, 10000);
 
   $('#dynamic-profiles-container').on('click', '.icon-trash', function(event) {
     event.stopPropagation();
@@ -69,7 +69,7 @@ function attachBenchmarkListeners() {
 
   $('#number_iterations').on('click', function() {
     $.ajax({
-      url: '/benchmark_schedules/update_iterations',
+      url: 'benchmark_schedules/update_iterations',
       type: 'PUT',
       data: { iterations: $(this).val() }
     });
@@ -78,7 +78,7 @@ function attachBenchmarkListeners() {
   $('.profile-iterations').on('click', function() {
     var profile = $(this).data('profile');
     $.ajax({
-      url: '/benchmark_schedules/update_profile_iterations',
+      url: 'benchmark_schedules/update_profile_iterations',
       type: 'PUT',
       data: { profile: profile, iterations: $(this).val() }
     });

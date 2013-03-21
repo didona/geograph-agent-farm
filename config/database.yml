@@ -5,7 +5,7 @@ development:
   pool: 20
   host: localhost
   username: root
-  password: hokuto
+  password: geograph
 
 test:
   adapter: jdbcmysql

@@ -4,7 +4,7 @@ class BenchmarkService
   def initialize(opts={})
     @sleep = opts['sleep']
     # right value is 60, reduce it only if you want test rapidly
-    @cycle_seconds = 10
+    @cycle_seconds = 60
   end
 
   def start

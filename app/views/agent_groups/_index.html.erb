@@ -48,9 +48,12 @@
         <label for="name">name</label>
         <%= text_field_tag "agent_group[name]", agent_group.name, :class => "text ui-widget-content ui-corner-all" %>
         <br/>
-
+        
         <label for="type">agents type</label>
-        <%= text_field_tag "agent_group[agents_type]", agent_group.agents_type.sub(/Agent$/, '').downcase, :readonly => true, :class => "ui-text-readonly" %>
+        <% agent_type = agent_group.agents_type.blank? ? AGENT_TYPES.first.sub(/Agent$/, '').downcase : agent_group.agents_type.sub(/Agent$/, '').downcase %>
+        <% logger.debug "@@@@@@@@@@@@@@@@@@@@@@@@@@@ 555555555555 @@@@@@@@@@@@@@@@@@@@@@@@@@@" %>
+        <% logger.debug "@@@@@@@@@@@@@@@@@@@@@@@@@@@ #{agent_type} @@@@@@@@@@@@@@@@@@@@@@@@@@@" %>
+        <%= text_field_tag "agent_group[agents_type]", agent_type, :readonly => true, :class => "ui-text-readonly" %>
         <br/>
 
         <label for="name">agents <span id="agents-selected-<%= agent_group.id %>"><%= agent_group.agents_count %></span></label>
@@ -68,4 +71,6 @@
   <% end %>
   </tbody>
 </table>
+
+
 

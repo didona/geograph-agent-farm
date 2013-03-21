@@ -63,10 +63,14 @@ class FarmController < ApplicationController
   end
 
   def console
+    logger.debug "@@@@@@@@@@@@@@@@@@@@@@@@@@@ 111111111 @@@@@@@@@@@@@@@@@@@@@@@@@@@"
     @agent_groups = CloudTm::AgentGroup.all
+    logger.debug "@@@@@@@@@@@@@@@@@@@@@@@@@@@ 222222222 @@@@@@@@@@@@@@@@@@@@@@@@@@@"
     @agent_groups.map(&:getAgents).flatten.each { |el| logger.debug el.inspect }
     @agent_group = CloudTm::AgentGroup.new
+    logger.debug "@@@@@@@@@@@@@@@@@@@@@@@@@@@ 333333333 @@@@@@@@@@@@@@@@@@@@@@@@@@@"
     @dynamic_profile = DynamicProfile.new
+    logger.debug "@@@@@@@@@@@@@@@@@@@@@@@@@@@ 444444444 @@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
     @user = current_user
     @profiles = []

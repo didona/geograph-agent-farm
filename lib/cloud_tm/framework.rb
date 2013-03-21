@@ -46,10 +46,8 @@ $CLASSPATH << CLOUDTM_CONF_PATH
 
 module CloudTm
 
-  #Init = Java::OrgCloudtmFramework::Init
   FenixFramework = Java::PtIstFenixframework::FenixFramework
-  #Config = Java::OrgCloudtmFramework::CloudtmConfig
-
+  
   class Framework
     class << self
 

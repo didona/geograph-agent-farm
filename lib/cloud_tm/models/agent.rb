@@ -59,16 +59,16 @@ module CloudTm
 
     private
 
-    def create_geo_object
-      {
-        :agent => {:id => id},
-        :cmd => 'actions::create',
-        :latitude => 0,
-        :longitude => 0,
-        :data => {:type => type, :body => "Geo Object created at #{Time.now}"},
-        :remote => true
-      }
-    end
+    #def create_geo_object
+    #  {
+    #    :agent => {:id => id},
+    #    :cmd => 'actions::create',
+    #    :latitude => 0,
+    #    :longitude => 0,
+    #    :data => {:type => type, :body => "Geo Object created at #{Time.now}"},
+    #    :remote => true
+    #  }
+    #end
 
     def destroy_geo_object
       {
@@ -92,6 +92,8 @@ module CloudTm
       def all
         CloudTm::AgentGroup.all.map(&:getAgents).flatten
       end
+
+      private
 
     end
   end
