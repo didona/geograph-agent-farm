@@ -31,8 +31,8 @@ class BenchmarkSchedule < ActiveRecord::Base
 
       self.dynamic_profiles.each_with_index do |dynamic_profile, dindex|
       	# progress for previous iterations
-	      previous_progresses = (dynamic_profile.current_iteration - 1) * (100 / dynamic_profile.iterations)
 	      dynamic_profile_iteration = dynamic_profile.current_iteration || 1
+        previous_progresses = (dynamic_profile_iteration - 1) * (100 / (dynamic_profile.iterations))
         if(dynamic_index < dindex)
           progress_data[:dynamic_profiles][dynamic_profile.id] = {:progress => previous_progresses, :current_iteration => dynamic_profile_iteration}
           progress_data[:static_profiles].merge! static_profiles_progress(dynamic_profile, 0)

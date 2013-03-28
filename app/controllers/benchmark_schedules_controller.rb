@@ -43,7 +43,7 @@ class BenchmarkSchedulesController < ApplicationController
   end
 
   def index
-    unless current_user.benchmark_schedule
+    unless @schedule
       current_user.benchmark_schedule = BenchmarkSchedule.create(:iterations => 1)
       current_user.save!
       get_schedule

@@ -7,7 +7,7 @@ class DynamicProfilesController < ApplicationController
   end
 
   def create
-      @dynamic_profile = DynamicProfile.create({:name => params[:name]}.merge({:user_id => current_user.id}))
+      @dynamic_profile = DynamicProfile.create({:name => params[:name], :iterations => 1}.merge({:user_id => current_user.id}))
       current_user.current_profile = @dynamic_profile
       current_user.save!
       render :layout => false
