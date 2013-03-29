@@ -68,9 +68,7 @@ class AgentGroupsController < ApplicationController
       @agent_groups = CloudTm::AgentGroup.all
     end
 
-    @agent_group.boot(:agent_group_id => group_id)
-
-    #respond_with(@agent_group)
+    CloudTm::AgentGroup.boot(:agent_group_id => group_id)
   end
 
 

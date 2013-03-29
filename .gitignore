@@ -24,10 +24,6 @@
 /lib/cloud_tm/old
 
 .rvmrc
-
-
-
 old_rvmc
-
-
 db/schema.rb
+/public/assets

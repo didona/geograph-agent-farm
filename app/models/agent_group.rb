@@ -18,12 +18,7 @@ class AgentGroup < ActiveRecord::Base
 
     tx_monitor do
       Madmass.logger.debug "DEPLOY: Retrieving agent group with cache id #{self.cache_id}"
-      @agent_group = CloudTm::AgentGroup.find_by_id self.cache_id
-      if @agent_group
-        @agent_group.boot(:agent_group_id => self.cache_id)
-      else
-        Madmass.logger.error "DEPLOY: Could not find agent group #{self.cache_id}"
-      end
+      CloudTm::AgentGroup.boot(:agent_group_id => self.cache_id)
     end
   end
 

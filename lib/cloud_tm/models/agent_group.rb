@@ -35,13 +35,14 @@ module CloudTm
     include CloudTm::Model
     include CloudTm::AgentGroupState
     include Madmass::Transaction::TxMonitor
+    extend Madmass::Transaction::TxMonitor
     include TorqueBox::Messaging::Backgroundable
 
     always_background :undertaker
 
 
 
-    def boot(opts)
+    def self.boot(opts)
       Madmass.logger.debug "############################# BOOT START #############################"
 
       retries = 0
