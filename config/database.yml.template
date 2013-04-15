@@ -1,0 +1,27 @@
+development:
+  adapter: jdbcmysql
+  database: agentfarm_development
+  reconnect: true
+  pool: 20
+  xa: false
+  host: localhost
+  username: root
+  password: hokuto
+
+test:
+  adapter: jdbcmysql
+  database: agentfarm_test
+  reconnect: false
+  pool: 20
+  host: localhost
+  username: root
+  password: geograph
+
+production:
+  adapter: jdbcmysql
+  xa: false
+  database: agentfarm_development
+  host: localhost
+  username: root
+  password: hokuto
+  encoding: utf8

@@ -5,7 +5,7 @@ class BenchmarkSchedulesController < ApplicationController
   def update_iterations
     @schedule.iterations = params[:iterations]
     @schedule.save!
-    render :layout => false
+    render :nothing => true
   end
 
   def update_profile_iterations

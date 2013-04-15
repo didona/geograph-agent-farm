@@ -51,8 +51,8 @@ module Behaviors
 
     def geo_post_object opts
 
-      lat = opts[:latitude].to_s.to_f+(0.5-rand) * 0.05
-      lon = opts[:longitude].to_s.to_f+(0.5-rand) * 0.05
+      lat = opts[:latitude].to_s.to_f + (0.5 - rand) * 0.05
+      lon = opts[:longitude].to_s.to_f + (0.5 - rand) * 0.05
 
       return {
         :cmd => "madmass::action::remote",
@@ -64,20 +64,22 @@ module Behaviors
           :data => {
             :type => "Post",
             :body => "Post from Blogger\n, Coordinates <#{lon},#{lat}>"},
-          :user => {:id => @agent.getExternalId}
-        }#.merge(opts)
+          :user => {:id => @agent.id}
+        }
       }
 
       Madmass.logger.debug "Behaviors::RandomBlogger created post action: \n #{result.to_yaml}\n"
-      return result;
+      return result
     end
 
-    #FIXME OLD STUFF to RESTORE
-    def destroy_geo_object
-      {
-        :cmd => 'actions::destroy_posts',
-        :geo_agent => geo_object,
-
+    def destroy_agent_params(opts = {})
+      return {
+        :cmd => "madmass::action::remote",
+        :data => {
+          :cmd => 'destroy_agent',
+          :sync => true,
+          :user => {:id => @agent.id}
+        }.merge(opts)
       }
     end
 

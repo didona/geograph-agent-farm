@@ -67,7 +67,7 @@ function attachBenchmarkListeners() {
     }
   });
 
-  $('#number_iterations').on('click', function() {
+  $('#number_iterations').on('change', function() {
     $.ajax({
       url: 'benchmark_schedules/update_iterations',
       type: 'PUT',
@@ -75,7 +75,7 @@ function attachBenchmarkListeners() {
     });
   });
 
-  $('.profile-iterations').on('click', function() {
+  $('.profile-iterations').on('change', function() {
     var profile = $(this).data('profile');
     $.ajax({
       url: 'benchmark_schedules/update_profile_iterations',

@@ -53,7 +53,7 @@ module CloudTm
       #alias_method_chain :create, :root
 
       def all
-        FenixFramework.getDomainRoot.getApp.getRoutes
+        FenixFramework.getDomainRoot.getApp.getRoutes.to_a
       end
 
     end

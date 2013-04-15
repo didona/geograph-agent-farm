@@ -95,6 +95,25 @@ module CloudTm
 
       private
 
+      def agent_type
+        'agent'
+      end
+
+      def register_agent opts, jms
+        tx_monitor do
+          agent = fetch_agent opts
+          agent.execute({
+            :cmd => "madmass::action::remote",
+            :data => {
+              :cmd => 'register_agent',
+              :sync => true,
+              :user => {:id => agent.getExternalId},
+              :data => {:type => agent_type}
+            }
+          }.merge(jms))
+        end
+      end
+
     end
   end
 end

@@ -35,5 +35,15 @@ module CloudTm
     def self.behavior
       Behaviors::RandomMover.new
     end
+
+    class << self
+    	private
+
+    	def agent_type
+    		'trackable'
+    	end
+
+    end
+
   end
 end

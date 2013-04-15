@@ -43,10 +43,9 @@ module Behaviors
       return next_action
     end
 
-    # To change this template use File | Settings | File Templates.
-
 
     private
+
     def read_post(opts)
       # rome
       #lat = (rand * 0.196) + 41.794
@@ -55,18 +54,13 @@ module Behaviors
       lat = opts[:latitude].to_s.to_f + (0.5 - rand) * 0.1
       lon = opts[:longitude].to_s.to_f + (0.5 - rand) * 0.1
 
-      opts[:longitude]
-      ata = opts.clone
-      #
-      #  cmd = "madmass::action::remote"
-      #
       result = {
         :cmd => "madmass::action::remote",
         :data => {
           :cmd => 'read_post',
           :latitude => lat,
           :longitude => lon,
-          :user => {:id => @agent.getExternalId}
+          :user => {:id => @agent.id}
         }
       }
       return result

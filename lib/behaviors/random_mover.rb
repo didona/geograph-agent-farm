@@ -2,32 +2,23 @@
 module Behaviors
   class RandomMover < Madmass::AgentFarm::Agent::Behavior
 
-    def initialize()
-
-      #Madmass.logger.info "Random Mover: creating with  agent_id #{@agent.oid}"
-
+    def initialize
       @current_route = nil
       @position_in_route = 0
     end
 
-    #Select a Random route
+    # Select a Random route
     def choose!
-      #Madmass.logger.debug("Choosing new plan")
       routes = CloudTm::Route.all
       if routes.any?
         random_route_pos = rand(routes.size - 1)
-        #Madmass.logger.debug("#{random_route_pos}-th plan out of #{routes.size - 1} plans  chosen")
-        i=0
-        routes.each do |r| #routes cannot be converted to array because of direct mapper
-          if (i==random_route_pos)
-            @current_route = extract_route(r)
-            #Madmass.logger.debug("#{random_route_pos}-th route is #{@current_route.inspect}")
-            #@current_route.each_index{|ind| Madmass.logger.info "route idx #{ind}"}
+        routes.each_with_index do |route, index|
+          if(index == random_route_pos)
+            @current_route = extract_route(route)
             @position_in_route = 0
             raise MadMass::Errors::CatastrophicError.new("Positions in route missing") if (@current_route.include?(nil))
             break
           end
-          i+= 1;
         end
       else
         raise Madmass::Errors::CatastrophicError.new "No GPX routes available!"
@@ -35,14 +26,12 @@ module Behaviors
     end
 
     def defined?
-      # Madmass.logger.debug("Plan finished when current position is #{@position_in_route}") unless @current_route
-      return (@current_route != nil)
+      return @current_route != nil
     end
 
     #Select the next action that moves from
     def next_action
       action = move_params(@current_route[@position_in_route])
-      #puts "position #{@position_in_route+1}/#{@current_route.size}"
       if (@position_in_route < @current_route.size - 1)
         @position_in_route += 1
       else
@@ -75,13 +64,13 @@ module Behaviors
       return {
         :cmd => "madmass::action::remote",
         :data => {
-          :cmd => 'move',
+          :cmd => 'track_current',
           :data => {
             :type => "Mover",
             :body => "Mover with position\n <#{opts[:latitude].to_s}, #{opts[:longitude].to_s}>"
           },
           :sync => true,
-          :user => {:id => @agent.getExternalId}
+          :user => {:id => @agent.id}
         }.merge(opts)
       }
     end
@@ -92,7 +81,7 @@ module Behaviors
         :data => {
           :cmd => 'destroy_agent',
           :sync => true,
-          :user => {:id => @agent.getExternalId}
+          :user => {:id => @agent.id}
         }.merge(opts)
       }
     end
