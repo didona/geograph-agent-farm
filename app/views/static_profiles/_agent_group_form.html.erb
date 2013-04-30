@@ -4,7 +4,7 @@
 	<h6> Agent Group (<%= agent_group.id %>) </h6>
 	<label for="simulator" class="span3">Simulator</label>
 	<div class="input-append">
-	  <%= select_tag 'agent_group[simulator]', options_for_select(['MovableAgent', 'ReaderAgent', 'BloggerAgent'], agent_group.simulator) %>
+	  <%= select_tag 'agent_group[simulator]', options_for_select(['MovableAgent', 'ReaderAgent', 'BloggerAgent', 'TesterAgent'], agent_group.simulator) %>
 	  <button class="btn btn-success save-agent-group-simulator" type="button" data-group="<%= agent_group.id %>">Save</button>
 	</div>        	
 
