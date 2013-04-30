@@ -78,9 +78,6 @@ CloudTm::Route = Java::ItAlgoGeographAgentfarmDomain::Route
 CloudTm::Position = Java::ItAlgoGeographAgentfarmDomain::Position
 CloudTm::Root = Java::ItAlgoGeographAgentfarmDomain::Root
 
-# Load DEF (Distributed Execution Framework)
-CloudTm::DefaultExecutorService = Java::OrgInfinispanDistexec::DefaultExecutorService
-CloudTm::DistributedTask = Java::ItAlgoGeographAgentfarmTasks::DistributedTask
 
 
 
