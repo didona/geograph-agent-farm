@@ -74,15 +74,10 @@ CloudTm::Agent = Java::ItAlgoGeographAgentfarmDomain::Agent
 CloudTm::BloggerAgent = Java::ItAlgoGeographAgentfarmDomain::BloggerAgent
 CloudTm::ReaderAgent = Java::ItAlgoGeographAgentfarmDomain::ReaderAgent
 CloudTm::MovableAgent = Java::ItAlgoGeographAgentfarmDomain::MovableAgent
+CloudTm::TesterAgent = Java::ItAlgoGeographAgentfarmDomain::TesterAgent
 CloudTm::Route = Java::ItAlgoGeographAgentfarmDomain::Route
 CloudTm::Position = Java::ItAlgoGeographAgentfarmDomain::Position
 CloudTm::Root = Java::ItAlgoGeographAgentfarmDomain::Root
-
-# Load DEF (Distributed Execution Framework)
-CloudTm::DefaultExecutorService = Java::OrgInfinispanDistexec::DefaultExecutorService
-CloudTm::DistributedTask = Java::ItAlgoGeographAgentfarmTasks::DistributedTask
-
-
 
 Dir[File.join(CLOUDTM_PATH, '*.rb')].each { |ruby|
   next if ruby.match(/framework\.rb/)

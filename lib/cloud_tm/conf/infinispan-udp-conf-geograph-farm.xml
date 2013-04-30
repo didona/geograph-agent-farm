@@ -25,9 +25,9 @@
    lockAcquisitionTimeout="10000"/> -->
 
     <locking
-            isolationLevel="REPEATABLE_READ"
+            isolationLevel="SERIALIZABLE"
             concurrencyLevel="32"
-            writeSkewCheck="true"
+            writeSkewCheck="false"
             useLockStriping="false"
             lockAcquisitionTimeout="10000"/>
 
@@ -62,7 +62,7 @@
 
     <versioning
             enabled="true"
-            versioningScheme="SIMPLE"/>
+            versioningScheme="GMU"/>
 
     <!--<customInterceptors>
      <interceptor

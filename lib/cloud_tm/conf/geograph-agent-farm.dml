@@ -43,6 +43,7 @@ class Agent {
 class BloggerAgent extends Agent {}
 class ReaderAgent extends Agent {}
 class MovableAgent extends Agent {}
+class TesterAgent extends Agent {}
 
 class Route {
   String name;
