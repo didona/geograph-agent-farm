@@ -12,7 +12,7 @@
             <properties>
                 <property
                         name="configurationFile"
-                        value="jgroups/jgroups-udp-agent-farm.xml"/>
+                        value="jgroups/jgroups-tcp-agent-farm.xml"/>
             </properties>
         </transport>
     </global>

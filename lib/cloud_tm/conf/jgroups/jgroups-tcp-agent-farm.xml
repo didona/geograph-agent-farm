@@ -30,12 +30,12 @@
             oob_thread_pool.rejection_policy="discard"
             />
     <!-- If no IP-multicast is available, use TCPGOSSIP instead of MPING -->
-    <!--TCPGOSSIP
+    <TCPGOSSIP
             initial_hosts="${jgroups.gossip_bind_addr:10.100.0.1[13000]}"
             num_initial_members="3"
             break_on_coord_rsp="true"
-            /-->
-    <MPING
+            />
+    <!--MPING
             bind_addr="${jgroups.bind_addr:127.0.0.1}"
             break_on_coord_rsp="true"
             mcast_addr="${jgroups.udp.mcast_addr:224.0.0.4}"
@@ -43,7 +43,7 @@
             ip_ttl="${jgroups.udp.ip_ttl:8}"
             num_initial_members="3"
             timeout="5000"
-            />
+            /-->
     <MERGE2
             max_interval="30000"
             min_interval="10000"
