@@ -29,7 +29,7 @@
             concurrencyLevel="32"
             writeSkewCheck="true"
             useLockStriping="false"
-            lockAcquisitionTimeout="10000"/>
+            lockAcquisitionTimeout="5000"/>
 
     <jmxStatistics
             enabled="true"/>
