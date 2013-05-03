@@ -58,7 +58,7 @@ module Behaviors
         :cmd => "madmass::action::remote",
         :data => {
           :cmd => 'actions::post',
-          # rome
+          :sync => true,
           :latitude => lat,
           :longitude => lon,
           :data => {
