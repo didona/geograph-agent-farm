@@ -58,6 +58,7 @@ module Behaviors
         :cmd => "madmass::action::remote",
         :data => {
           :cmd => 'read_post',
+          :sync => true,
           :latitude => lat,
           :longitude => lon,
           :user => {:id => @agent.id}
