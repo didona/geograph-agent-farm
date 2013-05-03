@@ -80,6 +80,7 @@ CloudTm::Position = Java::ItAlgoGeographAgentfarmDomain::Position
 CloudTm::Root = Java::ItAlgoGeographAgentfarmDomain::Root
 
 
+
 Dir[File.join(CLOUDTM_PATH, '*.rb')].each { |ruby|
   next if ruby.match(/framework\.rb/)
   require ruby

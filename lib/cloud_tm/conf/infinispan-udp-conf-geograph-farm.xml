@@ -1,80 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<infinispan>
-  <global>
-    <globalJmxStatistics
-            enabled="true"
-            jmxDomain="it.geograph-farm"
-            allowDuplicateDomains="true"/>
-    <transport
-            clusterName="geograph-farm">
-      <properties>
-        <property
-                name="configurationFile"
-                value="jgroups/jgroups-udp-geograph-farm.xml"/>
-      </properties>
-    </transport>
-  </global>
+<infinispan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="urn:infinispan:config:5.3 http://www.infinispan.org/schemas/infinispan-config-5.3.xsd"
+            xmlns="urn:infinispan:config:5.3">
+    <global>
+        <globalJmxStatistics
+                enabled="true"
+                jmxDomain="it.geograph-farm"
+                allowDuplicateDomains="true"/>
+        <transport
+                clusterName="geograph-farm">
+            <properties>
+                <property
+                        name="configurationFile"
+                        value="jgroups/jgroups-tcp-agent-farm.xml"/>
+            </properties>
+        </transport>
+    </global>
 
-  <default>
+    <default>
 
-    <!-- <locking
-   isolationLevel="REPEATABLE_READ"
-   concurrencyLevel="32"
-   writeSkewCheck="true"
-   useLockStriping="false"
-   lockAcquisitionTimeout="10000"/> -->
+        <locking
+                isolationLevel="REPEATABLE_READ"
+                concurrencyLevel="32"
+                writeSkewCheck="true"
+                useLockStriping="false"
+                lockAcquisitionTimeout="5000"/>
 
-    <locking
-            isolationLevel="SERIALIZABLE"
-            concurrencyLevel="32"
-            writeSkewCheck="false"
-            useLockStriping="false"
-            lockAcquisitionTimeout="5000"/>
+        <jmxStatistics
+                enabled="true"/>
 
-    <jmxStatistics
-            enabled="true"/>
+        <deadlockDetection
+                enabled="true"/>
 
-    <deadlockDetection
-            enabled="true"/>
+        <!--transactionManagerLookupClass="org.infinispan.transaction.lookup.JBossStandaloneJTAManagerLookup"-->
+        <transaction
+                transactionManagerLookupClass="org.infinispan.transaction.lookup.JBossTransactionManagerLookup"
+                useEagerLocking="false"
+                transactionMode="TRANSACTIONAL"
+                syncRollbackPhase="false"
+                cacheStopTimeout="30000"
+                useSynchronization="false"
+                syncCommitPhase="true"
+                lockingMode="OPTIMISTIC"
+                eagerLockSingleNode="false"
+                use1PcForAutoCommitTransactions="false"
+                autoCommit="true">
+            <recovery enabled="false"/>
+        </transaction>
 
-    <!--transactionManagerLookupClass="org.infinispan.transaction.lookup.JBossStandaloneJTAManagerLookup"-->
-     <transaction
-            transactionManagerLookupClass="org.infinispan.transaction.lookup.JBossTransactionManagerLookup"
-            useEagerLocking="false"
-            transactionMode="TRANSACTIONAL"
-            syncRollbackPhase="false"
-            cacheStopTimeout="30000"
-            useSynchronization="false"
-            syncCommitPhase="true"
-            lockingMode="OPTIMISTIC"
-            eagerLockSingleNode="false"
-            use1PcForAutoCommitTransactions="false"
-            autoCommit="true">
-           <recovery enabled="false"/>
- </transaction>
+        <clustering mode="r">
+            <sync
+                    replTimeout="15000"/>
+            <stateTransfer
+                    fetchInMemoryState="true"
+                    chunkSize="100"
+                    timeout="240000"/>
+        </clustering>
 
-    <clustering mode="r">
-      <sync
-              replTimeout="15000"/>
-      <stateTransfer
-              fetchInMemoryState="true"
-              chunkSize="100"
-              timeout="240000"/>
-    </clustering>
+        <versioning
+                enabled="true"
+                versioningScheme="SIMPLE"/>
 
-    <versioning
-            enabled="true"
-            versioningScheme="GMU"/>
+        <customInterceptors>
+            <interceptor
+                    after="org.infinispan.interceptors.InvocationContextInterceptor"
+                    class="org.infinispan.distribution.wrappers.CustomStatsInterceptor"/>
+            <interceptor
+                    before="org.infinispan.interceptors.NotificationInterceptor"
+                    class="org.infinispan.stats.topK.StreamLibInterceptor"/>
+        </customInterceptors>
 
-    <customInterceptors>
-     <interceptor
-             after="org.infinispan.interceptors.InvocationContextInterceptor"
-             class="org.infinispan.distribution.wrappers.ReplCustomStatsInterceptor"/>
-     <interceptor
-             before="org.infinispan.interceptors.NotificationInterceptor"
-             class="org.infinispan.stats.topK.StreamLibInterceptor"/>
-   </customInterceptors>
-
-  </default>
+    </default>
 </infinispan>
 
