@@ -24,13 +24,13 @@
                 concurrencyLevel="32"
                 writeSkewCheck="true"
                 useLockStriping="false"
-                lockAcquisitionTimeout="5000"/>
+                lockAcquisitionTimeout="0"/>
 
         <jmxStatistics
                 enabled="true"/>
 
         <deadlockDetection
-                enabled="true"/>
+                enabled="false"/>
 
         <!--transactionManagerLookupClass="org.infinispan.transaction.lookup.JBossStandaloneJTAManagerLookup"-->
         <transaction
