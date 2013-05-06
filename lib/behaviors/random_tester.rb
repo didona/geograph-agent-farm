@@ -50,7 +50,7 @@ module Behaviors
           next_action = get_nearby_posts_action next_pos
         else
           nearby_posts = Madmass.current_perception[0].data[:nearby_posts]
-          if nearby_posts.empty?
+          if not nearby_posts or nearby_posts.empty?
             Madmass.logger.warn "==[#{self}] no post found nearby: nothing to do"
           else
             Madmass.logger.warn "==[#{self}] found #{nearby_posts.size} posts nearby"
