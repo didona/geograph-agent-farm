@@ -36,13 +36,14 @@ services:
 pooling:
   messaging:
     type: shared
-    lazy: true
+    lazy: false
   web:
     type: shared
-    lazy: true
+    lazy: false
   jobs:
     type: shared
-    lazy: true
+    lazy: false
 
 ruby:
   version: 1.9
+

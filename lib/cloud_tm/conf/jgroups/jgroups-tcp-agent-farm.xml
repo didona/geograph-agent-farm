@@ -70,12 +70,4 @@
             />
     <SEQUENCER/>
     <tom.TOA/>
-    <UFC
-            max_credits="5m"
-            min_threshold="0.20"
-            />
-    <MFC
-            max_credits="5m"
-            min_threshold="0.20"
-            />
 </config>
